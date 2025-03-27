@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnxfvk8s8ufop"]
+
+[ext_resource type="Script" uid="uid://d14hjkwxprfen" path="res://scenes/characters/base_character.gd" id="1_xktx3"]
+[ext_resource type="Texture2D" uid="uid://b7iccpsbjijvv" path="res://assets/sprites/characters/testDummy_idle.png" id="2_u1txu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_832rb"]
+radius = 34.0147
+
+[node name="BaseCharacter" type="Node2D"]
+script = ExtResource("1_xktx3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0986112, 0.0916667)
+texture = ExtResource("2_u1txu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_832rb")
+
+[node name="StatusEffects" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+offset_right = 4.0
+offset_bottom = 27.0
+fill_mode = 1

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://caoxnllbuq5mi"]
+
+[ext_resource type="Texture2D" uid="uid://b7iccpsbjijvv" path="res://assets/sprites/characters/testDummy_idle.png" id="1_i4rv1"]
+[ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="1_ltisk"]
+
+[resource]
+script = ExtResource("1_ltisk")
+character_id = "testDummy"
+character_name = "Kevin"
+max_hp = 90
+attack = 5
+defense = 2
+speed = 5
+idle_sprite = ExtResource("1_i4rv1")
+metadata/_custom_type_script = "uid://c3msr806gkbc3"

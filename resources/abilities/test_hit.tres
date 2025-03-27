@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=3 format=3 uid="uid://b7aqp3a4rajkw"]
+
+[ext_resource type="Texture2D" uid="uid://skyu4u5uoadv" path="res://assets/sprites/abilities/test_ability_icon.png" id="1_7np1v"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_aos8k"]
+
+[resource]
+script = ExtResource("1_aos8k")
+name = "Ability"
+description = "Description"
+target_type = "single_enemy"
+damge_multiplier = 1.0
+effects = Array[Resource]([null])
+launch_position = Array[int]([1, 2, 3, 4])
+target_position = Array[int]([1, 2, 3, 4])
+cooldown = 0
+icon_sprite = ExtResource("1_7np1v")
+animation_name = "attack"
+metadata/_custom_type_script = "uid://didlt5asxoyvv"
