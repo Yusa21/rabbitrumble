@@ -7,6 +7,10 @@ class_name BaseCharacter
 @onready var statusEffects: Node2D
 @onready var ui: CanvasLayer
 
+const player_alignment = "player"
+const enemy_alignment = "enemy"
+const other_alignment = "other"
+
 #Estadisiticas que luego se cargan
 var id
 var char_name
@@ -17,7 +21,8 @@ var def
 var speed
 var char_position
 var has_taken_turn: bool = false
-var team = []
+var own_team = []
+var opps_team = []
 
 #TODO DEBUG
 #func _ready():
@@ -54,6 +59,13 @@ func set_character_info(character: CharacterData, new_id: int, char_pos: int):
 	speed = character.speed
 	char_position = char_pos
 	sprite.texture = character.idle_sprite
+	return true
+
+#Recibe los dos equipos y los guarda, el primero siempre es el propio
+func set_teams(new_own_team: Array, new_opps_team: Array):
+	own_team = new_own_team
+	opps_team = new_opps_team
+	return true
 
 #Debug only	
 func print_character_stats():
@@ -63,6 +75,7 @@ func print_character_stats():
 	print("Attack: ", atk)
 	print("Defense: ", def)
 	print("Speed: ", speed)
+	return true
 	
 '''
 Codigo del combate
@@ -70,6 +83,7 @@ Codigo del combate
 #Funcion que hace lo que le toque al empezar el turno, siempre se sobreescribe
 func start_turn():
 	print_character_stats()
+	return true
 
 #TODO le faltaria triggers y cosas por el estilo
 func take_damage(dmg, atacker):

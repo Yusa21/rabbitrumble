@@ -4,6 +4,10 @@ extends Node
 const player_char_path = "res://scenes/characters/player/player_character.tscn"
 const enemy_char_path = "res://scenes/characters/enemy/enemy_character.tscn"
 
+#Equipos de cada lado
+var player_team = []
+var enemy_team = []
+
 func _ready():
 	#TODO debug
 	var players = ["testDummy","testDummy","testDummy","testDummy"]
@@ -16,31 +20,36 @@ func start_battle(player_chars, enemy_chars):
 	#ID para identificar cada personaje dentro de la pelea
 	var id = 0
 	var new_character
+	#Se guarda aqui los equipos para luego meterlos en los personajes
+	
 	
 	#Bucle para cargar los personajes del lado de jugador
-	var player_char_position = 1
+	var char_position = 1
 	for char_id in player_chars:
 		#Calcula la posicion del personaje, el primero en cargar esta delante del todo
-		new_character = create_character_from_data(char_id, id, player_char_path, player_char_position)
+		new_character = create_character_from_data(char_id, id, player_char_path, char_position)
 		if new_character != null:
 			id+=1
-			player_char_position+=1
+			char_position+=1
 			turn_queue.add_child(new_character)
+			player_team.push_front(new_character) 
 		else:
 			print("Something went wrong, skipping character with id:" + char_id)
 			
 	#Bucle para cargar los personajes del lado del enemigo
-	var enemy_char_position = -1 
+	char_position = 1
 	for char_id in enemy_chars:
 		#Posiciones en negativo para saber que son del lado contrario
-		new_character = create_character_from_data(char_id, id, enemy_char_path, enemy_char_position)
+		new_character = create_character_from_data(char_id, id, enemy_char_path, char_position)
 		if new_character:
 			id+=1
-			enemy_char_position-=1
+			char_position+=1
 			turn_queue.add_child(new_character)
+			enemy_team.push_front(new_character)
 		else:
 			print("Something went wrong, skipping character with id:" + char_id)
 			
+	set_characters_teams()
 	turn_queue.initialize()
 	
 #Recibe el id del personaje que hay cargar, el id identificador para la pelea en concreto y el path de la escena a cargar
@@ -57,4 +66,13 @@ func create_character_from_data(character_data_id, fight_id, scene_path, char_po
 		print("Error atempting to load character data with id: " + character_data_id + " doesn't exist")
 		character_scene.queue_free()  #Elimina la escena si al final no carga
 		return null
-		
+	
+#Asigna los equipos de los peronajes segun su alineamiento	
+func set_characters_teams():
+	for char in turn_queue.get_children():
+		if char.alignment == "player":
+			char.set_teams(player_team,enemy_team)
+		else:
+			char.set_teams(enemy_team,player_team)
+	return true
+	

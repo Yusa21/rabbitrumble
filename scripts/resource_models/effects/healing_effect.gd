@@ -1,7 +1,7 @@
 extends AbilityEffect
 class_name HealingEffect
 
-func execute(user, multipler, targets = []):
+func execute(user, multipler, targets):
 	
 	for target in targets:
 		var healing = user.atk * multipler
