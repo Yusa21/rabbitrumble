@@ -15,7 +15,7 @@ Todo lo de manejar input y turnos es provisional, la escena no se encarga de eso
 '''
 func start_turn():
 	print("Player turn started with id: " + str(id) + " in position " + str(char_position))
-	print("With team " + str(own_team[0].alignment))
+	print("With team " + str(ally_team[0].alignment))
 	print("Turn started, waiting for player actions")
 	actions_completed = 0
 	total_actions_this_turn = total_actions
@@ -43,7 +43,10 @@ func _input(event):
 
 func perform_action_1():
 	print("Action 1 triggered")
-	# Perform your action logic here
+	print("Activated action:" + str(abilities[0].name))
+	print("Choose target position 1")
+	print("Targetting type: " + abilities[0].target_type)
+	await execute_ability(abilities[0], [1])
 	complete_action()
 
 func perform_action_2():
@@ -52,7 +55,7 @@ func perform_action_2():
 	complete_action()
 
 func perform_action_3():
-	print("Action 3 triggered")
+	print("Pass turn")
 	# Perform your action logic here
 	complete_action()
 
@@ -62,6 +65,10 @@ func complete_action():
 	# Check if all actions for this turn are completed
 	if actions_completed >= total_actions_this_turn:
 		end_turn()
+		
+func chosen_targets():
+	print("targets chosen")
+	emit_signal("execute_action")
 
 func end_turn():
 	print("Turn ended")

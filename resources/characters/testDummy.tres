@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://caoxnllbuq5mi"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://caoxnllbuq5mi"]
 
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_6q88y"]
 [ext_resource type="Texture2D" uid="uid://b7iccpsbjijvv" path="res://assets/sprites/characters/testDummy_idle.png" id="1_i4rv1"]
 [ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="1_ltisk"]
+[ext_resource type="Resource" uid="uid://b7aqp3a4rajkw" path="res://resources/abilities/test_hit.tres" id="2_hbmp4"]
 
 [resource]
 script = ExtResource("1_ltisk")
@@ -12,4 +14,5 @@ attack = 5
 defense = 2
 speed = 5
 idle_sprite = ExtResource("1_i4rv1")
+abilities = Array[ExtResource("1_6q88y")]([ExtResource("2_hbmp4")])
 metadata/_custom_type_script = "uid://c3msr806gkbc3"

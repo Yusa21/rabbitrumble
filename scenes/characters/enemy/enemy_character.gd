@@ -6,4 +6,4 @@ const alignment = "enemy"
 
 func start_turn():
 	print("Enemy turn started with id: " + str(id) + " in position " + str(char_position))
-	print("With team " + str(own_team))
+	print("With team " + str(ally_team))

@@ -8,4 +8,4 @@ class_name CharacterData
 @export var defense: int = 10
 @export var speed: int = 10
 @export var idle_sprite: Texture2D
-# @export var abilities: Array[AbilityData] = [] TODO pregunta cual es la mejor forma de implementar esto
+@export var abilities: Array[AbilityData] = []

@@ -19,9 +19,10 @@ var current_hp
 var atk
 var def
 var speed
+var abilities = []
 var char_position
 var has_taken_turn: bool = false
-var own_team = []
+var ally_team = []
 var opps_team = []
 
 #TODO DEBUG
@@ -57,13 +58,14 @@ func set_character_info(character: CharacterData, new_id: int, char_pos: int):
 	atk = character.attack
 	def = character.defense
 	speed = character.speed
+	abilities = character.abilities
 	char_position = char_pos
 	sprite.texture = character.idle_sprite
 	return true
 
 #Recibe los dos equipos y los guarda, el primero siempre es el propio
-func set_teams(new_own_team: Array, new_opps_team: Array):
-	own_team = new_own_team
+func set_teams(new_ally_team: Array, new_opps_team: Array):
+	ally_team = new_ally_team
 	opps_team = new_opps_team
 	return true
 
@@ -82,7 +84,36 @@ Codigo del combate
 '''
 #Funcion que hace lo que le toque al empezar el turno, siempre se sobreescribe
 func start_turn():
+	print("start_turn called directly, this function should be overriden")
 	print_character_stats()
+	return true
+
+#Ejecuta la habilidad sabiendo a quien apunta
+func execute_ability(ability, targeted_positions: Array):
+	print(ability.target_type)
+	var targets: Array
+	#Esto es denso de cojones pero mira
+	#Provisional por ahora, creo que solo me importa si es my equipo o el suyo pero
+	#provisionalmente esto tira
+	if(ability.target_type == "single_opps"):
+		print("entra en single opps")
+		#Recorro el equipo entero enemigo
+		for opp in opps_team:
+			#Buscando quien tiene la posicion que targeteo
+			for char_position in targeted_positions:
+				#Si coincide anado al personaje a la lista de targets y quito la posicion
+				#de la lista porque ya esta cubierta
+				if opp.char_position == char_position:
+					targets.push_front(opp)
+					targeted_positions.erase(position)
+					break
+				#Si esta vacia significa que ya esta todo encontrado no sigas buscando
+				if targeted_positions.is_empty():
+					break
+		#Ahora activo todos los efectos en orden de como esten guardados
+		for effect in ability.effects:
+			effect.execute(self, ability.multiplier, targets)
+		print("Enemy health: " + str(targets[0].current_hp))
 	return true
 
 #TODO le faltaria triggers y cosas por el estilo
@@ -98,7 +129,7 @@ func take_healing(heal, healer):
 		current_hp = max_hp
 	return true
 
-#TODO ni idea de que poner aquí aún
+#TODO ni idea de que poner aquí aun
 func add_status(status, dealer):
 	return true
 	
