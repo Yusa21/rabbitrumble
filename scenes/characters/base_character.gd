@@ -93,9 +93,8 @@ func execute_ability(ability, targeted_positions: Array):
 	print(ability.target_type)
 	var targets: Array
 	#Esto es denso de cojones pero mira
-	#Provisional por ahora, creo que solo me importa si es my equipo o el suyo pero
-	#provisionalmente esto tira
-	if(ability.target_type == "single_opps"):
+	#Para los enemigos
+	if(ability.target_type == "single_opp" || ability.target_type == "multiple_opps"):
 		print("entra en single opps")
 		#Recorro el equipo entero enemigo
 		for opp in opps_team:
@@ -110,10 +109,35 @@ func execute_ability(ability, targeted_positions: Array):
 				#Si esta vacia significa que ya esta todo encontrado no sigas buscando
 				if targeted_positions.is_empty():
 					break
-		#Ahora activo todos los efectos en orden de como esten guardados
+	#Para aliados
+	elif ability.target_type == "single_ally" || ability.target_type == "multiple_allies":
+		print("targeting allies")
+		for ally in ally_team:
+			for position in targeted_positions:
+				if ally.char_position == position:
+					targets.push_front(ally)
+					targeted_positions.erase(position)
+					break
+			if targeted_positions.is_empty():
+				break
+	
+	# Para self
+	elif ability.target_type == "self":
+		print("targeting self")
+		targets.push_front(self)  # Se anade directamente no hace falta buscar
+	
+	# Activa los efectos en los objetivos, comprueba que no este vacio por si acaso
+	if !targets.is_empty():
 		for effect in ability.effects:
 			effect.execute(self, ability.multiplier, targets)
-		print("Enemy health: " + str(targets[0].current_hp))
+		
+		# Print del la vida del target, to rechulon porque escribe el equipo del que es
+		if targets.size() > 0:
+			var target_type = "Self" if targets[0] == self else ("Ally" if targets[0] in ally_team else "Enemy")
+			print(target_type + " health: " + str(targets[0].current_hp))
+	else:
+		print("Erro- Targets is empty - This should be imposible")
+	
 	return true
 
 #TODO le faltaria triggers y cosas por el estilo

@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 CharacterRepo="*res://scripts/repositories/CharacterRepository.gd"
 
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
+
 [input]
 
 continua={

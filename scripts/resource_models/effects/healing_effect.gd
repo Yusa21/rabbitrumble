@@ -5,6 +5,6 @@ func execute(user, multipler, targets):
 	
 	for target in targets:
 		var healing = user.atk * multipler
-		target.take_damage(int(healing), user)
+		target.take_healing(int(healing), user)
 		
 	return true

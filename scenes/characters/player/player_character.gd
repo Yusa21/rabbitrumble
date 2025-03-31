@@ -43,10 +43,10 @@ func _input(event):
 
 func perform_action_1():
 	print("Action 1 triggered")
-	print("Activated action:" + str(abilities[0].name))
+	print("Activated action:" + str(abilities[1].name))
 	print("Choose target position 1")
-	print("Targetting type: " + abilities[0].target_type)
-	await execute_ability(abilities[0], [1])
+	print("Targetting type: " + abilities[1].target_type)
+	await execute_ability(abilities[1], [1])
 	complete_action()
 
 func perform_action_2():

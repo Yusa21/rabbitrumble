@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="AbilityData" load_steps=4 format=3 uid="uid://b7aqp3a4rajkw"]
+[gd_resource type="Resource" script_class="AbilityData" load_steps=5 format=3 uid="uid://b7aqp3a4rajkw"]
 
 [ext_resource type="Texture2D" uid="uid://skyu4u5uoadv" path="res://assets/sprites/abilities/test_ability_icon.png" id="1_7np1v"]
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_aos8k"]
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_hr624"]
 [ext_resource type="Resource" uid="uid://bx2jn4lygs0s5" path="res://resources/effects/damage_effect.tres" id="1_mx7sy"]
 
 [resource]
@@ -10,7 +11,7 @@ name = "Test hit"
 description = "Probando, probando se me escucha?"
 target_type = "single_opps"
 multiplier = 1.0
-effects = Array[Resource]([ExtResource("1_mx7sy")])
+effects = Array[ExtResource("1_hr624")]([ExtResource("1_mx7sy")])
 launch_position = Array[int]([1, 2, 3, 4])
 target_position = Array[int]([1, 2, 3, 4])
 cooldown = 0

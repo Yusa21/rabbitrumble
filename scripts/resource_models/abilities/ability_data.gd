@@ -3,7 +3,7 @@ class_name AbilityData
 
 @export var name: String = "Ability" #Nombre de la habilidad
 @export var description: String = "Description" #Descripcion de la habilidad
-@export var target_type: String = "single_opps"  # single_opps, multiple_opps, single_ally, multiple_allies, self
+@export var target_type: String = "single_opp"  # single_opps, multiple_opps, single_ally, multiple_allies, self
 @export var multiplier: float = 1.0 # Multuplicador de dano que se aplica al ataque
 @export var effects: Array [AbilityEffect] = []  # Lista de efectos, son como piezas de lego monta y colorea
 @export var launch_position: Array[int] = [1,2,3,4] #Posiciones en la sque se puede realizar el ataque
