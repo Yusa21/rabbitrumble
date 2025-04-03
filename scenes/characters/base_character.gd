@@ -11,6 +11,9 @@ const player_alignment = "player"
 const enemy_alignment = "enemy"
 const other_alignment = "other"
 
+const min_position = 1
+const max_position = 4
+
 #Estadisiticas que luego se cargan
 var id
 var char_name
@@ -129,14 +132,14 @@ func execute_ability(ability, targeted_positions: Array):
 	# Activa los efectos en los objetivos, comprueba que no este vacio por si acaso
 	if !targets.is_empty():
 		for effect in ability.effects:
-			effect.execute(self, ability.multiplier, targets)
+			await effect.execute(self, ability.multiplier, targets)
 		
 		# Print del la vida del target, to rechulon porque escribe el equipo del que es
 		if targets.size() > 0:
 			var target_type = "Self" if targets[0] == self else ("Ally" if targets[0] in ally_team else "Enemy")
 			print(target_type + " health: " + str(targets[0].current_hp))
 	else:
-		print("Erro- Targets is empty - This should be imposible")
+		print("Error- Targets is empty - This should be imposible")
 	
 	return true
 
@@ -152,6 +155,59 @@ func take_healing(heal, healer):
 	if current_hp > max_hp:
 		current_hp = max_hp
 	return true
+
+#Esta funcion se usa para moverse
+func moving(starting_position, final_position, mover):
+	#Corrige que el objetivo no se salga de las posiciones posibles
+	if final_position > max_position:
+		final_position = max_position
+	elif final_position < min_position:
+		final_position = min_position
+		
+	#Vector de movimiento se usa para saber cuanto y en que direccion se esta moviendo
+	var movement_vector = final_position - starting_position
+	#Lo mismo sin signo
+	var absolute_vector
+	#1 o -1 opuesto al signo del vector, se usa para mover a los personajes a los que les ha pasado por encima
+	var side_correction
+	if movement_vector < 0: 
+		absolute_vector = -movement_vector
+		side_correction = 1
+	else: 
+		absolute_vector = movement_vector
+		side_correction = -1
+	
+	#Diccionarios con los personajes en orden, la key es la posicion
+	var allies_positions = get_postions()
+	
+	#Si la posicion esta ocupada marcalo
+	var position_occupied
+	if allies_positions.has(final_position): position_occupied = true
+	
+	#Le pone la nueva posicion
+	self.position = final_position
+	
+	#Si la posicion esta ocupada hay que mover a la gente para que todo encaje
+	if (position_occupied):
+		#Por cada posicion que se haya movido hay alguien a quien corregir
+		for i in range(0, absolute_vector-1):
+			#Busca quien esta en una posicion a corregir
+			if absolute_vector-i == 
+				
+				
+				
+#Esta se usa para corregir posiciones tiene menos vueltas para ahorrar recursos
+func moving_correction(steps: int):
+	self.char_position
+	
+#Funcion que devuelve un array con los personajes en la posicion correcta ordenada, recibiendo la 
+#posicion inicial y final
+func get_postions():
+	#Busca si algun aliado comparte la misma posicion
+	var char_list = {} 
+	for ally in ally_team:
+		char_list.set(ally.position, ally)
+	return char_list
 
 #TODO ni idea de que poner aquí aun
 func add_status(status, dealer):
