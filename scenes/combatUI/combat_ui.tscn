@@ -11,7 +11,72 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2twv5")
 
-[node name="Container" type="Container" parent="."]
-layout_mode = 0
-offset_right = 898.0
-offset_bottom = 340.0
+[node name="UIMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FullUI" type="VBoxContainer" parent="UIMargin"]
+layout_mode = 2
+
+[node name="TopSection" type="HBoxContainer" parent="UIMargin/FullUI"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="UIMargin/FullUI/TopSection"]
+layout_mode = 2
+text = "X/X XXX XX"
+
+[node name="VSeparator" type="VSeparator" parent="UIMargin/FullUI/TopSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UIMargin/FullUI/TopSection"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="UIMargin/FullUI/TopSection/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="UIMargin/FullUI/TopSection/HBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="UIMargin/FullUI/TopSection/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="UIMargin/FullUI/TopSection/HBoxContainer/AspectRatioContainer2"]
+layout_mode = 2
+
+[node name="TransparentSeparator" type="HSeparator" parent="UIMargin/FullUI"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BotomBackground" type="PanelContainer" parent="UIMargin/FullUI"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="BotomSection" type="HBoxContainer" parent="UIMargin/FullUI/BotomBackground"]
+layout_mode = 2
+
+[node name="AbilityButtons" type="HBoxContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection"]
+layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer"]
+layout_mode = 2
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer2"]
+layout_mode = 2
+
+[node name="Information" type="VBoxContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection"]
+layout_mode = 2

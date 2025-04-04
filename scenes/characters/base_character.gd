@@ -107,7 +107,7 @@ func execute_ability(ability, targeted_positions: Array):
 				#de la lista porque ya esta cubierta
 				if opp.char_position == char_position:
 					targets.push_front(opp)
-					targeted_positions.erase(position)
+					targeted_positions.erase(char_position)
 					break
 				#Si esta vacia significa que ya esta todo encontrado no sigas buscando
 				if targeted_positions.is_empty():
@@ -116,10 +116,10 @@ func execute_ability(ability, targeted_positions: Array):
 	elif ability.target_type == "single_ally" || ability.target_type == "multiple_allies":
 		print("targeting allies")
 		for ally in ally_team:
-			for position in targeted_positions:
-				if ally.char_position == position:
+			for char_position in targeted_positions:
+				if ally.char_position == char_position:
 					targets.push_front(ally)
-					targeted_positions.erase(position)
+					targeted_positions.erase(char_position)
 					break
 			if targeted_positions.is_empty():
 				break
@@ -185,20 +185,21 @@ func moving(starting_position, final_position, mover):
 	if allies_positions.has(final_position): position_occupied = true
 	
 	#Le pone la nueva posicion
-	self.position = final_position
+	self.char_position = final_position
 	
 	#Si la posicion esta ocupada hay que mover a la gente para que todo encaje
 	if (position_occupied):
 		#Por cada posicion que se haya movido hay alguien a quien corregir
 		for i in range(0, absolute_vector-1):
 			#Busca quien esta en una posicion a corregir
-			if absolute_vector-i == 
+			allies_positions.find_key(absolute_vector-i).moving_correction(side_correction) 
 				
 				
 				
 #Esta se usa para corregir posiciones tiene menos vueltas para ahorrar recursos
-func moving_correction(steps: int):
-	self.char_position
+func moving_correction(step: int):
+	self.char_position += step
+	return true
 	
 #Funcion que devuelve un array con los personajes en la posicion correcta ordenada, recibiendo la 
 #posicion inicial y final
@@ -206,7 +207,7 @@ func get_postions():
 	#Busca si algun aliado comparte la misma posicion
 	var char_list = {} 
 	for ally in ally_team:
-		char_list.set(ally.position, ally)
+		char_list.set(ally.char_position, ally)
 	return char_list
 
 #TODO ni idea de que poner aquí aun

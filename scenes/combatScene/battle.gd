@@ -1,4 +1,5 @@
 extends Node
+class_name Battle
 @onready var turn_queue
 
 const player_char_path = "res://scenes/characters/player/player_character.tscn"
