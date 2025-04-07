@@ -11,3 +11,5 @@ class_name AbilityData
 @export var cooldown: int =  0 ##3Turnos que hay que esperar para poder volver a repetir la habilidad
 @export var icon_sprite: Texture2D = load("res://assets/sprites/abilities/test_ability_icon.png") ##Icono de la habilidad
 @export var animation_name: String = "attack"  ##Por ahora no tengo ni idea de como hacer animaciones pero aqui esta
+@export var is_phase_triggered: bool = false
+@export var trigger_phase: String = ""  # pre_turn, turn_start, turn_end, etc.

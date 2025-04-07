@@ -1,9 +1,13 @@
 extends "res://scenes/characters/base_character.gd"
 class_name PlayerCharacter
+##Clase hija para los personajes jugadores, contiene las interacciones con la UI
+##
+##Todavia esta casi vacia porque, en efecto, no hay UI
 
-#Este tipo de clase siempre es del jugador
+##Se usa a la hora de identificar si un personaje es jugador o IA
 const alignment = "player"
 
+##En caso de que se puedan hacer varias acciones, no esta planeado pero la implementacion provisional lo tiene
 const total_actions = 1
 signal turn_ended
 
@@ -26,6 +30,7 @@ func start_turn():
 	
 	# Wait for the turn to end before continuing
 	await turn_ended
+	return true
 
 func _input(event):
 	# Only process input if turn is active and it's a key press event

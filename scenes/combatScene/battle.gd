@@ -1,7 +1,13 @@
 extends Node
 class_name Battle
+##Clase que incializa el combate
+##
+##Recibe los personajes que tiene que estar involucrados en el combate y incializa el combate
+##instanciando las escenas de los personajes necesarios y aportando los datos necesarios 
+
 @onready var turn_queue
 
+##Constantes para evitar datos sin explicar en mitad del codigo
 const player_char_path = "res://scenes/characters/player/player_character.tscn"
 const enemy_char_path = "res://scenes/characters/enemy/enemy_character.tscn"
 
@@ -14,7 +20,8 @@ func _ready():
 	var players = ["testDummy","testDummy","testDummy","testDummy"]
 	var enemies = ["testDummy","testDummy","testDummy","testDummy"]
 	start_battle(players, enemies)
-	
+
+##Recibe dos arrrays con los id de los personajes que van a estar involucrados
 func start_battle(player_chars, enemy_chars):
 	#Incialza los nodos hijos
 	turn_queue = get_node("TurnQueue")
@@ -53,7 +60,8 @@ func start_battle(player_chars, enemy_chars):
 	set_characters_teams()
 	turn_queue.initialize()
 	
-#Recibe el id del personaje que hay cargar, el id identificador para la pelea en concreto y el path de la escena a cargar
+##Recibe el id del personaje que hay cargar, el id identificador para la pelea en concreto 
+##y el path de la escena a cargar
 func create_character_from_data(character_data_id, fight_id, scene_path, char_position):
 	#Comprueba que la escena exista
 	if not FileAccess.file_exists(scene_path):
@@ -68,7 +76,7 @@ func create_character_from_data(character_data_id, fight_id, scene_path, char_po
 		character_scene.queue_free()  #Elimina la escena si al final no carga
 		return null
 	
-#Asigna los equipos de los peronajes segun su alineamiento	
+##Asigna los equipos de los peronajes segun su alineamiento	
 func set_characters_teams():
 	for char in turn_queue.get_children():
 		if char.alignment == "player":

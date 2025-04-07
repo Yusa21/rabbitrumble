@@ -1,22 +1,42 @@
 extends Node
 class_name TurnQueue
-##Clase que maneja el paso de los turnos 
+##Clase que maneja el paso de los turnos
+##
+## Maneja el orden en que los personajes actuan y las fases del turno y las habilidades
 var participants
 var active_character
 var current_index
+var current_participant
 
-signal turn_started(participant) ##Empieza el turno de alguien
-signal turn_ended(participant) ##Se acaba el turno de alguien
+enum Phase {
+	NONE,
+	BATTLE_START,
+	BATTLE_END,
+	ROUND_START,
+	ROUND_END,
+	PRE_TURN,
+	MAIN_TURN,
+	POST_TURN
+}
+
+signal pre_turn(participant) ##Empieza el turno de alguien
+signal main_turn(participant) ##Empieza la parte principal del turno de alguien
+signal post_turn(participant) ##Se acaba el turno de alguien
 signal round_started ##Empieza una ronda nueva
 signal round_ended ##Se acaba la ronda actual
+signal battle_started ##Empieza la batalla
+signal battle_ended ##Acaba la batalla
 
 ## Incializa la queue con los participantes que son los hijos nodo
 func initialize():
 	participants = get_children()
 	# Ordena los participantes por velocidad
 	order_queue()
-	emit_signal("round_started")
+	process_battle_start()
+	emit_signal("battle_started")
 	turn_loop()
+	process_battle_end()
+	emit_signal("battle_ended")
 
 ##Ordena la lista de turnos segun la velocidad del personaje
 func order_queue():
@@ -39,8 +59,10 @@ func get_next_participant():
 	
 	# Si todo el mundo ha tomado su turno resetea la ronda
 	if all_taken_turn:
-		reset_turns()
+		await process_round_end()
 		emit_signal("round_ended")
+		await reset_turns()
+		await process_round_start()
 		emit_signal("round_started")
 	
 	# Encuentra el siguiente participante
@@ -54,24 +76,64 @@ func get_next_participant():
 
 ## Bucle de turnos
 func turn_loop():
+	process_round_start()
+	emit_signal("round_started")
 	while true:
-		var current_participant = get_next_participant()
+		current_participant = await get_next_participant()
 		if current_participant == null:
 			break
 		
 		active_character = current_participant
-		emit_signal("turn_started", active_character)
-		
-		# Wait for the character to complete their turn
-		await active_character.start_turn()
-		
-		# Mark the character's turn as taken
-		active_character.has_taken_turn = true
-		emit_signal("turn_ended", active_character)
-		
-		# Optional: Add a small delay between turns if desired
+		await process_pre_turn(active_character)
 		await get_tree().create_timer(3).timeout
+		
+'''
+Funciones de procesamiento de fases
+'''
+func process_battle_start():
+	await process_phase_abilities("battle_started")
+	emit_signal("battle_started")
+	return true
 
+func process_battle_end():
+	await process_phase_abilities("battle_ended")
+	emit_signal("battle_ended")
+	return true
+
+func process_round_start():
+	await process_phase_abilities("round_started")
+	emit_signal("round_started")
+	return true
+
+func process_round_end():
+	await process_phase_abilities("round_ended")
+	emit_signal("round_ended")
+	return true
+	
+func process_pre_turn(active_character):
+	await process_phase_abilities("pre_turn")
+	emit_signal("pre_turn", active_character)
+	process_main_turn(active_character)
+	
+func process_main_turn(active_character):
+	await active_character.start_turn()
+	emit_signal("main_turn", active_character)
+	process_post_turn(active_character)
+	
+func process_post_turn(active_character):
+	await process_phase_abilities("post_turn")
+	emit_signal("post_turn", active_character)
+	return true
+	
+func process_phase_abilities(phase_trigger):
+	for character in participants:
+		var triggered_abilities = character.get_phase_triggered_abilities(phase_trigger)
+		for ability in triggered_abilities:
+			if character.can_use_ability(ability):
+				var targets = character.automatic_targeting(ability)
+				if targets.size() > 0:
+					character.execute_ability(ability, targets)
+	
 ## Anade un participante nuevo y reordena la lista porque tiene nuevas velocidades de las que encargarse
 func add_participant(new_participant):
 	participants.append(new_participant)

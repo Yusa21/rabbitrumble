@@ -1,7 +1,10 @@
 extends "res://scenes/characters/base_character.gd"
 class_name EnemyCharacter
+##Clase hija para los personajes enemigos, contiene la interaccion con la IA
+##
+##Todavia esta casi vacia porque, en efecto, no hay IA
 
-#Este tipo de clase siempre tiene que ser enemiga
+##Se usa a la hora de identificar si un personaje es jugador o IA
 const alignment = "enemy"
 
 func start_turn():

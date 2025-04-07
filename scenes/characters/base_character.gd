@@ -1,32 +1,38 @@
 extends Node2D
 class_name BaseCharacter
-#Inicializa los componentes del arbol
+##Clase que representa un personaje involucrado en un combate
+##
+##Contiene el codigo de iniciciacion del personaje (quizas habria que moverlo a otra parte) y 
+##todas las funciones que hacer falta para que los personajes puedan funcionar, como recibir dano, moverse...
+##tambien tiene algunas funciones que se sobreescriben en las clases hija como las de que ocurre cuando empieza un turno
+
 @onready var sprite: Sprite2D
 @onready var animationPlayer: AnimationPlayer
 @onready var area2D: Area2D
 @onready var statusEffects: Node2D
 @onready var ui: CanvasLayer
 
+##Identificadores de alineamiento de los personajes, para evitar string sin identificar en el codigo
 const player_alignment = "player"
 const enemy_alignment = "enemy"
 const other_alignment = "other"
 
-const min_position = 1
-const max_position = 4
+const min_position = 1 ##La posicion minima donde pueden estar los personajes siempre es la misma, para eviat numeros magicos
+const max_position = 4 ##Igual con la posicion maxima
 
 #Estadisiticas que luego se cargan
-var id
-var char_name
-var max_hp
-var current_hp
-var atk
-var def
-var speed
-var abilities = []
-var char_position
-var has_taken_turn: bool = false
-var ally_team = []
-var opps_team = []
+var id ##Id de la INSTANCIA especifica de personaje
+var char_name ##Nombre del personaje
+var max_hp ##Salud maxima
+var current_hp ##Salud actual
+var atk ##Ataque del personaje
+var def ##Defensa del personaje
+var speed ##Velocidad del personaje
+var abilities = [] ## Habilidades que el personaje tiene disponibles
+var char_position ##Posicion que ocupa el personaje dentro de su equipo
+var has_taken_turn: bool = false ##Marca si el personaje a comenzado el turno
+var ally_team = [] ##Guarda el equipo entero del personaje
+var opps_team = [] ##Guarda el equipo entero oponente del personaje
 
 #TODO DEBUG
 #func _ready():
@@ -35,7 +41,8 @@ var opps_team = []
 '''
 Codigo de inicializacion
 '''
-#Crea una escena de personaje usando el id del recurso a usar el id para identificarlo en combate
+##Crea una escena de personaje usando el id del recurso a usar el id para identificarlo en combate
+##tambien recibe el id que tiene que tener marcado para indentificarlo en el combate y su posicion inicial
 func initialize_character(char_data_id: String, new_id: int, char_pos: int):
 	#Inicializa los nodos hijos
 	sprite = get_node("Sprite2D")
@@ -52,7 +59,7 @@ func initialize_character(char_data_id: String, new_id: int, char_pos: int):
 	set_character_info(character,new_id, char_pos)
 	return true
 
-#Recibe un characterData y un id para inicializar las variables del personaje
+##Recibe un characterData, un id y la posicion para inicializar las variables del personaje
 func set_character_info(character: CharacterData, new_id: int, char_pos: int):
 	id = new_id
 	char_name = character.character_name
@@ -66,13 +73,13 @@ func set_character_info(character: CharacterData, new_id: int, char_pos: int):
 	sprite.texture = character.idle_sprite
 	return true
 
-#Recibe los dos equipos y los guarda, el primero siempre es el propio
+##Recibe los dos equipos y los guarda, el primero siempre es el propio
 func set_teams(new_ally_team: Array, new_opps_team: Array):
 	ally_team = new_ally_team
 	opps_team = new_opps_team
 	return true
 
-#Debug only	
+##Debug only	
 func print_character_stats():
 	print("Character Stats:")
 	print("Name: ", char_name)
@@ -85,13 +92,32 @@ func print_character_stats():
 '''
 Codigo del combate
 '''
-#Funcion que hace lo que le toque al empezar el turno, siempre se sobreescribe
+##Saca busca todos los triggers de fase en las habilidades de los personajes
+func get_phase_triggered_abilities(phase_trigger):
+	var triggered_abilities = []
+	for ability in abilities:
+		if ability.is_phase_triggered and ability.trigger_phase == phase_trigger:
+			triggered_abilities.append(ability)
+	return triggered_abilities
+
+##TODO comprueba que la habilidad se pueda ejecutar, debería comprobar cooldowns, posicion y cosas por el estilo
+func can_use_ability(ability):
+	return true
+
+##Si es una habilidad que no se elige objetivo para que se elija de forma automatica
+##Por ahora apunta a todos las posiciones disponibles
+func automatic_targeting(ability):
+	var targeted_positions = []
+	targeted_positions = ability.targeted_postion 
+	return targeted_positions
+	
+##Funcion que hace lo que le toque al empezar el turno, siempre se sobreescribe
 func start_turn():
 	print("start_turn called directly, this function should be overriden")
 	print_character_stats()
 	return true
 
-#Ejecuta la habilidad sabiendo a quien apunta
+##Ejecuta la habilidad sabiendo a quien apunta
 func execute_ability(ability, targeted_positions: Array):
 	print(ability.target_type)
 	var targets: Array
@@ -143,26 +169,31 @@ func execute_ability(ability, targeted_positions: Array):
 	
 	return true
 
-#TODO le faltaria triggers y cosas por el estilo
+##Funcion para recibir dano, le llega la cantidad que tiene que recibir y el atacante
+##TODO le faltaria triggers y cosas por el estilo
 func take_damage(dmg, atacker):
 	current_hp -= dmg
 	if current_hp < 0:
 		current_hp = 0
 	return true
-	
+
+##Recibe curacion, recibe la cantidad a curar y el curador
 func take_healing(heal, healer):
 	current_hp += heal
 	if current_hp > max_hp:
 		current_hp = max_hp
 	return true
 
-#Esta funcion se usa para moverse
+##La usan los personajes para moverse, recibe la posicion incial, la posicion
+##a la que tiene que ir y quien lo ha movido
 func moving(starting_position, final_position, mover):
 	#Corrige que el objetivo no se salga de las posiciones posibles
 	if final_position > max_position:
 		final_position = max_position
 	elif final_position < min_position:
 		final_position = min_position
+		
+	#TODO pongo que si la posicion inicial y la final son la misma se corta antes de tiempo
 		
 	#Vector de movimiento se usa para saber cuanto y en que direccion se esta moviendo
 	var movement_vector = final_position - starting_position
@@ -195,14 +226,15 @@ func moving(starting_position, final_position, mover):
 			allies_positions.find_key(absolute_vector-i).moving_correction(side_correction) 
 				
 				
-				
-#Esta se usa para corregir posiciones tiene menos vueltas para ahorrar recursos
+	return true
+	
+##Esta funcion se usa cuando los personajes estan haciendo espacio para otro, tiene menos
+##comprobaciones porque la funcion de moverse larga ya se encarga de eso
 func moving_correction(step: int):
 	self.char_position += step
 	return true
 	
-#Funcion que devuelve un array con los personajes en la posicion correcta ordenada, recibiendo la 
-#posicion inicial y final
+##Funcion que devuelve un array con los aliados en la posicion correcta ordenada
 func get_postions():
 	#Busca si algun aliado comparte la misma posicion
 	var char_list = {} 
@@ -210,7 +242,7 @@ func get_postions():
 		char_list.set(ally.char_position, ally)
 	return char_list
 
-#TODO ni idea de que poner aquí aun
+##TODO ni idea de que poner aquí aun
 func add_status(status, dealer):
 	return true
 	
