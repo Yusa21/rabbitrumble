@@ -22,10 +22,10 @@ enum Phase {
 signal pre_turn(participant) ##Empieza el turno de alguien
 signal main_turn(participant) ##Empieza la parte principal del turno de alguien
 signal post_turn(participant) ##Se acaba el turno de alguien
-signal round_started ##Empieza una ronda nueva
-signal round_ended ##Se acaba la ronda actual
-signal battle_started ##Empieza la batalla
-signal battle_ended ##Acaba la batalla
+signal round_start ##Empieza una ronda nueva
+signal round_end ##Se acaba la ronda actual
+signal battle_start ##Empieza la batalla
+signal battle_end ##Acaba la batalla
 
 ## Incializa la queue con los participantes que son los hijos nodo
 func initialize():
@@ -33,10 +33,10 @@ func initialize():
 	# Ordena los participantes por velocidad
 	order_queue()
 	process_battle_start()
-	emit_signal("battle_started")
+	emit_signal("battle_start")
 	turn_loop()
 	process_battle_end()
-	emit_signal("battle_ended")
+	emit_signal("battle_end")
 
 ##Ordena la lista de turnos segun la velocidad del personaje
 func order_queue():
@@ -60,10 +60,10 @@ func get_next_participant():
 	# Si todo el mundo ha tomado su turno resetea la ronda
 	if all_taken_turn:
 		await process_round_end()
-		emit_signal("round_ended")
+		emit_signal("round_end")
 		await reset_turns()
 		await process_round_start()
-		emit_signal("round_started")
+		emit_signal("round_start")
 	
 	# Encuentra el siguiente participante
 	var i = 0
@@ -77,7 +77,7 @@ func get_next_participant():
 ## Bucle de turnos
 func turn_loop():
 	process_round_start()
-	emit_signal("round_started")
+	emit_signal("round_start")
 	while true:
 		current_participant = await get_next_participant()
 		if current_participant == null:
@@ -85,40 +85,43 @@ func turn_loop():
 		
 		active_character = current_participant
 		await process_pre_turn(active_character)
+		await process_main_turn(active_character)
+		await process_post_turn(active_character)
 		await get_tree().create_timer(3).timeout
 		
 '''
 Funciones de procesamiento de fases
 '''
 func process_battle_start():
-	await process_phase_abilities("battle_started")
-	emit_signal("battle_started")
+	await process_phase_abilities("battle_start")
+	emit_signal("battle_start")
 	return true
 
 func process_battle_end():
-	await process_phase_abilities("battle_ended")
-	emit_signal("battle_ended")
+	await process_phase_abilities("battle_end")
+	emit_signal("battle_end")
 	return true
 
 func process_round_start():
-	await process_phase_abilities("round_started")
-	emit_signal("round_started")
+	await process_phase_abilities("round_start")
+	emit_signal("round_start")
 	return true
 
 func process_round_end():
-	await process_phase_abilities("round_ended")
-	emit_signal("round_ended")
+	await process_phase_abilities("round_end")
+	emit_signal("round_end")
 	return true
 	
 func process_pre_turn(active_character):
 	await process_phase_abilities("pre_turn")
 	emit_signal("pre_turn", active_character)
-	process_main_turn(active_character)
+	return true
 	
 func process_main_turn(active_character):
 	await active_character.start_turn()
 	emit_signal("main_turn", active_character)
-	process_post_turn(active_character)
+	active_character.has_taken_turn = true
+	return true
 	
 func process_post_turn(active_character):
 	await process_phase_abilities("post_turn")

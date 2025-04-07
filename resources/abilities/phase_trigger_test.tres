@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=5 format=3 uid="uid://buotjg2ydfya5"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_q7bal"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="2_bf8x2"]
+[ext_resource type="Script" uid="uid://couj5ryoklb0e" path="res://scripts/resource_models/effects/print_test_effect.gd" id="2_ffed2"]
+
+[sub_resource type="Resource" id="Resource_1prg1"]
+script = ExtResource("2_ffed2")
+metadata/_custom_type_script = "uid://couj5ryoklb0e"
+
+[resource]
+script = ExtResource("2_bf8x2")
+name = "Start of round test"
+description = "Description"
+target_type = "self"
+multiplier = 1.0
+effects = Array[ExtResource("1_q7bal")]([SubResource("Resource_1prg1")])
+launch_position = Array[int]([1, 2, 3, 4])
+target_position = Array[int]([1, 2, 3, 4])
+cooldown = 0
+animation_name = "attack"
+is_phase_triggered = true
+trigger_phase = "round_start"
+metadata/_custom_type_script = "uid://didlt5asxoyvv"

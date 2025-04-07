@@ -97,6 +97,7 @@ func get_phase_triggered_abilities(phase_trigger):
 	var triggered_abilities = []
 	for ability in abilities:
 		if ability.is_phase_triggered and ability.trigger_phase == phase_trigger:
+			print("el trigger coincide")
 			triggered_abilities.append(ability)
 	return triggered_abilities
 

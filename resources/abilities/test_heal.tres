@@ -21,4 +21,6 @@ target_position = Array[int]([1, 2, 3, 4])
 cooldown = 0
 icon_sprite = ExtResource("3_5ttcb")
 animation_name = "attack"
+is_phase_triggered = false
+trigger_phase = ""
 metadata/_custom_type_script = "uid://didlt5asxoyvv"
