@@ -8,17 +8,6 @@ var active_character
 var current_index
 var current_participant
 
-enum Phase {
-	NONE,
-	BATTLE_START,
-	BATTLE_END,
-	ROUND_START,
-	ROUND_END,
-	PRE_TURN,
-	MAIN_TURN,
-	POST_TURN
-}
-
 signal pre_turn(participant) ##Empieza el turno de alguien
 signal main_turn(participant) ##Empieza la parte principal del turno de alguien
 signal post_turn(participant) ##Se acaba el turno de alguien
@@ -32,10 +21,10 @@ func initialize():
 	participants = get_children()
 	# Ordena los participantes por velocidad
 	order_queue()
-	process_battle_start()
+	await process_battle_start()
 	emit_signal("battle_start")
-	turn_loop()
-	process_battle_end()
+	await turn_loop()
+	await process_battle_end()
 	emit_signal("battle_end")
 
 ##Ordena la lista de turnos segun la velocidad del personaje
@@ -131,11 +120,13 @@ func process_post_turn(active_character):
 func process_phase_abilities(phase_trigger):
 	for character in participants:
 		var triggered_abilities = character.get_phase_triggered_abilities(phase_trigger)
+		print("looking for:" + phase_trigger + " found ")
+		print(triggered_abilities)
 		for ability in triggered_abilities:
 			if character.can_use_ability(ability):
 				var targets = character.automatic_targeting(ability)
 				if targets.size() > 0:
-					character.execute_ability(ability, targets)
+					await character.execute_ability(ability, targets)
 	
 ## Anade un participante nuevo y reordena la lista porque tiene nuevas velocidades de las que encargarse
 func add_participant(new_participant):
