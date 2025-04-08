@@ -97,7 +97,6 @@ func get_phase_triggered_abilities(phase_trigger):
 	var triggered_abilities = []
 	for ability in abilities:
 		if ability.is_phase_triggered and ability.trigger_phase == phase_trigger:
-			print("el trigger coincide")
 			triggered_abilities.append(ability)
 	return triggered_abilities
 
@@ -109,7 +108,7 @@ func can_use_ability(ability):
 ##Por ahora apunta a todos las posiciones disponibles
 func automatic_targeting(ability):
 	var targeted_positions = []
-	targeted_positions = ability.targeted_postion 
+	targeted_positions = ability.target_position
 	return targeted_positions
 	
 ##Funcion que hace lo que le toque al empezar el turno, siempre se sobreescribe

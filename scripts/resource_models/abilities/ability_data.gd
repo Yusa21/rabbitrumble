@@ -13,3 +13,6 @@ class_name AbilityData
 @export var animation_name: String = "attack"  ##Por ahora no tengo ni idea de como hacer animaciones pero aqui esta
 @export var is_phase_triggered: bool = false
 @export var trigger_phase: String = ""  # pre_turn, turn_start, turn_end, etc.
+@export var trigger_on_self_turn: bool = false  # Only relevant for turn-related triggers
+@export var trigger_on_ally_turn: bool = false  # Only relevant for turn-related triggers
+@export var trigger_on_enemy_turn: bool = false # Only relevant for turn-related triggers
