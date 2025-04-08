@@ -33,7 +33,9 @@ var char_position ##Posicion que ocupa el personaje dentro de su equipo
 var has_taken_turn: bool = false ##Marca si el personaje a comenzado el turno
 var ally_team = [] ##Guarda el equipo entero del personaje
 var opps_team = [] ##Guarda el equipo entero oponente del personaje
+var is_defeated: bool = false
 
+signal character_defeated(character)
 #TODO DEBUG
 #func _ready():
 	#initialize_character("testDumy", 0)
@@ -175,7 +177,22 @@ func take_damage(dmg, atacker):
 	current_hp -= dmg
 	if current_hp < 0:
 		current_hp = 0
+		defeat()
 	return true
+
+# New function to handle character defeat
+func defeat():
+	if is_defeated:
+		return # Already defeated
+	
+	is_defeated = true
+	print(char_name + " has been defeated!")
+	
+	# Visual indication
+	modulate.a = 0.5
+	
+	# Signal defeat - will be processed by state machine at appropriate time
+	emit_signal("character_defeated", self)
 
 ##Recibe curacion, recibe la cantidad a curar y el curador
 func take_healing(heal, healer):
