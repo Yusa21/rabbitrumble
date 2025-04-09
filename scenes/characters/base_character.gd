@@ -10,18 +10,16 @@ class_name BaseCharacter
 @onready var animationPlayer: AnimationPlayer
 @onready var area2D: Area2D
 @onready var statusEffects: Node2D
-@onready var ui: CanvasLayer
 
-##Identificadores de alineamiento de los personajes, para evitar string sin identificar en el codigo
-const player_alignment = "player"
-const enemy_alignment = "enemy"
-const other_alignment = "other"
+##Formations manager para que los personajes puedan aparecer en pantalla en los lugares correctos
+var formations_manager = null
 
 const min_position = 1 ##La posicion minima donde pueden estar los personajes siempre es la misma, para eviat numeros magicos
 const max_position = 4 ##Igual con la posicion maxima
 
 #Estadisiticas que luego se cargan
 var id ##Id de la INSTANCIA especifica de personaje
+var alignment ##A que equipo pertenece el personaje, se le da valor en las subclases
 var char_name ##Nombre del personaje
 var max_hp ##Salud maxima
 var current_hp ##Salud actual
@@ -38,7 +36,8 @@ var is_defeated: bool = false
 signal character_defeated(character)
 #TODO DEBUG
 #func _ready():
-	#initialize_character("testDumy", 0)
+	#initialize_character("testDumy", 0,0)
+	#highlight(true)
 
 '''
 Codigo de inicializacion
@@ -51,7 +50,6 @@ func initialize_character(char_data_id: String, new_id: int, char_pos: int):
 	animationPlayer = get_node("AnimationPlayer")
 	area2D = get_node("Area2D")
 	statusEffects = get_node("StatusEffects")
-	ui = get_node("CanvasLayer")
 	
 	#Llama al repositorio de personajes para cargar sus datos
 	var character = CharacterRepo.load_character_data_by_id(char_data_id)
@@ -80,6 +78,10 @@ func set_teams(new_ally_team: Array, new_opps_team: Array):
 	ally_team = new_ally_team
 	opps_team = new_opps_team
 	return true
+	
+##Se llama desde las clases hija para poner el alineamiento del personaje
+func set_alignment(new_alignment: String):
+	alignment = new_alignment
 
 ##Debug only	
 func print_character_stats():
@@ -263,4 +265,21 @@ func get_postions():
 func add_status(status, dealer):
 	return true
 	
+'''
+Codigo para feedback visual
+'''
+func set_formations_manager(manager):
+	formations_manager = manager
+	print(formations_manager)
+
+func update_position():
+	if formations_manager != null:
+		global_position = formations_manager.get_new_position(alignment, char_position)
+
+func highlight(is_active: bool):
+	if is_active:
+		modulate = Color(1, 1, 0.5) # yellowish glow
+	else:
+		modulate = Color(1, 1, 1) # normal color
+
 	

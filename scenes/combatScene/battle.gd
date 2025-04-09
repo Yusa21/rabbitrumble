@@ -5,6 +5,7 @@ class_name Battle
 ##Recibe los personajes que tiene que estar involucrados en el combate y incializa el combate
 ##instanciando las escenas de los personajes necesarios y aportando los datos necesarios 
 @onready var battle_manager
+@onready var formations_manager
 
 ##Constantes para evitar datos sin explicar en mitad del codigo
 const player_char_path = "res://scenes/characters/player/player_character.tscn"
@@ -17,13 +18,14 @@ var enemy_team = []
 func _ready():
 	#TODO debug
 	var players = ["testDummy","testDummy","testDummy","testDummy"]
-	var enemies = ["testDummy","testDummy","testDummy","testDummy"]
+	var enemies = ["testDummy2","testDummy2","testDummy2","testDummy2"]
 	start_battle(players, enemies)
 
 ##Recibe dos arrrays con los id de los personajes que van a estar involucrados
 func start_battle(player_chars, enemy_chars):
 	#Inicializa los nodos hijos
 	battle_manager = get_node("BattleManager")
+	formations_manager = get_node("FormationManager")
 	if battle_manager == null:
 		push_error("BattleManager node not found! Make sure it's a child node named 'BattleManager'")
 		return
@@ -71,6 +73,8 @@ func start_battle(player_chars, enemy_chars):
 	# Initialize battle manager
 	battle_manager.initialize(player_team, enemy_team)
 	
+
+	
 ##Recibe el id del personaje que hay cargar, el id identificador para la pelea en concreto 
 ##y el path de la escena a cargar
 func create_character_from_data(character_data_id, fight_id, scene_path, char_position):
@@ -81,6 +85,8 @@ func create_character_from_data(character_data_id, fight_id, scene_path, char_po
 	var character_scene = load(scene_path).instantiate()
 	# Configura la escena con el recurso
 	if character_scene.initialize_character(character_data_id, fight_id, char_position) != null:
+		#Anade el FormationManager para que los personajes puedan saber su posicion
+		character_scene.set_formations_manager(formations_manager)
 		return character_scene
 	else:
 		print("Error atempting to load character data with id: " + character_data_id + " doesn't exist")

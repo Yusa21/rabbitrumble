@@ -5,7 +5,10 @@ class_name EnemyCharacter
 ##Todavia esta casi vacia porque, en efecto, no hay IA
 
 ##Se usa a la hora de identificar si un personaje es jugador o IA
-const alignment = "enemy"
+const enemy_alignment = "enemy"
+
+func _ready():
+	set_alignment(enemy_alignment)
 
 func start_turn():
 	print("Enemy turn started with id: " + str(id) + " in position " + str(char_position))

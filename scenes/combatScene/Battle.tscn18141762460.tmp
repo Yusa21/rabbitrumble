@@ -11,10 +11,9 @@ script = ExtResource("1_x7kyd")
 [node name="BattleManager" type="Node" parent="."]
 script = ExtResource("1_hwuu1")
 
-[node name="FormationManager" type="Node2D" parent="."]
+[node name="FormationManager" type="Node" parent="."]
 script = ExtResource("3_lvam6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="CombatUI" parent="CanvasLayer" instance=ExtResource("3_4k4p4")]
-offset_top = -2.0

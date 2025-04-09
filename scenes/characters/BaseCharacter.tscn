@@ -21,10 +21,3 @@ texture = ExtResource("2_u1txu")
 shape = SubResource("CircleShape2D_832rb")
 
 [node name="StatusEffects" type="Node2D" parent="."]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
-offset_right = 4.0
-offset_bottom = 27.0
-fill_mode = 1

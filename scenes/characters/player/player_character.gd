@@ -5,7 +5,7 @@ class_name PlayerCharacter
 ##Todavia esta casi vacia porque, en efecto, no hay UI
 
 ##Se usa a la hora de identificar si un personaje es jugador o IA
-const alignment = "player"
+const player_alignment = "player"
 
 ##En caso de que se puedan hacer varias acciones, no esta planeado pero la implementacion provisional lo tiene
 const total_actions = 1
@@ -15,6 +15,9 @@ var actions_completed = 0
 var total_actions_this_turn = 0
 var turn_active = false
 var input_handler_connected = false
+
+func _ready():
+	set_alignment(player_alignment)
 
 '''
 Todo lo de manejar input y turnos es provisional, la escena no se encarga de eso es la UI

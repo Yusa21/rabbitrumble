@@ -48,11 +48,13 @@ func initialize(p_team: Array, e_team: Array):
 		player.ally_team = player_team
 		player.opps_team = enemy_team
 		player.character_defeated.connect(_on_character_defeated)
+		player.update_position()
 	
 	for enemy in enemy_team:
 		enemy.ally_team = enemy_team
 		enemy.opps_team = player_team
 		enemy.character_defeated.connect(_on_character_defeated)
+		enemy.update_position()
 	
 	# Sort participants by speed
 	participants.sort_custom(func(a, b): return a.speed > b.speed)
