@@ -23,4 +23,7 @@ icon_sprite = ExtResource("3_5ttcb")
 animation_name = "attack"
 is_phase_triggered = false
 trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
 metadata/_custom_type_script = "uid://didlt5asxoyvv"

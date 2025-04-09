@@ -22,8 +22,16 @@ func _ready():
 
 ##Recibe dos arrrays con los id de los personajes que van a estar involucrados
 func start_battle(player_chars, enemy_chars):
-	#Incialza los nodos hijos
+	#Inicializa los nodos hijos
 	battle_manager = get_node("BattleManager")
+	if battle_manager == null:
+		push_error("BattleManager node not found! Make sure it's a child node named 'BattleManager'")
+		return
+		
+	# Clear teams in case we restart
+	player_team.clear()
+	enemy_team.clear()
+	
 	#ID para identificar cada personaje dentro de la pelea
 	var id = 0
 	var new_character
@@ -54,7 +62,13 @@ func start_battle(player_chars, enemy_chars):
 		else:
 			print("Something went wrong, skipping character with id:" + char_id)
 	
-	# No need to set teams here as BattleManager.initialize will handle this
+	# Make sure all characters have required properties
+	ensure_character_properties()
+	
+	# Connect signals
+	_connect_battle_signals()
+	
+	# Initialize battle manager
 	battle_manager.initialize(player_team, enemy_team)
 	
 ##Recibe el id del personaje que hay cargar, el id identificador para la pelea en concreto 
@@ -73,10 +87,27 @@ func create_character_from_data(character_data_id, fight_id, scene_path, char_po
 		character_scene.queue_free()  #Elimina la escena si al final no carga
 		return null
 
-# Connect to BattleManager signals if needed
+# Make sure all characters have required properties for BattleManager
+func ensure_character_properties():
+	for team in [player_team, enemy_team]:
+		for character in team:
+			# Make sure character has all required properties
+			if not "has_taken_turn" in character:
+				character.has_taken_turn = false
+			if not "is_defeated" in character:
+				character.is_defeated = false
+			if not "speed" in character:
+				character.speed = 10  # Default speed value
+			if not "char_name" in character:
+				character.char_name = "Unknown"  # Default name
+
+# Connect to BattleManager signals
 func _connect_battle_signals():
-	battle_manager.battle_end.connect(_on_battle_end)
-	# Connect other signals as needed
+	if battle_manager == null:
+		return
+		
+	if not battle_manager.is_connected("battle_end", _on_battle_end):
+		battle_manager.battle_end.connect(_on_battle_end)
 	
 func _on_battle_end(winner):
 	# Handle battle end

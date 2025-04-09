@@ -123,18 +123,21 @@ func process_round_start():
 		change_state(BattleState.BATTLE_END)
 
 func process_pre_turn():
-	print(%"{active_character.char_name}'s turn (pre)")
+	# Fix: Use string formatting properly
+	print(str(active_character.char_name) + "'s turn (pre)")
 	await process_phase_abilities("pre_turn")
 	change_state(BattleState.MAIN_TURN)
 
 func process_main_turn():
-	print(%"{active_character.char_name}'s turn (main)")
+	# Fix: Use string formatting properly
+	print(str(active_character.char_name) + "'s turn (main)")
 	await active_character.start_turn()
 	active_character.has_taken_turn = true
 	change_state(BattleState.POST_TURN)
 
 func process_post_turn():
-	print(%"{active_character.char_name}'s turn (post)")
+	# Fix: Use string formatting properly
+	print(str(active_character.char_name) + "'s turn (post)")
 	await process_phase_abilities("post_turn")
 	
 	# Check for any pending defeats
@@ -161,7 +164,8 @@ func process_round_end():
 func process_character_defeated():
 	while defeat_queue.size() > 0:
 		var defeated = defeat_queue.pop_front()
-		print(%"Processing defeat for {defeated.char_name}")
+		# Fix: Use string formatting properly
+		print(str(defeated.char_name) + " has been defeated")
 		
 		# Remove from appropriate teams and participants list
 		if defeated in player_team:
@@ -189,7 +193,8 @@ func process_battle_end():
 	else:
 		winner = "enemy"
 	
-	print(%"Battle ended! Winner: {winner}")
+	# Fix: Use string formatting properly
+	print("Battle ended! Winner: " + winner)
 	await process_phase_abilities("battle_end")
 	emit_signal("battle_end", winner)
 
@@ -200,9 +205,24 @@ func process_phase_abilities(phase_trigger):
 	
 	# Process triggers for all characters
 	for character in participants:
+		# Check for null objects
+		if character == null:
+			print("Warning: Found null character in participants array")
+			continue
+			
+		# Fix: Add safety check for method existence
+		if not character.has_method("get_phase_triggered_abilities"):
+			print("Warning: Character " + str(character) + " doesn't have get_phase_triggered_abilities method")
+			continue
+			
 		var triggered_abilities = character.get_phase_triggered_abilities(phase_trigger)
 		
 		for ability in triggered_abilities:
+			# Fix: Add null check for ability
+			if ability == null:
+				print("Warning: Null ability found for character " + str(character.char_name))
+				continue
+				
 			if character.can_use_ability(ability):
 				# Check if ability should trigger based on whose turn it is
 				if is_global_trigger || should_ability_trigger(ability, character, active_character):
@@ -214,6 +234,10 @@ func process_phase_abilities(phase_trigger):
 func get_next_active_character():
 	# Find next character who hasn't taken a turn yet
 	for p in participants:
+		# Fix: Add null check
+		if p == null:
+			continue
+			
 		if !p.has_taken_turn and !p.is_defeated:
 			return p
 	return null
@@ -231,6 +255,10 @@ func check_team_defeat():
 
 # Should ability trigger based on character relationships
 func should_ability_trigger(ability, character, active_char):
+	# Fix: Add null check for active_char
+	if active_char == null:
+		return false
+		
 	# If it's the character's own turn
 	if character == active_char && ability.trigger_on_self_turn:
 		return true
@@ -248,11 +276,18 @@ func should_ability_trigger(ability, character, active_char):
 
 # Helper function to check if two characters are allies
 func is_ally(character1, character2):
+	# Fix: Add null checks
+	if character1 == null or character2 == null:
+		return false
+	if not character1.has_method("ally_team") or not character2.has_method("ally_team"):
+		return false
+		
 	return character1.ally_team.has(character2) && character2.ally_team.has(character1)
 
 # Signal handler for character defeat
 func _on_character_defeated(character):
-	print(%"{character.char_name} signal defeated")
+	# Fix: Use string formatting properly
+	print(str(character.char_name) + " signal defeated")
 	# Add to defeat queue to be processed at appropriate time
 	if !defeat_queue.has(character):
 		defeat_queue.append(character)
