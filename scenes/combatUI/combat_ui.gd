@@ -16,6 +16,7 @@ var character_ui_elements = {}
 @onready var ability_button_2 = get_node("%AbilityButton2")
 @onready var turn_label = get_node("%TurnLabel")
 @onready var character_ui_container = get_node("%CharacterUIContainer")
+@onready var ability_information = get_node("%AbilityInformationUI")
 
 func _ready():
 	# Al principio desactiva los botones
@@ -236,6 +237,7 @@ func _handle_ability_selection(ability_index):
 	var abilities = current_character.abilities
 	if ability_index < abilities.size():
 		selected_ability = abilities[ability_index]
+		_update_ability_information(selected_ability)
 		print("Selected ability: ", selected_ability.name)
 		
 		# Enter targeting mode
@@ -366,6 +368,9 @@ func _is_valid_target(character, ability):
 	print("Target type mismatch")
 	return false
 
+func _update_ability_information(selected_ability: AbilityData):
+	ability_information.update_ability_information_ui(selected_ability)
+	
 # Execute the selected ability with targets
 func _execute_current_ability(targets):
 	if current_character and selected_ability:

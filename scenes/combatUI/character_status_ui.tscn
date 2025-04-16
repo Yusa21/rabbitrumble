@@ -10,6 +10,7 @@ offset_right = 0.319992
 offset_bottom = 0.0960007
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 0
 mouse_filter = 2
 script = ExtResource("1_4pr60")
 
