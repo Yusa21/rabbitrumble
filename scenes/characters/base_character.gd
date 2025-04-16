@@ -33,7 +33,20 @@ var ally_team = [] ##Guarda el equipo entero del personaje
 var opps_team = [] ##Guarda el equipo entero oponente del personaje
 var is_defeated: bool = false
 
+var is_highlighted = false
+var normal_modulate = Color(1, 1, 1, 1)
+var highlight_modulate = Color(1.2, 1.2, 0.8, 1)
+var defeated_modulate = Color(1.2,0.8,1.2,1)
+
+signal stats_changed() # For HP/status updates
+signal health_changed(current_health, max_health)
+signal status_effect_added(effect)
+signal status_effect_removed(effect_id)
 signal character_defeated(character)
+signal character_moved(character)
+signal ability_used(ability, targets)
+signal clicked(character)
+
 #TODO DEBUG
 #func _ready():
 	#initialize_character("testDumy", 0,0)
@@ -109,11 +122,28 @@ func can_use_ability(ability):
 	return true
 
 ##Si es una habilidad que no se elige objetivo para que se elija de forma automatica
-##Por ahora apunta a todos las posiciones disponibles
+##Por ahora devuelve los personajes a los que hay que afectar
 func automatic_targeting(ability):
-	var targeted_positions = []
-	targeted_positions = ability.target_position
-	return targeted_positions
+	var targets = []
+	var char_list = []
+	var self_targeting = false
+	
+	# Then check target type
+	if ability.target_type.ends_with("opp"):
+		get_opponent_positions()
+	elif ability.target_type.ends_with("ally"):
+		get_ally_positions()
+	elif ability.target_type == "self":
+		self_targeting = true
+		
+	if !self_targeting:
+		for pos in char_list:
+			if ability.target_position.has(pos):
+				targets.append(char_list[pos])
+	else:
+		targets.push_front(self)
+	
+	return targets
 	
 ##Funcion que hace lo que le toque al empezar el turno, siempre se sobreescribe
 func start_turn():
@@ -122,43 +152,8 @@ func start_turn():
 	return true
 
 ##Ejecuta la habilidad sabiendo a quien apunta
-func execute_ability(ability, targeted_positions: Array):
-	print(ability.target_type)
-	var targets: Array
-	#Esto es denso de cojones pero mira
-	#Para los enemigos
-	if(ability.target_type == "single_opp" || ability.target_type == "multiple_opps"):
-		print("entra en single opps")
-		#Recorro el equipo entero enemigo
-		for opp in opps_team:
-			#Buscando quien tiene la posicion que targeteo
-			for char_position in targeted_positions:
-				#Si coincide anado al personaje a la lista de targets y quito la posicion
-				#de la lista porque ya esta cubierta
-				if opp.char_position == char_position:
-					targets.push_front(opp)
-					targeted_positions.erase(char_position)
-					break
-				#Si esta vacia significa que ya esta todo encontrado no sigas buscando
-				if targeted_positions.is_empty():
-					break
-	#Para aliados
-	elif ability.target_type == "single_ally" || ability.target_type == "multiple_allies":
-		print("targeting allies")
-		for ally in ally_team:
-			for char_position in targeted_positions:
-				if ally.char_position == char_position:
-					targets.push_front(ally)
-					targeted_positions.erase(char_position)
-					break
-			if targeted_positions.is_empty():
-				break
-	
-	# Para self
-	elif ability.target_type == "self":
-		print("targeting self")
-		targets.push_front(self)  # Se anade directamente no hace falta buscar
-	
+func execute_ability(ability, targets: Array):
+	emit_signal("ability_used", ability, targets)	
 	# Activa los efectos en los objetivos, comprueba que no este vacio por si acaso
 	if !targets.is_empty():
 		for effect in ability.effects:
@@ -171,36 +166,43 @@ func execute_ability(ability, targeted_positions: Array):
 	else:
 		print("Error- Targets is empty - This should be imposible")
 	
+	emit_signal("stats_changed")
 	return true
 
 ##Funcion para recibir dano, le llega la cantidad que tiene que recibir y el atacante
 ##TODO le faltaria triggers y cosas por el estilo
-func take_damage(dmg, atacker):
+func take_damage(dmg, attacker):
 	current_hp -= dmg
-	if current_hp < 0:
+	if current_hp <= 0:
 		current_hp = 0
 		defeat()
+	emit_signal("stats_changed")
+	emit_signal("health_changed", current_hp, max_hp)
 	return true
 
 # New function to handle character defeat
 func defeat():
 	if is_defeated:
-		return # Already defeated
+		return true
 	
 	is_defeated = true
 	print(char_name + " has been defeated!")
 	
 	# Visual indication
-	modulate.a = 0.5
+	modulate = defeated_modulate
 	
 	# Signal defeat - will be processed by state machine at appropriate time
 	emit_signal("character_defeated", self)
+	return true
 
 ##Recibe curacion, recibe la cantidad a curar y el curador
 func take_healing(heal, healer):
 	current_hp += heal
 	if current_hp > max_hp:
 		current_hp = max_hp
+		
+	emit_signal("stats_changed")
+	emit_signal("health_changed", current_hp, max_hp)
 	return true
 
 ##La usan los personajes para moverse, recibe la posicion incial, la posicion
@@ -228,7 +230,7 @@ func moving(starting_position, final_position, mover):
 		side_correction = -1
 	
 	#Diccionarios con los personajes en orden, la key es la posicion
-	var allies_positions = get_postions()
+	var allies_positions = get_ally_positions()
 	
 	#Si la posicion esta ocupada marcalo
 	var position_occupied
@@ -244,7 +246,8 @@ func moving(starting_position, final_position, mover):
 			#Busca quien esta en una posicion a corregir
 			allies_positions.find_key(absolute_vector-i).moving_correction(side_correction) 
 				
-				
+	emit_signal("position_changed")
+	emit_signal("stats_changed")			
 	return true
 	
 ##Esta funcion se usa cuando los personajes estan haciendo espacio para otro, tiene menos
@@ -254,11 +257,19 @@ func moving_correction(step: int):
 	return true
 	
 ##Funcion que devuelve un array con los aliados en la posicion correcta ordenada
-func get_postions():
+func get_ally_positions():
 	#Busca si algun aliado comparte la misma posicion
 	var char_list = {} 
 	for ally in ally_team:
 		char_list.set(ally.char_position, ally)
+	return char_list
+	
+##Funcion que devuelve un array con los enemigos en la posicion correcta ordenada
+func get_opponent_positions():
+	#Busca si algun aliado comparte la misma posicion
+	var char_list = {} 
+	for opp in opps_team:
+		char_list.set(opp.char_position, opp)
 	return char_list
 
 ##TODO ni idea de que poner aquí aun
@@ -275,11 +286,17 @@ func set_formations_manager(manager):
 func update_position():
 	if formations_manager != null:
 		global_position = formations_manager.get_new_position(alignment, char_position)
+		emit_signal("character_moved", self)
 
-func highlight(is_active: bool):
-	if is_active:
-		modulate = Color(1, 1, 0.5) # yellowish glow
+# Highlight function
+func highlight(enable: bool):
+	is_highlighted = enable
+	if enable:
+		modulate = highlight_modulate
 	else:
-		modulate = Color(1, 1, 1) # normal color
+		modulate = normal_modulate
 
-	
+func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		emit_signal("clicked", self)
+		get_viewport().set_input_as_handled()  # Prevent event from propagating

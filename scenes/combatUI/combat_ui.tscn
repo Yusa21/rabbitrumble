@@ -11,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_2twv5")
 
 [node name="UIMargin" type="MarginContainer" parent="."]
@@ -20,66 +21,68 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="FullUI" type="VBoxContainer" parent="UIMargin"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="TopSection" type="HBoxContainer" parent="UIMargin/FullUI"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
+mouse_filter = 2
 
-[node name="Label" type="Label" parent="UIMargin/FullUI/TopSection"]
-layout_mode = 2
-text = "X/X XXX XX"
-
-[node name="VSeparator" type="VSeparator" parent="UIMargin/FullUI/TopSection"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UIMargin/FullUI/TopSection"]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="UIMargin/FullUI/TopSection/HBoxContainer"]
-custom_minimum_size = Vector2(60, 0)
+[node name="StateLabel" type="Label" parent="UIMargin/FullUI/TopSection"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="UIMargin/FullUI/TopSection/HBoxContainer/AspectRatioContainer"]
-layout_mode = 2
-
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="UIMargin/FullUI/TopSection/HBoxContainer"]
-custom_minimum_size = Vector2(60, 0)
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="UIMargin/FullUI/TopSection/HBoxContainer/AspectRatioContainer2"]
+[node name="TurnLabel" type="Label" parent="UIMargin/FullUI/TopSection"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="TransparentSeparator" type="HSeparator" parent="UIMargin/FullUI"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="BotomBackground" type="PanelContainer" parent="UIMargin/FullUI"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="BotomSection" type="HBoxContainer" parent="UIMargin/FullUI/BotomBackground"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="AbilityButtons" type="HBoxContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons"]
 layout_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer"]
+[node name="AbilityButton1" type="TextureButton" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("2_rj8ld")
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons"]
 layout_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer2"]
+[node name="AbilityButton2" type="TextureButton" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("3_ugwti")
 
 [node name="Information" type="VBoxContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection"]
 layout_mode = 2
+mouse_filter = 2
+
+[node name="CharacterUIContainer" type="Control" parent="."]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="pressed" from="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer/AbilityButton1" to="." method="_on_ability_button_1_pressed"]
+[connection signal="pressed" from="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer2/AbilityButton2" to="." method="_on_ability_button_2_pressed"]

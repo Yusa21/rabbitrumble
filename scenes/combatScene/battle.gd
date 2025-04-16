@@ -5,7 +5,10 @@ class_name Battle
 ##Recibe los personajes que tiene que estar involucrados en el combate y incializa el combate
 ##instanciando las escenas de los personajes necesarios y aportando los datos necesarios 
 @onready var battle_manager
+@onready var combat_ui
 @onready var formations_manager
+@onready var player_team_container
+@onready var enemy_team_container
 
 ##Constantes para evitar datos sin explicar en mitad del codigo
 const player_char_path = "res://scenes/characters/player/player_character.tscn"
@@ -26,6 +29,10 @@ func start_battle(player_chars, enemy_chars):
 	#Inicializa los nodos hijos
 	battle_manager = get_node("BattleManager")
 	formations_manager = get_node("FormationManager")
+	combat_ui = get_node("CanvasLayer/CombatUI")
+	player_team_container = get_node("PlayerTeamContainer")
+	enemy_team_container = get_node("EnemyTeamContainer")
+	
 	if battle_manager == null:
 		push_error("BattleManager node not found! Make sure it's a child node named 'BattleManager'")
 		return
@@ -46,7 +53,7 @@ func start_battle(player_chars, enemy_chars):
 		if new_character != null:
 			id+=1
 			char_position+=1
-			add_child(new_character)  # Add to scene tree directly instead of turn_queue
+			player_team_container.add_child(new_character)  # Add to scene tree directly instead of turn_queue
 			player_team.push_front(new_character) 
 		else:
 			print("Something went wrong, skipping character with id:" + char_id)
@@ -59,7 +66,7 @@ func start_battle(player_chars, enemy_chars):
 		if new_character:
 			id+=1
 			char_position+=1
-			add_child(new_character)  # Add to scene tree directly instead of turn_queue
+			enemy_team_container.add_child(new_character)  # Add to scene tree directly instead of turn_queue
 			enemy_team.push_front(new_character)
 		else:
 			print("Something went wrong, skipping character with id:" + char_id)
@@ -72,6 +79,8 @@ func start_battle(player_chars, enemy_chars):
 	
 	# Initialize battle manager
 	battle_manager.initialize(player_team, enemy_team)
+	combat_ui.initialize(battle_manager)
+	
 	
 
 	

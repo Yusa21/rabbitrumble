@@ -3,5 +3,5 @@ class_name PrintTestEffect
 
 func execute(user, ability, targets):
 	for target in targets:
-		print(target.position)
+		print(target)
 	return true
