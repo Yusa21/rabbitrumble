@@ -17,6 +17,7 @@ var character_ui_elements = {}
 @onready var turn_label = get_node("%TurnLabel")
 @onready var character_ui_container = get_node("%CharacterUIContainer")
 @onready var ability_information = get_node("%AbilityInformationUI")
+@onready var turn_order_display = get_node("%TurnOrderDisplay")
 
 func _ready():
 	# Al principio desactiva los botones
@@ -45,6 +46,12 @@ func initialize(manager: BattleManager):
 	
 	# Connect click events for all characters
 	_connect_character_click_events()
+	
+	# Initialize turn order display
+	if turn_order_display:
+		turn_order_display.initialize(battle_manager)
+	else:
+		print("Warning: Turn order display not found in scene")
 	
 	# Debug - print initial state
 	print("Initial battle state: ", BattleManager.BattleState.keys()[battle_manager.current_state])
@@ -393,6 +400,11 @@ func _execute_current_ability(targets):
 		print("Ability execution complete")
 		current_character.emit_end_turn()
 
+#Cuando los cambios de velocidad acurran, se tiene que llamar a esto
+func _turn_order_changed():
+	if turn_order_display:
+		turn_order_display.handle_turn_order_changed()
+		
 # Handle right-click for canceling targeting mode
 func _input(event):
 	if targeting_mode:
