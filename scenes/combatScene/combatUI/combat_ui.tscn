@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://fd3yk1rhccrb"]
 
-[ext_resource type="Script" uid="uid://drkw847rhmuws" path="res://scenes/combatUI/combat_ui.gd" id="1_2twv5"]
-[ext_resource type="PackedScene" uid="uid://bsu1vuvwd1mwq" path="res://scenes/combatUI/turn_order_display.tscn" id="2_3j1iq"]
+[ext_resource type="Script" uid="uid://drkw847rhmuws" path="res://scenes/combatScene/combatUI/combat_ui.gd" id="1_2twv5"]
+[ext_resource type="PackedScene" uid="uid://bsu1vuvwd1mwq" path="res://scenes/combatScene/combatUI/components/turnOrderDisplay/turn_order_display.tscn" id="2_3j1iq"]
 [ext_resource type="Texture2D" uid="uid://dcbpc1u02lv60" path="res://assets/menu/button/number_1.png" id="2_rj8ld"]
 [ext_resource type="Texture2D" uid="uid://b3ir5d468xrny" path="res://assets/menu/button/number_2.png" id="3_ugwti"]
-[ext_resource type="PackedScene" uid="uid://pt623vjaymv5" path="res://scenes/combatUI/ability_information_ui.tscn" id="4_ugwti"]
+[ext_resource type="PackedScene" uid="uid://pt623vjaymv5" path="res://scenes/combatScene/combatUI/components/abiltyPanel/ability_information_ui.tscn" id="4_ugwti"]
 
 [node name="CombatUI" type="Control"]
 layout_mode = 3

@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bmbhegyeid52l"]
 
-[ext_resource type="Script" uid="uid://c1hlo5bigln6x" path="res://scenes/combatScene/turn_queue.gd" id="1_hwuu1"]
-[ext_resource type="Script" uid="uid://lvjg7lppcv2u" path="res://scenes/combatScene/battle.gd" id="1_x7kyd"]
-[ext_resource type="PackedScene" uid="uid://fd3yk1rhccrb" path="res://scenes/combatUI/combat_ui.tscn" id="3_4k4p4"]
-[ext_resource type="Script" uid="uid://bscr7u06uktpa" path="res://scenes/combatScene/formation_manager.gd" id="3_lvam6"]
+[ext_resource type="Script" uid="uid://c1hlo5bigln6x" path="res://scenes/combatScene/combatLogic/turn_queue.gd" id="1_hwuu1"]
+[ext_resource type="Script" uid="uid://lvjg7lppcv2u" path="res://scenes/combatScene/combatLogic/battle_initializer.gd" id="1_x7kyd"]
+[ext_resource type="PackedScene" uid="uid://fd3yk1rhccrb" path="res://scenes/combatScene/combatUI/combat_ui.tscn" id="3_4k4p4"]
+[ext_resource type="Script" uid="uid://bscr7u06uktpa" path="res://scenes/combatScene/combatLogic/formation_manager.gd" id="3_lvam6"]
 
 [node name="BattleInitializer" type="Node"]
 script = ExtResource("1_x7kyd")

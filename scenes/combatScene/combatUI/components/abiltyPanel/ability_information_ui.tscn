@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://pt623vjaymv5"]
 
-[ext_resource type="Script" uid="uid://dayvbdg23jint" path="res://scenes/combatUI/ability_information_ui.gd" id="1_ivdoa"]
+[ext_resource type="Script" uid="uid://dayvbdg23jint" path="res://scenes/combatScene/combatUI/components/abiltyPanel/ability_information_ui.gd" id="1_ivdoa"]
 
 [node name="AbilityInformationUI" type="Control"]
 layout_mode = 3

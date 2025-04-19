@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dnxfvk8s8ufop"]
 
-[ext_resource type="Script" uid="uid://d14hjkwxprfen" path="res://scenes/characters/base_character.gd" id="1_xktx3"]
+[ext_resource type="Script" uid="uid://d14hjkwxprfen" path="res://scenes/combatScene/characters/base_character.gd" id="1_xktx3"]
 [ext_resource type="Texture2D" uid="uid://b7iccpsbjijvv" path="res://assets/sprites/characters/testDummy_idle.png" id="2_u1txu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_832rb"]

@@ -14,23 +14,24 @@ class_name BaseCharacter
 ##Formations manager para que los personajes puedan aparecer en pantalla en los lugares correctos
 var formations_manager = null
 
-const min_position = 1 ##La posicion minima donde pueden estar los personajes siempre es la misma, para eviat numeros magicos
-const max_position = 4 ##Igual con la posicion maxima
+##Bus de eventos
+var event_bus = null
+
 
 #Estadisiticas que luego se cargan
-var id ##Id de la INSTANCIA especifica de personaje
-var alignment ##A que equipo pertenece el personaje, se le da valor en las subclases
-var char_name ##Nombre del personaje
-var max_hp ##Salud maxima
-var current_hp ##Salud actual
-var atk ##Ataque del personaje
-var def ##Defensa del personaje
-var speed ##Velocidad del personaje
-var abilities = [] ## Habilidades que el personaje tiene disponibles
-var char_position ##Posicion que ocupa el personaje dentro de su equipo
+var id: int ##Id de la INSTANCIA especifica de personaje
+var alignment: BattleConstants.Alignment ##A que equipo pertenece el personaje, se le da valor en las subclases
+var char_name: String ##Nombre del personaje
+var max_hp: int ##Salud maxima
+var current_hp: int ##Salud actual
+var atk: int ##Ataque del personaje
+var def: int ##Defensa del personaje
+var speed: int ##Velocidad del personaje
+var abilities: Array[AbilityData] ## Habilidades que el personaje tiene disponibles
+var char_position: int ##Posicion que ocupa el personaje dentro de su equipo
 var has_taken_turn: bool = false ##Marca si el personaje a comenzado el turno
-var ally_team = [] ##Guarda el equipo entero del personaje
-var opps_team = [] ##Guarda el equipo entero oponente del personaje
+var ally_team: Array[BaseCharacter] ##Guarda el equipo entero del personaje
+var opps_team: Array[BaseCharacter] ##Guarda el equipo entero oponente del personaje
 var is_defeated: bool = false
 
 var is_highlighted = false
@@ -38,14 +39,6 @@ var normal_modulate = Color(1, 1, 1, 1)
 var highlight_modulate = Color(1.2, 1.2, 0.8, 1)
 var defeated_modulate = Color(1.2,0.8,1.2,1)
 
-signal stats_changed() # For HP/status updates
-signal health_changed(current_health, max_health)
-signal status_effect_added(effect)
-signal status_effect_removed(effect_id)
-signal character_defeated(character)
-signal character_moved(character)
-signal ability_used(ability, targets)
-signal clicked(character)
 
 #TODO DEBUG
 #func _ready():
@@ -57,12 +50,14 @@ Codigo de inicializacion
 '''
 ##Crea una escena de personaje usando el id del recurso a usar el id para identificarlo en combate
 ##tambien recibe el id que tiene que tener marcado para indentificarlo en el combate y su posicion inicial
-func initialize_character(char_data_id: String, new_id: int, char_pos: int):
+func initialize_character(char_data_id: String, new_id: int, char_pos: int, battle_event_bus: BattleEventBus):
 	#Inicializa los nodos hijos
 	sprite = get_node("Sprite2D")
 	animationPlayer = get_node("AnimationPlayer")
 	area2D = get_node("Area2D")
 	statusEffects = get_node("StatusEffects")
+
+	event_bus = battle_event_bus
 	
 	#Llama al repositorio de personajes para cargar sus datos
 	var character = CharacterRepo.load_character_data_by_id(char_data_id)
@@ -93,7 +88,7 @@ func set_teams(new_ally_team: Array, new_opps_team: Array):
 	return true
 	
 ##Se llama desde las clases hija para poner el alineamiento del personaje
-func set_alignment(new_alignment: String):
+func set_alignment(new_alignment: BattleConstants.Alignment):
 	alignment = new_alignment
 
 ##Debug only	
@@ -110,15 +105,15 @@ func print_character_stats():
 Codigo del combate
 '''
 ##Saca busca todos los triggers de fase en las habilidades de los personajes
-func get_phase_triggered_abilities(phase_trigger):
+func get_phase_triggered_abilities(phase_trigger: BattleConstants.TriggerPhase):
 	var triggered_abilities = []
 	for ability in abilities:
-		if ability.is_phase_triggered and ability.trigger_phase == phase_trigger:
+		if ability.TriggerPhase == phase_trigger:
 			triggered_abilities.append(ability)
 	return triggered_abilities
 
 ##TODO comprueba que la habilidad se pueda ejecutar, debería comprobar cooldowns, posicion y cosas por el estilo
-func can_use_ability(ability):
+func can_use_ability(_ability):
 	return true
 
 ##Si es una habilidad que no se elige objetivo para que se elija de forma automatica
@@ -129,16 +124,17 @@ func automatic_targeting(ability):
 	var self_targeting = false
 	
 	# Then check target type
-	if ability.target_type.ends_with("opp"):
-		get_opponent_positions()
-	elif ability.target_type.ends_with("ally"):
-		get_ally_positions()
-	elif ability.target_type == "self":
+	if ability.TargetType == BattleConstants.TargetType.SELF:
 		self_targeting = true
+	elif ability.TargetTeam == BattleConstants.TargetTeam.OPPONENT:
+		get_opponent_positions()
+	elif ability.TargetTeam == BattleConstants.TargetTeam.ALLY:
+		get_ally_positions()
+	
 		
 	if !self_targeting:
 		for pos in char_list:
-			if ability.target_position.has(pos):
+			if ability.get_target_positions.has(pos):
 				targets.append(char_list[pos])
 	else:
 		targets.push_front(self)
@@ -152,33 +148,27 @@ func start_turn():
 	return true
 
 ##Ejecuta la habilidad sabiendo a quien apunta
-func execute_ability(ability, targets: Array):
-	emit_signal("ability_used", ability, targets)	
+func execute_ability(ability: AbilityData, targets: Array [BaseCharacter]):
+	event_bus.emit_signal("ability_executed",self, ability, targets)	
 	# Activa los efectos en los objetivos, comprueba que no este vacio por si acaso
 	if !targets.is_empty():
 		for effect in ability.effects:
-			await effect.execute(self, ability.multiplier, targets)
-		
-		# Print del la vida del target, to rechulon porque escribe el equipo del que es
-		if targets.size() > 0:
-			var target_type = "Self" if targets[0] == self else ("Ally" if targets[0] in ally_team else "Enemy")
-			print(target_type + " health: " + str(targets[0].current_hp))
+			effect.execute(self, ability.multiplier, targets)
+
 	else:
-		print("Error- Targets is empty - This should be imposible")
+		push_error("Error- Targets is empty - This should be imposible")
 	
-	emit_signal("stats_changed")
-	return true
+	event_bus.emit_signal("stats_changed")
 
 ##Funcion para recibir dano, le llega la cantidad que tiene que recibir y el atacante
 ##TODO le faltaria triggers y cosas por el estilo
-func take_damage(dmg, attacker):
+func take_damage(dmg: int, _source):
 	current_hp -= dmg
 	if current_hp <= 0:
 		current_hp = 0
 		defeat()
-	emit_signal("stats_changed")
-	emit_signal("health_changed", current_hp, max_hp)
-	return true
+	event_bus.emit_signal("stats_changed")
+	event_bus.emit_signal("health_changed", current_hp, max_hp)
 
 # New function to handle character defeat
 func defeat():
@@ -188,31 +178,28 @@ func defeat():
 	is_defeated = true
 	print(char_name + " has been defeated!")
 	
-	# Visual indication
-	modulate = defeated_modulate
-	
 	# Signal defeat - will be processed by state machine at appropriate time
-	emit_signal("character_defeated", self)
+	event_bus.emit_signal("character_defeated", self)
 	return true
 
 ##Recibe curacion, recibe la cantidad a curar y el curador
-func take_healing(heal, healer):
+func take_healing(heal, _source):
 	current_hp += heal
 	if current_hp > max_hp:
 		current_hp = max_hp
 		
-	emit_signal("stats_changed")
-	emit_signal("health_changed", current_hp, max_hp)
+	event_bus.emit_signal("stats_changed")
+	event_bus.emit_signal("health_changed", current_hp, max_hp)
 	return true
 
 ##La usan los personajes para moverse, recibe la posicion incial, la posicion
 ##a la que tiene que ir y quien lo ha movido
-func moving(starting_position, final_position, mover):
+func moving(starting_position, final_position, _source):
 	#Corrige que el objetivo no se salga de las posiciones posibles
-	if final_position > max_position:
-		final_position = max_position
-	elif final_position < min_position:
-		final_position = min_position
+	if final_position > BattleConstants.max_formation_position:
+		final_position = BattleConstants.max_formation_position
+	elif final_position < BattleConstants.min_formation_position:
+		final_position = BattleConstants.min_formation_position
 		
 	#TODO pongo que si la posicion inicial y la final son la misma se corta antes de tiempo
 		
@@ -246,15 +233,13 @@ func moving(starting_position, final_position, mover):
 			#Busca quien esta en una posicion a corregir
 			allies_positions.find_key(absolute_vector-i).moving_correction(side_correction) 
 				
-	emit_signal("position_changed")
-	emit_signal("stats_changed")			
-	return true
+	event_bus.emit_signal("stats_changed")
+	event_bus.emit_signal("character_moved",self)			
 	
 ##Esta funcion se usa cuando los personajes estan haciendo espacio para otro, tiene menos
 ##comprobaciones porque la funcion de moverse larga ya se encarga de eso
 func moving_correction(step: int):
 	self.char_position += step
-	return true
 	
 ##Funcion que devuelve un array con los aliados en la posicion correcta ordenada
 func get_ally_positions():
@@ -273,8 +258,8 @@ func get_opponent_positions():
 	return char_list
 
 ##TODO ni idea de que poner aquí aun
-func add_status(status, dealer):
-	return true
+func add_status(_status, _source):
+	pass
 	
 '''
 Codigo para feedback visual
@@ -286,7 +271,6 @@ func set_formations_manager(manager):
 func update_position():
 	if formations_manager != null:
 		global_position = formations_manager.get_new_position(alignment, char_position)
-		emit_signal("character_moved", self)
 
 # Highlight function
 func highlight(enable: bool):
@@ -296,7 +280,7 @@ func highlight(enable: bool):
 	else:
 		modulate = normal_modulate
 
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int):
+func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		emit_signal("clicked", self)
+		event_bus.emit_signal("clicked", self)
 		get_viewport().set_input_as_handled()  # Prevent event from propagating

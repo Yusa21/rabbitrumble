@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://qvnrvli6owa5"]
 
-[ext_resource type="Script" uid="uid://dwgvo7gp3qiur" path="res://scenes/combatUI/turn_indicator.gd" id="1_1vgsm"]
+[ext_resource type="Script" uid="uid://dwgvo7gp3qiur" path="res://scenes/combatScene/combatUI/components/turnOrderDisplay/turn_indicator.gd" id="1_1vgsm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1vgsm"]
 corner_radius_top_left = 5

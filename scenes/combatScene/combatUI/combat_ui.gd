@@ -8,7 +8,7 @@ var selected_ability = null
 var selected_targets = []
 var targeting_mode = false
 
-var character_ui_scene = preload("res://scenes/combatUI/character_status_ui.tscn")
+var character_ui_scene = preload("res://scenes/combatScene/combatUI/components/characterStatusUI/character_status_ui.tscn")
 var character_ui_elements = {} 
 
 @onready var state_label = get_node("%StateLabel")

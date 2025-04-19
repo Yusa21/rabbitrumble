@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn3enxn0uw6q2"]
+
+[ext_resource type="PackedScene" uid="uid://dnxfvk8s8ufop" path="res://scenes/combatScene/characters/BaseCharacter.tscn" id="1_s0dnl"]
+[ext_resource type="Script" uid="uid://dqulvf0pj1bvy" path="res://scenes/combatScene/characters/player/player_character.gd" id="2_ajk8a"]
+
+[node name="PlayerCharacter" instance=ExtResource("1_s0dnl")]
+script = ExtResource("2_ajk8a")
