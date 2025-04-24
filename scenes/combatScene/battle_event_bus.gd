@@ -30,6 +30,7 @@ signal end_turn(player_character)
 # Ability events
 signal ability_selected(character, ability)
 signal ability_targeting_started(character, ability)
+signal ability_target_chosen(ability, targets)
 signal ability_targeting_cancelled(character, ability)
 signal ability_executed(character, ability, targets)
 signal ability_effect_applied(target, effect, value)
@@ -37,4 +38,4 @@ signal ability_effect_applied(target, effect, value)
 # UI events
 signal ui_element_clicked(element_name, element_data)
 signal targeting_mode_changed(is_targeting)
-signal turn_order_changed
+signal turn_order_changed(turn_queue, active_char, unacted_chars)

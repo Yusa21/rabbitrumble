@@ -47,8 +47,8 @@ func update_health_bar(current_health: int, max_health: int):
 func _on_character_health_changed(current_health: int, max_health: int):
 	update_health_bar(current_health, max_health)
 
-func _on_status_effect_added(effect):
+func _on_status_effect_added(_effect):
 	pass
 
-func _on_status_effect_removed(effect_id):
+func _on_status_effect_removed(_effect_id):
 	pass

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://qvnrvli6owa5"]
 
-[ext_resource type="Script" uid="uid://dwgvo7gp3qiur" path="res://scenes/combatScene/combatUI/components/turnOrderDisplay/turn_indicator.gd" id="1_1vgsm"]
+[ext_resource type="Script" uid="uid://dwgvo7gp3qiur" path="res://scenes/combatScene/combatUI/components/turnOrderDisplay/indicator/turn_indicator.gd" id="1_1vgsm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1vgsm"]
 corner_radius_top_left = 5
@@ -17,6 +17,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_1vgsm")
 script = ExtResource("1_1vgsm")
 
 [node name="CharacterName" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 22.3333

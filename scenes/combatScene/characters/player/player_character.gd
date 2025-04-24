@@ -18,11 +18,11 @@ func start_turn():
 	print("With team " + str(ally_team[0].alignment))
 	print("Turn started, waiting for player actions")
 	
-	await event_bus.end_turn
+	await battle_event_bus.end_turn
 	
 	return true
 
 func emit_end_turn():
-	event_bus.emit_signal("end_turn", self)
+	battle_event_bus.emit_signal("end_turn", self)
 	print("Turn player turn ended")
 	return true

@@ -31,7 +31,7 @@ enum Alignment{
 
 #Estado del combate/fases del combate
 enum BattleState {
-	INIT,
+	BATTLE_START,
 	ROUND_START,
 	PRE_TURN,
 	MAIN_TURN,

@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://fd3yk1rhccrb"]
+[gd_scene load_steps=11 format=3 uid="uid://fd3yk1rhccrb"]
 
 [ext_resource type="Script" uid="uid://drkw847rhmuws" path="res://scenes/combatScene/combatUI/combat_ui.gd" id="1_2twv5"]
 [ext_resource type="PackedScene" uid="uid://bsu1vuvwd1mwq" path="res://scenes/combatScene/combatUI/components/turnOrderDisplay/turn_order_display.tscn" id="2_3j1iq"]
-[ext_resource type="Texture2D" uid="uid://dcbpc1u02lv60" path="res://assets/menu/button/number_1.png" id="2_rj8ld"]
-[ext_resource type="Texture2D" uid="uid://b3ir5d468xrny" path="res://assets/menu/button/number_2.png" id="3_ugwti"]
+[ext_resource type="PackedScene" uid="uid://bs2agg3e07axg" path="res://scenes/combatScene/combatUI/components/turnDisplay/turn_display_component.tscn" id="2_ac2tt"]
+[ext_resource type="Script" uid="uid://b1gxgvcf5hhcx" path="res://scenes/combatScene/combatUI/components/turnDisplay/turn_display_component.gd" id="3_3xocs"]
 [ext_resource type="PackedScene" uid="uid://pt623vjaymv5" path="res://scenes/combatScene/combatUI/components/abiltyPanel/ability_information_ui.tscn" id="4_ugwti"]
+[ext_resource type="PackedScene" uid="uid://dwfdr5cpdhfdn" path="res://scenes/combatScene/combatUI/components/abilityButtons/ability_buttons_component.tscn" id="5_3ysl1"]
+[ext_resource type="PackedScene" uid="uid://y2t74dyvfsr8" path="res://scenes/combatScene/combatUI/components/characterStatusContainer/character_ui_container.tscn" id="7_4xxcj"]
+[ext_resource type="Script" uid="uid://d0i8w4e0xfqac" path="res://scenes/combatScene/combatUI/components/characterStatusContainer/character_ui_container.gd" id="8_rdqgw"]
+[ext_resource type="PackedScene" uid="uid://bwk7xikghvlhb" path="res://scenes/combatScene/combatUI/components/targetingSystemComponent/targeting_system_component.tscn" id="9_1y0jt"]
+[ext_resource type="Script" uid="uid://ddti4w5hiac56" path="res://scenes/combatScene/combatUI/components/targetingSystemComponent/targeting_system_component.gd" id="10_fbja8"]
 
 [node name="CombatUI" type="Control"]
 layout_mode = 3
@@ -36,13 +41,10 @@ size_flags_vertical = 2
 size_flags_stretch_ratio = 0.1
 mouse_filter = 2
 
-[node name="StateLabel" type="Label" parent="UIMargin/FullUI/TopSection"]
+[node name="TurnDisplayComponent" parent="UIMargin/FullUI/TopSection" instance=ExtResource("2_ac2tt")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="TurnLabel" type="Label" parent="UIMargin/FullUI/TopSection"]
-unique_name_in_owner = true
-layout_mode = 2
+script = ExtResource("3_3xocs")
 
 [node name="TurnOrderDisplay" parent="UIMargin/FullUI/TopSection" instance=ExtResource("2_3j1iq")]
 unique_name_in_owner = true
@@ -64,27 +66,8 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 2
 
-[node name="AbilityButtons" type="HBoxContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection"]
+[node name="AbilityButtons" parent="UIMargin/FullUI/BotomBackground/BotomSection" instance=ExtResource("5_3ysl1")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons"]
-layout_mode = 2
-
-[node name="AbilityButton1" type="TextureButton" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-texture_normal = ExtResource("2_rj8ld")
-
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons"]
-layout_mode = 2
-
-[node name="AbilityButton2" type="TextureButton" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-texture_normal = ExtResource("3_ugwti")
 
 [node name="VSeparator" type="VSeparator" parent="UIMargin/FullUI/BotomBackground/BotomSection"]
 layout_mode = 2
@@ -95,11 +78,10 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CharacterUIContainer" type="Control" parent="."]
+[node name="CharacterUIContainer" parent="." instance=ExtResource("7_4xxcj")]
 unique_name_in_owner = true
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+script = ExtResource("8_rdqgw")
 
-[connection signal="pressed" from="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer/AbilityButton1" to="." method="_on_ability_button_1_pressed"]
-[connection signal="pressed" from="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer2/AbilityButton2" to="." method="_on_ability_button_2_pressed"]
+[node name="TargetingSystem" parent="." instance=ExtResource("9_1y0jt")]
+unique_name_in_owner = true
+script = ExtResource("10_fbja8")

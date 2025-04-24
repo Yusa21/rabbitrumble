@@ -57,16 +57,17 @@ func start_battle(player_chars, enemy_chars):
 			enemy_team_container.add_child(new_character)  # Add to scene tree directly instead of turn_queue
 			enemy_team.push_front(new_character)
 		else:
-			print("Something went wrong, skipping character with id:" + char_id)
+			push_error("Something went wrong, skipping character with id:" + char_id)
 	
 	# Connect signals
 	_connect_battle_signals()
 	
 	'''
 	AQUI TIENES QUE PASAR EL BATTLE BUS TAMBIEN
+	ESTO DEBERIA INICIALIZAR LAS PARTES DE LA UI POR SEPARADO
 	'''
 	# TODO AQUI 
-	battle_manager.initialize(player_team, enemy_team)
+	battle_manager.initialize(player_team, enemy_team, battle_event_bus)
 	combat_ui.initialize(battle_manager)
 	
 	

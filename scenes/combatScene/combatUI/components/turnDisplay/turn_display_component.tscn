@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bs2agg3e07axg"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="StateLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = -14.0
+offset_top = -1.0
+offset_right = -13.0
+offset_bottom = 21.3333
+
+[node name="TurnLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = -9.0
+offset_top = -1.0
+offset_right = -8.0
+offset_bottom = 21.3333

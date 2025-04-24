@@ -15,7 +15,7 @@ class_name BaseCharacter
 var formations_manager = null
 
 ##Bus de eventos
-var event_bus = null
+var battle_event_bus: BattleEventBus
 
 
 #Estadisiticas que luego se cargan
@@ -30,8 +30,8 @@ var speed: int ##Velocidad del personaje
 var abilities: Array[AbilityData] ## Habilidades que el personaje tiene disponibles
 var char_position: int ##Posicion que ocupa el personaje dentro de su equipo
 var has_taken_turn: bool = false ##Marca si el personaje a comenzado el turno
-var ally_team: Array[BaseCharacter] ##Guarda el equipo entero del personaje
-var opps_team: Array[BaseCharacter] ##Guarda el equipo entero oponente del personaje
+var ally_team: Array ##Guarda el equipo entero del personaje
+var opps_team: Array ##Guarda el equipo entero oponente del personaje
 var is_defeated: bool = false
 
 var is_highlighted = false
@@ -57,7 +57,7 @@ func initialize_character(char_data_id: String, new_id: int, char_pos: int, batt
 	area2D = get_node("Area2D")
 	statusEffects = get_node("StatusEffects")
 
-	event_bus = battle_event_bus
+	battle_event_bus = battle_event_bus
 	
 	#Llama al repositorio de personajes para cargar sus datos
 	var character = CharacterRepo.load_character_data_by_id(char_data_id)
@@ -149,7 +149,7 @@ func start_turn():
 
 ##Ejecuta la habilidad sabiendo a quien apunta
 func execute_ability(ability: AbilityData, targets: Array [BaseCharacter]):
-	event_bus.emit_signal("ability_executed",self, ability, targets)	
+	battle_event_bus.emit_signal("ability_executed",self, ability, targets)	
 	# Activa los efectos en los objetivos, comprueba que no este vacio por si acaso
 	if !targets.is_empty():
 		for effect in ability.effects:
@@ -158,7 +158,7 @@ func execute_ability(ability: AbilityData, targets: Array [BaseCharacter]):
 	else:
 		push_error("Error- Targets is empty - This should be imposible")
 	
-	event_bus.emit_signal("stats_changed")
+	battle_event_bus.emit_signal("stats_changed")
 
 ##Funcion para recibir dano, le llega la cantidad que tiene que recibir y el atacante
 ##TODO le faltaria triggers y cosas por el estilo
@@ -167,8 +167,8 @@ func take_damage(dmg: int, _source):
 	if current_hp <= 0:
 		current_hp = 0
 		defeat()
-	event_bus.emit_signal("stats_changed")
-	event_bus.emit_signal("health_changed", current_hp, max_hp)
+	battle_event_bus.emit_signal("stats_changed")
+	battle_event_bus.emit_signal("health_changed", current_hp, max_hp)
 
 # New function to handle character defeat
 func defeat():
@@ -179,7 +179,7 @@ func defeat():
 	print(char_name + " has been defeated!")
 	
 	# Signal defeat - will be processed by state machine at appropriate time
-	event_bus.emit_signal("character_defeated", self)
+	battle_event_bus.emit_signal("character_defeated", self)
 	return true
 
 ##Recibe curacion, recibe la cantidad a curar y el curador
@@ -188,8 +188,8 @@ func take_healing(heal, _source):
 	if current_hp > max_hp:
 		current_hp = max_hp
 		
-	event_bus.emit_signal("stats_changed")
-	event_bus.emit_signal("health_changed", current_hp, max_hp)
+	battle_event_bus.emit_signal("stats_changed")
+	battle_event_bus.emit_signal("health_changed", current_hp, max_hp)
 	return true
 
 ##La usan los personajes para moverse, recibe la posicion incial, la posicion
@@ -233,8 +233,8 @@ func moving(starting_position, final_position, _source):
 			#Busca quien esta en una posicion a corregir
 			allies_positions.find_key(absolute_vector-i).moving_correction(side_correction) 
 				
-	event_bus.emit_signal("stats_changed")
-	event_bus.emit_signal("character_moved",self)			
+	battle_event_bus.emit_signal("stats_changed")
+	battle_event_bus.emit_signal("character_moved",self)			
 	
 ##Esta funcion se usa cuando los personajes estan haciendo espacio para otro, tiene menos
 ##comprobaciones porque la funcion de moverse larga ya se encarga de eso
@@ -251,7 +251,7 @@ func get_ally_positions():
 	
 ##Funcion que devuelve un array con los enemigos en la posicion correcta ordenada
 func get_opponent_positions():
-	#Busca si algun aliado comparte la misma posicion
+	#Busca si algun oponente comparte la misma posicion
 	var char_list = {} 
 	for opp in opps_team:
 		char_list.set(opp.char_position, opp)
@@ -282,5 +282,5 @@ func highlight(enable: bool):
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		event_bus.emit_signal("clicked", self)
+		battle_event_bus.emit_signal("clicked", self)
 		get_viewport().set_input_as_handled()  # Prevent event from propagating

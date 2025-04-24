@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwfdr5cpdhfdn"]
+
+[ext_resource type="Texture2D" uid="uid://dcbpc1u02lv60" path="res://assets/menu/button/number_1.png" id="1_mxvff"]
+[ext_resource type="Texture2D" uid="uid://b3ir5d468xrny" path="res://assets/menu/button/number_2.png" id="2_gfie5"]
+
+[node name="AbilityButtons" type="HBoxContainer"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 2
+
+[node name="AbilityButton1" type="TextureButton" parent="AspectRatioContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("1_mxvff")
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="."]
+layout_mode = 2
+
+[node name="AbilityButton2" type="TextureButton" parent="AspectRatioContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("2_gfie5")

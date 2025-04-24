@@ -3,7 +3,7 @@ class_name TurnIndicator
 
 # UI elements
 #@onready var character_icon = get_node("CharacterIcon")
-@onready var character_name = get_node("CharacterName")
+@onready var character_name = %CharacterName
 
 func initialize(character: BaseCharacter):
 	# Update visuals
