@@ -5,7 +5,7 @@ class_name BattleInitializer
 ##Recibe los personajes que tiene que estar involucrados en el combate y incializa el combate
 ##instanciando las escenas de los personajes necesarios y aportando los datos necesarios 
 @onready var battle_manager: BattleManager = get_node("BattleManager")
-@onready var combat_ui: BattleUIController = get_node("CanvasLayer/CombatUI")
+@onready var combat_ui: BattleUI = get_node("CanvasLayer/CombatUI")
 @onready var player_team_container: Node2D = get_node("PlayerTeamContainer")
 @onready var enemy_team_container: Node2D = get_node("EnemyTeamContainer")
 @onready var formations_manager: FormationsManager = FormationsManager.new()
@@ -64,11 +64,10 @@ func start_battle(player_chars, enemy_chars):
 	
 	'''
 	AQUI TIENES QUE PASAR EL BATTLE BUS TAMBIEN
-	ESTO DEBERIA INICIALIZAR LAS PARTES DE LA UI POR SEPARADO
 	'''
 	# TODO AQUI 
 	battle_manager.initialize(player_team, enemy_team, battle_event_bus)
-	combat_ui.initialize(battle_manager)
+	combat_ui.initialize(battle_manager, battle_event_bus)
 	
 	
 

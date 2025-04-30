@@ -5,22 +5,21 @@ class_name CharacterStatusUI
 @onready var char_name_label = get_node("%NameLabel")
 @onready var status_effects_container = get_node("%StatusEffect")
 
-var character_ref: BaseCharacter = null
+var character_ref = null
+var battle_event_bus: BattleEventBus
 
-func initialize(character: BaseCharacter):
+func initialize(character, bus: BattleEventBus):
+	battle_event_bus = bus
 	character_ref = character
 	char_name_label.text = character.char_name
 	update_health_bar(character.current_hp, character.max_hp)
 	
 	# Connect to character signals
-	character.health_changed.connect(_on_character_health_changed)
-	character.status_effect_added.connect(_on_status_effect_added)
-	character.status_effect_removed.connect(_on_status_effect_removed)
-	character.character_moved.connect(_on_character_moved)
+	battle_event_bus.health_changed.connect(_on_character_health_changed)
+	battle_event_bus.status_effect_added.connect(_on_status_effect_added)
+	battle_event_bus.status_effect_removed.connect(_on_status_effect_removed)
+	battle_event_bus.character_moved.connect(_on_character_moved)
 	# Position the UI initially
-	update_position()
-
-func _on_character_moved():
 	update_position()
 
 func update_position():
@@ -43,10 +42,16 @@ func update_health_bar(current_health: int, max_health: int):
 	else:
 		health_bar.modulate = Color(0, 1, 0)  # Green when high
 
-# Signal handlers remain the same
-func _on_character_health_changed(current_health: int, max_health: int):
-	update_health_bar(current_health, max_health)
 
+func _on_character_moved(character):
+	if(character == character_ref):
+		update_position()
+		
+# Signal handlers remain the same
+func _on_character_health_changed(character, current_health: int, max_health: int):
+	if (character == character_ref):
+		update_health_bar(current_health, max_health)
+	
 func _on_status_effect_added(_effect):
 	pass
 

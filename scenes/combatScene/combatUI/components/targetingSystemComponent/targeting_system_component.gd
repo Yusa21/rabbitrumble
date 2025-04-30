@@ -28,7 +28,7 @@ func activate():
         _highlight_possible_targets()
         
         # Auto-select targets for multi-target abilities
-        if selected_ability.target_type == "multiple_opps" or selected_ability.target_type == "multiple_allies":
+        if selected_ability.target_type == BattleConstants.TargetType.MULTIPLE:
             _auto_select_all_targets()
             
             # Execute immediately for multi-target abilities
@@ -36,7 +36,7 @@ func activate():
                 _execute_ability()
             else:
                 _cancel_targeting()
-        elif selected_ability.target_type == "self":
+        elif selected_ability.target_type == BattleConstants.TargetType.SELF:
             # Auto-select self for self-targeting abilities
             selected_targets = [current_character]
             _execute_ability()
@@ -56,28 +56,28 @@ func _on_character_clicked(character):
         _execute_ability()
 
 func _highlight_possible_targets():
-    var highlight_pos = selected_ability.target_position
+    var highlight_pos = selected_ability.get_target_positons()
     
-    if selected_ability.target_type == "single_opp" || selected_ability.target_type == "multiple_opps":
+    if selected_ability.target_type == BattleConstants.TargetTeam.OPPONENT:
         for opp in current_character.opps_team:
             if opp.char_position in highlight_pos:
                 opp.highlight(true)
-    elif selected_ability.target_type == "single_ally" || selected_ability.target_type == "multiple_allies":
+    elif selected_ability.target_type == BattleConstants.TargetTeam.ALLY:
         for ally in current_character.ally_team:
             if ally.char_position in highlight_pos:
                 ally.highlight(true)
-    elif selected_ability.target_type == "self":
+    elif selected_ability.target_type == BattleConstants.TargetType.SELF:
         current_character.highlight(true)
 
 func _auto_select_all_targets():
     selected_targets.clear()
     var target_positions = selected_ability.target_position
     
-    if selected_ability.target_type == "multiple_opps":
+    if selected_ability.target_type == BattleConstants.TargetTeam.OPPONENT:
         for opp in current_character.opps_team:
             if opp.char_position in target_positions:
                 selected_targets.append(opp)
-    elif selected_ability.target_type == "multiple_allies":
+    elif selected_ability.target_type == BattleConstants.TargetTeam.ALLY:
         for ally in current_character.ally_team:
             if ally.char_position in target_positions:
                 selected_targets.append(ally)
@@ -88,11 +88,11 @@ func _is_valid_target(character, ability):
         return false
         
     # Then check target type
-    if ability.target_type.ends_with("opp") and character in current_character.opps_team:
+    if ability.target_team == BattleConstants.TargetTeam.OPPONENT and character in current_character.opps_team:
         return true
-    elif ability.target_type.ends_with("ally") and character in current_character.ally_team:
+    elif ability.target_team == BattleConstants.TargetTeam.ALLY and character in current_character.ally_team:
         return true
-    elif ability.target_type == "self" and character == current_character:
+    elif ability.target_type == BattleConstants.TargetType.SELF and character == current_character:
         return true
         
     return false

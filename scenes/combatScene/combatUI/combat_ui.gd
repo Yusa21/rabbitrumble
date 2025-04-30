@@ -38,10 +38,7 @@ func initialize(battle_manager, bus: BattleEventBus):
     ability_panel.initialize(event_bus)
     targeting_system.initialize(event_bus)
     turn_order_display.initialize(battle_manager)
-	character_status_container.initialize(event_bus, battle_manager.participants)
-    
-    # Create character status elements
-    _create_character_status_elements(battle_manager.participants)
+    character_status_container.initialize(event_bus, battle_manager.participants)
     
     # Start in IDLE state
     _change_ui_state(UIState.IDLE)
@@ -72,19 +69,13 @@ func _change_ui_state(new_state):
             ability_panel.deactivate()
             targeting_system.deactivate()
 
-func _create_character_status_elements(participants):
-    for character in participants:
-        var status_ui = CharacterStatusComponent.instantiate()
-        character_status_container.add_child(status_ui)
-        status_ui.initialize(character, event_bus)
-
 # Event handlers
 func _on_battle_state_changed(from_state, to_state):
     # Handle global battle state changes if needed
     pass
     
 func _on_pre_turn(character):
-    if character.alignment == "player":
+    if character.alignment == BattleConstants.Alignment.PLAYER:
         _change_ui_state(UIState.PLAYER_TURN)
     else:
         _change_ui_state(UIState.ENEMY_TURN)

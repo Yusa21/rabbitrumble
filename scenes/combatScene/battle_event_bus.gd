@@ -13,7 +13,7 @@ signal battle_end(winner)
 
 # Senales de personajes
 signal stats_changed() # For HP/status updates
-signal health_changed(current_health, max_health)
+signal health_changed(character, current_health, max_health)
 signal character_damaged(character, amount, source)
 signal character_healed(character, amount, source)
 signal status_effect_added(character, effect, source)
