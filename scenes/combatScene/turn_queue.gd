@@ -13,6 +13,9 @@ enum BattleState {
 	BATTLE_END
 }
 
+# Event Bus reference
+var event_bus: BattleEventBus
+
 # Current state
 var current_state: BattleState = BattleState.INIT
 
@@ -27,18 +30,9 @@ var defeat_queue = []
 const GLOBAL_TRIGGERS = ["battle_start", "battle_end", "round_start", "round_end"]
 const TURN_TRIGGERS = ["pre_turn", "main_turn", "post_turn"]
 
-# Signals
-signal state_changed(from_state, to_state)
-signal pre_turn(participant)
-signal main_turn(participant)
-signal post_turn(participant)
-signal round_start
-signal round_end
-signal battle_start
-signal battle_end(winner)
-
-# Initialize the battle with teams
-func initialize(p_team: Array, e_team: Array):
+# Initialize the battle with teams and event bus
+func initialize(p_team: Array, e_team: Array, bus: BattleEventBus):
+	event_bus = bus
 	player_team = p_team
 	enemy_team = e_team
 	participants = player_team + enemy_team
@@ -47,15 +41,14 @@ func initialize(p_team: Array, e_team: Array):
 	for player in player_team:
 		player.ally_team = player_team
 		player.opps_team = enemy_team
-		player.character_defeated.connect(_on_character_defeated)
 		player.update_position()
 	
 	for enemy in enemy_team:
 		enemy.ally_team = enemy_team
 		enemy.opps_team = player_team
-		enemy.character_defeated.connect(_on_character_defeated)
 		enemy.update_position()
 	
+	event_bus.character_defeated.connect(_on_character_defeated)
 	# Sort participants by speed
 	participants.sort_custom(func(a, b): return a.speed > b.speed)
 	
@@ -66,22 +59,31 @@ func initialize(p_team: Array, e_team: Array):
 func change_state(new_state: BattleState):
 	var old_state = current_state
 	current_state = new_state
-	emit_signal("state_changed", old_state, new_state)
+	
+	# Emit state change event via bus (You may want to add this signal to the bus)
+	if event_bus:
+		event_bus.emit_signal("state_changed", old_state, new_state)
 	
 	# Emit the appropriate signals based on state
 	match new_state:
 		BattleState.INIT:
-			emit_signal("battle_start")
+			if event_bus:
+				event_bus.emit_signal("battle_start")
 		BattleState.ROUND_START:
-			emit_signal("round_start")
+			if event_bus:
+				event_bus.emit_signal("round_start")
 		BattleState.PRE_TURN:
-			emit_signal("pre_turn", active_character)
+			if event_bus:
+				event_bus.emit_signal("pre_turn", active_character)
 		BattleState.MAIN_TURN:
-			emit_signal("main_turn", active_character)
+			if event_bus:
+				event_bus.emit_signal("main_turn", active_character)
 		BattleState.POST_TURN:
-			emit_signal("post_turn", active_character)
+			if event_bus:
+				event_bus.emit_signal("post_turn", active_character)
 		BattleState.ROUND_END:
-			emit_signal("round_end")
+			if event_bus:
+				event_bus.emit_signal("round_end")
 	
 	# Process the new state
 	match new_state:
@@ -125,20 +127,17 @@ func process_round_start():
 		change_state(BattleState.BATTLE_END)
 
 func process_pre_turn():
-	# Fix: Use string formatting properly
 	print(str(active_character.char_name) + "'s turn (pre)")
 	await process_phase_abilities("pre_turn")
 	change_state(BattleState.MAIN_TURN)
 
 func process_main_turn():
-	# Fix: Use string formatting properly
 	print(str(active_character.char_name) + "'s turn (main)")
 	await active_character.start_turn()
 	active_character.has_taken_turn = true
 	change_state(BattleState.POST_TURN)
 
 func process_post_turn():
-	# Fix: Use string formatting properly
 	print(str(active_character.char_name) + "'s turn (post)")
 	await process_phase_abilities("post_turn")
 	
@@ -166,7 +165,6 @@ func process_round_end():
 func process_character_defeated():
 	while defeat_queue.size() > 0:
 		var defeated = defeat_queue.pop_front()
-		# Fix: Use string formatting properly
 		print(str(defeated.char_name) + " has been defeated")
 		
 		# Remove from appropriate teams and participants list
@@ -195,10 +193,11 @@ func process_battle_end():
 	else:
 		winner = "enemy"
 	
-	# Fix: Use string formatting properly
 	print("Battle ended! Winner: " + winner)
 	await process_phase_abilities("battle_end")
-	emit_signal("battle_end", winner)
+	
+	if event_bus:
+		event_bus.emit_signal("battle_end", winner)
 
 # Process phase abilities
 func process_phase_abilities(phase_trigger):
@@ -288,7 +287,6 @@ func is_ally(character1, character2):
 
 # Signal handler for character defeat
 func _on_character_defeated(character):
-	# Fix: Use string formatting properly
 	print(str(character.char_name) + " signal defeated")
 	# Add to defeat queue to be processed at appropriate time
 	if !defeat_queue.has(character):

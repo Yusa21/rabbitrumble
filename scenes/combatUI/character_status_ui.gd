@@ -6,49 +6,54 @@ class_name CharacterStatusUI
 @onready var status_effects_container = get_node("%StatusEffect")
 
 var character_ref: BaseCharacter = null
+var battle_event_bus
 
-func initialize(character: BaseCharacter):
+func initialize(character: BaseCharacter, event_bus):
 	character_ref = character
+	battle_event_bus = event_bus
+
 	char_name_label.text = character.char_name
 	update_health_bar(character.current_hp, character.max_hp)
-	
-	# Connect to character signals
-	character.health_changed.connect(_on_character_health_changed)
-	character.status_effect_added.connect(_on_status_effect_added)
-	character.status_effect_removed.connect(_on_status_effect_removed)
-	character.character_moved.connect(_on_character_moved)
-	# Position the UI initially
+
+	# Connect to event bus instead of directly to character
+	battle_event_bus.health_changed.connect(_on_character_health_changed)
+	battle_event_bus.status_effect_applied.connect(_on_status_effect_added)
+	battle_event_bus.status_effect_removed.connect(_on_status_effect_removed)
+	battle_event_bus.character_moved.connect(_on_character_moved)
+
 	update_position()
 
-func _on_character_moved():
-	update_position()
+func _on_character_moved(moved_character):
+	if moved_character == character_ref:
+		update_position()
 
 func update_position():
-	# Get the character's position in global coordinates
 	if character_ref and is_instance_valid(character_ref):
 		var char_global_pos = character_ref.global_position
-		# Convert to UI coordinates and add offset
 		global_position = char_global_pos
 
 func update_health_bar(current_health: int, max_health: int):
 	health_bar.max_value = max_health
 	health_bar.value = current_health
-	
-	# Optional: Color the health bar based on percentage
+
 	var health_percent = float(current_health) / max_health
 	if health_percent < 0.25:
-		health_bar.modulate = Color(1, 0, 0)  # Red when low
+		health_bar.modulate = Color(1, 0, 0)
 	elif health_percent < 0.5:
-		health_bar.modulate = Color(1, 1, 0)  # Yellow when medium
+		health_bar.modulate = Color(1, 1, 0)
 	else:
-		health_bar.modulate = Color(0, 1, 0)  # Green when high
+		health_bar.modulate = Color(0, 1, 0)
 
-# Signal handlers remain the same
-func _on_character_health_changed(current_health: int, max_health: int):
-	update_health_bar(current_health, max_health)
+func _on_character_health_changed(character, current_health: int, max_health: int):
+	if character == character_ref:
+		update_health_bar(current_health, max_health)
 
-func _on_status_effect_added(effect):
-	pass
+func _on_status_effect_added(character, effect):
+	if character == character_ref:
+		# Add visual indicator or update UI here
+		pass
 
-func _on_status_effect_removed(effect_id):
-	pass
+func _on_status_effect_removed(character, effect_id):
+	if character == character_ref:
+		# Remove visual indicator or update UI here
+		pass

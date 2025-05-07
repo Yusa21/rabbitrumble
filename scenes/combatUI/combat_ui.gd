@@ -11,6 +11,8 @@ var targeting_mode = false
 var character_ui_scene = preload("res://scenes/combatUI/character_status_ui.tscn")
 var character_ui_elements = {} 
 
+var battle_bus: BattleEventBus
+
 @onready var state_label = get_node("%StateLabel")
 @onready var ability_button_1 = get_node("%AbilityButton1")
 @onready var ability_button_2 = get_node("%AbilityButton2")
@@ -30,68 +32,45 @@ func _ready():
 	# Set up input handling for right click
 	set_process_input(true)
 
-func initialize(manager: BattleManager):
+func initialize(manager: BattleManager, bus: BattleEventBus):
 	battle_manager = manager
+	battle_bus = bus
 	print("BattleUIController initialized with battle manager: ", battle_manager)
-	
-	# Connect to battle manager signals
-	battle_manager.state_changed.connect(_on_battle_state_changed)
-	battle_manager.pre_turn.connect(_on_pre_turn)
-	battle_manager.main_turn.connect(_on_main_turn)
-	battle_manager.post_turn.connect(_on_post_turn)
-	battle_manager.round_start.connect(_on_round_start)
-	battle_manager.round_end.connect(_on_round_end)
-	battle_manager.battle_start.connect(_on_battle_start)
-	battle_manager.battle_end.connect(_on_battle_end)
-	
-	# Connect click events for all characters
-	_connect_character_click_events()
-	
-	# Initialize turn order display
+
+	# Connect to event bus signals
+	battle_bus.state_changed.connect(_on_battle_state_changed)
+	battle_bus.pre_turn.connect(_on_pre_turn)
+	battle_bus.main_turn.connect(_on_main_turn)
+	battle_bus.post_turn.connect(_on_post_turn)
+	battle_bus.round_start.connect(_on_round_start)
+	battle_bus.round_end.connect(_on_round_end)
+	battle_bus.battle_start.connect(_on_battle_start)
+	battle_bus.battle_end.connect(_on_battle_end)
+	battle_bus.character_clicked.connect(_on_character_clicked)
+
+	# Initialize turn order display with event bus
 	if turn_order_display:
-		turn_order_display.initialize(battle_manager)
+		turn_order_display.initialize(battle_manager, battle_bus)
 	else:
 		print("Warning: Turn order display not found in scene")
-	
-	# Debug - print initial state
+
 	print("Initial battle state: ", BattleManager.BattleState.keys()[battle_manager.current_state])
-	
-	# Set initial state label
 	_update_state_label(battle_manager.current_state, battle_manager.current_state)
-	
-	# Force update to ensure UI reflects current state
 	_force_update_ui_for_current_state()
 	_create_character_ui_elements()
-
-# Connect click handlers to all characters
-func _connect_character_click_events():
-	print("Connecting character click events. Participants count: ", battle_manager.participants.size())
-	for character in battle_manager.participants:
-		if character != null:
-			if character.has_signal("clicked"):
-				character.clicked.connect(_on_character_clicked)
-				print("Connected click event for character: ", character.char_name)
-			else:
-				print("Warning: Character ", character.char_name, " doesn't have 'clicked' signal")
 
 func _create_character_ui_elements():
 	# Clear any existing UI elements first
 	for ui in character_ui_elements.values():
 		ui.queue_free()
 	character_ui_elements.clear()
-	
-	# Create new UI elements for each character
+
 	for character in battle_manager.participants:
 		if character != null:
 			var ui_instance = character_ui_scene.instantiate()
 			character_ui_container.add_child(ui_instance)
-			
-			# Initialize the UI with character data
-			ui_instance.initialize(character)
-			
-			# Store reference
+			ui_instance.initialize(character, battle_bus) # <- Pass bus
 			character_ui_elements[character] = ui_instance
-			
 			print("Created UI for character: ", character.char_name)
 
 func _on_battle_state_changed(from_state, to_state):

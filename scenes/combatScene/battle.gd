@@ -18,6 +18,8 @@ const enemy_char_path = "res://scenes/characters/enemy/enemy_character.tscn"
 var player_team = []
 var enemy_team = []
 
+var battle_event_bus: BattleEventBus
+
 func _ready():
 	#TODO debug
 	var players = ["testDummy","testDummy","testDummy","testDummy"]
@@ -32,6 +34,9 @@ func start_battle(player_chars, enemy_chars):
 	combat_ui = get_node("CanvasLayer/CombatUI")
 	player_team_container = get_node("PlayerTeamContainer")
 	enemy_team_container = get_node("EnemyTeamContainer")
+	
+	# Initialize the event bus
+	battle_event_bus = BattleEventBus.new()
 	
 	if battle_manager == null:
 		push_error("BattleManager node not found! Make sure it's a child node named 'BattleManager'")
@@ -74,12 +79,12 @@ func start_battle(player_chars, enemy_chars):
 	# Make sure all characters have required properties
 	ensure_character_properties()
 	
-	# Connect signals
+	# Connect appropriate signals to the event bus
 	_connect_battle_signals()
 	
-	# Initialize battle manager
-	battle_manager.initialize(player_team, enemy_team)
-	combat_ui.initialize(battle_manager)
+	# Initialize battle manager with the event bus
+	battle_manager.initialize(player_team, enemy_team, battle_event_bus)
+	combat_ui.initialize(battle_manager, battle_event_bus)
 	
 	
 
@@ -96,6 +101,10 @@ func create_character_from_data(character_data_id, fight_id, scene_path, char_po
 	if character_scene.initialize_character(character_data_id, fight_id, char_position) != null:
 		#Anade el FormationManager para que los personajes puedan saber su posicion
 		character_scene.set_formations_manager(formations_manager)
+		
+		# Initialize the character with the event bus
+		character_scene.initialize_with_event_bus(battle_event_bus)
+		
 		return character_scene
 	else:
 		print("Error atempting to load character data with id: " + character_data_id + " doesn't exist")
@@ -116,13 +125,19 @@ func ensure_character_properties():
 			if not "char_name" in character:
 				character.char_name = "Unknown"  # Default name
 
-# Connect to BattleManager signals
+# Connect to BattleManager signals via event bus
 func _connect_battle_signals():
-	if battle_manager == null:
+	if battle_event_bus == null:
+		push_error("Event bus not initialized!")
 		return
 		
-	if not battle_manager.is_connected("battle_end", _on_battle_end):
-		battle_manager.battle_end.connect(_on_battle_end)
+	# Connect to the event bus battle_end signal
+	battle_event_bus.battle_end.connect(_on_battle_end)
+
+# This method is no longer needed as characters connect to the event bus themselves
+# Keeping as a stub for backward compatibility during transition if needed
+func _connect_character_signals(character):
+	pass
 	
 func _on_battle_end(winner):
 	# Handle battle end
