@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bsu1vuvwd1mwq"]
 
-[ext_resource type="Script" uid="uid://0nav4ek475w5" path="res://scenes/combatUI/turn_order_display.gd" id="1_h4ehl"]
+[ext_resource type="Script" uid="uid://0nav4ek475w5" path="res://scenes/combatUI/turnOrderComponent/turn_order_display.gd" id="1_h4ehl"]
 
 [node name="TurnOrderDisplay" type="HBoxContainer"]
 anchors_preset = 15

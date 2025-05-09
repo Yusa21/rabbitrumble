@@ -52,6 +52,7 @@ func initialize(p_team: Array, e_team: Array, bus: BattleEventBus):
 	# Sort participants by speed
 	participants.sort_custom(func(a, b): return a.speed > b.speed)
 	
+	await event_bus.ui_initialized
 	# Start the battle
 	change_state(BattleState.INIT)
 

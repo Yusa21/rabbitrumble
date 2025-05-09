@@ -8,24 +8,17 @@ var selected_ability = null
 var selected_targets = []
 var targeting_mode = false
 
-var character_ui_scene = preload("res://scenes/combatUI/character_status_ui.tscn")
+var character_ui_scene = preload("charactersUIComponent/character_status_ui.tscn")
 var character_ui_elements = {} 
 
 var battle_bus: BattleEventBus
 
-@onready var state_label = get_node("%StateLabel")
-@onready var ability_button_1 = get_node("%AbilityButton1")
-@onready var ability_button_2 = get_node("%AbilityButton2")
-@onready var turn_label = get_node("%TurnLabel")
+@onready var battle_state_display = get_node("%BattleStateDisplay")
 @onready var character_ui_container = get_node("%CharacterUIContainer")
-@onready var ability_information = get_node("%AbilityInformationUI")
+@onready var ability_panel = get_node("%AbilityPanel")
 @onready var turn_order_display = get_node("%TurnOrderDisplay")
 
 func _ready():
-	# Al principio desactiva los botones
-	ability_button_1.disabled = true
-	ability_button_2.disabled = true
-	
 	# Debug print
 	print("BattleUIController ready")
 	
@@ -42,22 +35,32 @@ func initialize(manager: BattleManager, bus: BattleEventBus):
 	battle_bus.pre_turn.connect(_on_pre_turn)
 	battle_bus.main_turn.connect(_on_main_turn)
 	battle_bus.post_turn.connect(_on_post_turn)
-	battle_bus.round_start.connect(_on_round_start)
-	battle_bus.round_end.connect(_on_round_end)
-	battle_bus.battle_start.connect(_on_battle_start)
 	battle_bus.battle_end.connect(_on_battle_end)
 	battle_bus.character_clicked.connect(_on_character_clicked)
+	battle_bus.ability_selected.connect(_handle_ability_selection)
 
 	# Initialize turn order display with event bus
 	if turn_order_display:
 		turn_order_display.initialize(battle_manager, battle_bus)
 	else:
-		print("Warning: Turn order display not found in scene")
+		push_error("Warning: Turn order display not found in scene")
+		
+	if battle_state_display:
+		battle_state_display.initialize(battle_bus)
+	else:
+		push_error("Warning: Battle state display not found in scene")
+
+	if ability_panel:
+		ability_panel.initialize(battle_bus)
+	else:
+		push_error("Warning: Ability panel not found in scene")
+
 
 	print("Initial battle state: ", BattleManager.BattleState.keys()[battle_manager.current_state])
-	_update_state_label(battle_manager.current_state, battle_manager.current_state)
 	_force_update_ui_for_current_state()
 	_create_character_ui_elements()
+
+	battle_bus.emit_signal("ui_initialized")
 
 func _create_character_ui_elements():
 	# Clear any existing UI elements first
@@ -75,16 +78,10 @@ func _create_character_ui_elements():
 
 func _on_battle_state_changed(from_state, to_state):
 	print("Battle state changed: ", BattleManager.BattleState.keys()[from_state], " -> ", BattleManager.BattleState.keys()[to_state])
-	_update_state_label(from_state, to_state)
 	
 	# Reset highlighting when state changes (except from MAIN_TURN while targeting)
 	if from_state != BattleManager.BattleState.MAIN_TURN or not targeting_mode:
 		_reset_all_highlights()
-
-func _update_state_label(from_state, to_state):
-	var state_name = BattleManager.BattleState.keys()[to_state]
-	state_label.text = "Battle Phase: " + state_name
-	print("Updated state label to: ", state_label.text)
 
 # Force update UI based on current battle state
 func _force_update_ui_for_current_state():
@@ -93,36 +90,32 @@ func _force_update_ui_for_current_state():
 	
 	match current_state:
 		BattleManager.BattleState.INIT:
-			turn_label.text = "Battle Initializing..."
+			pass
 		BattleManager.BattleState.ROUND_START:
-			turn_label.text = "Round Starting"
+			pass
 		BattleManager.BattleState.PRE_TURN, BattleManager.BattleState.MAIN_TURN, BattleManager.BattleState.POST_TURN:
 			if battle_manager.active_character:
 				current_character = battle_manager.active_character
-				turn_label.text = current_character.char_name + "'s Turn"
 				
 				# Enable buttons for player character
 				var is_player_turn = current_character.alignment == "player"
-				ability_button_1.disabled = !is_player_turn
-				ability_button_2.disabled = !is_player_turn
+
 				
 				if is_player_turn:
 					_update_ability_buttons(current_character)
+
 		BattleManager.BattleState.ROUND_END:
-			turn_label.text = "Round Ending"
+			pass
 		BattleManager.BattleState.BATTLE_END:
-			turn_label.text = "Battle Ended"
+			pass
 
 # Turn signals handlers
 func _on_pre_turn(character):
 	print("Pre-turn for character: ", character.char_name)
 	current_character = character
-	turn_label.text = character.char_name + "'s Turn"
 	
 	# Disable ability buttons during AI turns
 	var is_player_turn = character.alignment == "player"
-	ability_button_1.disabled = !is_player_turn
-	ability_button_2.disabled = !is_player_turn
 	
 	# Update available abilities if it's a player character
 	if is_player_turn:
@@ -141,27 +134,10 @@ func _on_main_turn(character):
 func _on_post_turn(character):
 	print("Post turn for character: ", character.char_name)
 	# Clear current character reference after turn
-	ability_button_1.disabled = true
-	ability_button_2.disabled = true
 	_reset_all_highlights()
-
-func _on_round_start():
-	print("Round starting")
-	turn_label.text = "Round Starting"
-
-func _on_round_end():
-	print("Round ending")
-	turn_label.text = "Round Ending"
-
-func _on_battle_start():
-	print("Battle starting")
-	turn_label.text = "Battle Starting"
 
 func _on_battle_end(winner):
 	print("Battle ended. Winner: ", winner)
-	turn_label.text = "Battle Ended - " + winner.capitalize() + " Wins!"
-	ability_button_1.disabled = true
-	ability_button_2.disabled = true
 	_reset_all_highlights()
 
 # Update ability buttons based on current character
@@ -173,48 +149,23 @@ func _update_ability_buttons(character):
 	if abilities.size() > 0:
 		#Comprueba que el personaje este en una posicion donde se pueda usar la habilidad
 		if abilities[0].launch_position.has(character.char_position):
-			ability_button_1.disabled = false
 			print("Ability 1 enabled: ", abilities[0].name)
 		else:
-			ability_button_1.disabled = true
 			print("Ability 1 disabled due to position: ", abilities[0].name)
 	else:
-		ability_button_1.disabled = true
-		ability_button_1.text = "No Ability"
 		print("No ability 1 available")
 	
 	# Update button 2
 	if abilities.size() > 1:
 		#Comprueba que el personaje este en una posicion donde se pueda usar la habilidad
 		if abilities[1].launch_position.has(character.char_position):
-			ability_button_2.disabled = false
 			print("Ability 2 enabled: ", abilities[1].name)
 		else:
-			ability_button_2.disabled = true
 			print("Ability 2 disabled due to position: ", abilities[1].name)
 	else:
-		ability_button_2.disabled = true
-		ability_button_2.text = "No Ability"
 		print("No ability 2 available")
 		
-# Ability button handlers
-func _on_ability_button_1_pressed():
-	print("Ability button 1 pressed")
-	if current_character and battle_manager.current_state == BattleManager.BattleState.MAIN_TURN:
-		print("Handling ability 1 selection")
-		_handle_ability_selection(0)
-	else:
-		print("Ability 1 press ignored. Current state: ", BattleManager.BattleState.keys()[battle_manager.current_state])
-
-func _on_ability_button_2_pressed():
-	print("Ability button 2 pressed")
-	if current_character and battle_manager.current_state == BattleManager.BattleState.MAIN_TURN:
-		print("Handling ability 2 selection")
-		_handle_ability_selection(1)
-	else:
-		print("Ability 2 press ignored. Current state: ", BattleManager.BattleState.keys()[battle_manager.current_state])
-
-func _handle_ability_selection(ability_index):
+func _handle_ability_selection(ability_data, ability_index):
 	# Reset any previous targeting
 	_reset_all_highlights()
 	selected_targets.clear()
@@ -222,14 +173,12 @@ func _handle_ability_selection(ability_index):
 	# Get the abilities of the current character
 	var abilities = current_character.abilities
 	if ability_index < abilities.size():
-		selected_ability = abilities[ability_index]
-		_update_ability_information(selected_ability)
+		selected_ability = ability_data
 		print("Selected ability: ", selected_ability.name)
 		
 		# Enter targeting mode
 		targeting_mode = true
 		
-		turn_label.text = "Select target for " + selected_ability.name
 		_highlight_possible_targets(selected_ability)
 		
 		# If this is a multi-target ability, automatically select all valid targets
@@ -242,7 +191,6 @@ func _handle_ability_selection(ability_index):
 			else:
 				# No valid targets for multi-ability
 				_cancel_targeting()
-				turn_label.text = "No valid targets for " + selected_ability.name
 	else:
 		print("No ability at index ", ability_index)
 		# Ability doesn't need targets, execute immediately
@@ -306,9 +254,6 @@ func _cancel_targeting():
 	selected_ability = null
 	selected_targets.clear()
 	_reset_all_highlights()
-	
-	if current_character and current_character.alignment == "player":
-		turn_label.text = current_character.char_name + "'s Turn"
 
 # Handle character click events
 func _on_character_clicked(character):
@@ -354,8 +299,6 @@ func _is_valid_target(character, ability):
 	print("Target type mismatch")
 	return false
 
-func _update_ability_information(selected_ability: AbilityData):
-	ability_information.update_ability_information_ui(selected_ability)
 	
 # Execute the selected ability with targets
 func _execute_current_ability(targets):
@@ -370,19 +313,9 @@ func _execute_current_ability(targets):
 		selected_targets.clear()
 		_reset_all_highlights()
 		
-		# Update UI
-		turn_label.text = current_character.char_name + "'s Turn"
-		
 		# Disable buttons after ability use
-		ability_button_1.disabled = true
-		ability_button_2.disabled = true
 		print("Ability execution complete")
 		current_character.emit_end_turn()
-
-#Cuando los cambios de velocidad acurran, se tiene que llamar a esto
-func _turn_order_changed():
-	if turn_order_display:
-		turn_order_display.handle_turn_order_changed()
 		
 # Handle right-click for canceling targeting mode
 func _input(event):

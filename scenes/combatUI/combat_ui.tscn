@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://fd3yk1rhccrb"]
+[gd_scene load_steps=8 format=3 uid="uid://fd3yk1rhccrb"]
 
 [ext_resource type="Script" uid="uid://drkw847rhmuws" path="res://scenes/combatUI/combat_ui.gd" id="1_2twv5"]
-[ext_resource type="PackedScene" uid="uid://bsu1vuvwd1mwq" path="res://scenes/combatUI/turn_order_display.tscn" id="2_3j1iq"]
-[ext_resource type="Texture2D" uid="uid://dcbpc1u02lv60" path="res://assets/menu/button/number_1.png" id="2_rj8ld"]
-[ext_resource type="Texture2D" uid="uid://b3ir5d468xrny" path="res://assets/menu/button/number_2.png" id="3_ugwti"]
-[ext_resource type="PackedScene" uid="uid://pt623vjaymv5" path="res://scenes/combatUI/ability_information_ui.tscn" id="4_ugwti"]
+[ext_resource type="PackedScene" uid="uid://bsu1vuvwd1mwq" path="res://scenes/combatUI/turnOrderComponent/turn_order_display.tscn" id="2_3j1iq"]
+[ext_resource type="PackedScene" uid="uid://gmyn8nqy5skf" path="res://scenes/combatUI/labelComponent/battle_state_display.tscn" id="3_wklje"]
+[ext_resource type="Script" uid="uid://brsr18uss24kv" path="res://scenes/combatUI/labelComponent/battle_state_display.gd" id="4_2fjmf"]
+[ext_resource type="PackedScene" uid="uid://b113c6rif0cdd" path="res://scenes/combatUI/abilityInformationComponent/ability_panel.tscn" id="5_3j1iq"]
+[ext_resource type="Script" uid="uid://rwmviksxu5oy" path="res://scenes/combatUI/abilityInformationComponent/ability_panel.gd" id="6_p6ojb"]
+[ext_resource type="PackedScene" uid="uid://83p02rgfg0ay" path="res://scenes/combatUI/charactersUIComponent/character_ui_manager.tscn" id="7_wklje"]
 
 [node name="CombatUI" type="Control"]
 layout_mode = 3
@@ -36,13 +38,10 @@ size_flags_vertical = 2
 size_flags_stretch_ratio = 0.1
 mouse_filter = 2
 
-[node name="StateLabel" type="Label" parent="UIMargin/FullUI/TopSection"]
+[node name="BattleStateDisplay" parent="UIMargin/FullUI/TopSection" instance=ExtResource("3_wklje")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="TurnLabel" type="Label" parent="UIMargin/FullUI/TopSection"]
-unique_name_in_owner = true
-layout_mode = 2
+script = ExtResource("4_2fjmf")
 
 [node name="TurnOrderDisplay" parent="UIMargin/FullUI/TopSection" instance=ExtResource("2_3j1iq")]
 unique_name_in_owner = true
@@ -60,46 +59,10 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 mouse_filter = 2
 
-[node name="BotomSection" type="HBoxContainer" parent="UIMargin/FullUI/BotomBackground"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="AbilityButtons" type="HBoxContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons"]
-layout_mode = 2
-
-[node name="AbilityButton1" type="TextureButton" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer"]
+[node name="AbilityPanel" parent="UIMargin/FullUI/BotomBackground" instance=ExtResource("5_3j1iq")]
 unique_name_in_owner = true
 layout_mode = 2
-texture_normal = ExtResource("2_rj8ld")
+script = ExtResource("6_p6ojb")
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons"]
-layout_mode = 2
-
-[node name="AbilityButton2" type="TextureButton" parent="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer2"]
+[node name="CharacterUIContainer" parent="." instance=ExtResource("7_wklje")]
 unique_name_in_owner = true
-layout_mode = 2
-texture_normal = ExtResource("3_ugwti")
-
-[node name="VSeparator" type="VSeparator" parent="UIMargin/FullUI/BotomBackground/BotomSection"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="AbilityInformationUI" parent="UIMargin/FullUI/BotomBackground/BotomSection" instance=ExtResource("4_ugwti")]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="CharacterUIContainer" type="Control" parent="."]
-unique_name_in_owner = true
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[connection signal="pressed" from="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer/AbilityButton1" to="." method="_on_ability_button_1_pressed"]
-[connection signal="pressed" from="UIMargin/FullUI/BotomBackground/BotomSection/AbilityButtons/AspectRatioContainer2/AbilityButton2" to="." method="_on_ability_button_2_pressed"]

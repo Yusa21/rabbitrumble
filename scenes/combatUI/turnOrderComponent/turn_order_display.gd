@@ -1,7 +1,7 @@
 extends HBoxContainer
 class_name TurnOrderDisplay
 
-var turn_indicator_scene = preload("res://scenes/combatUI/turn_indicator.tscn")
+var turn_indicator_scene = preload("indicatorComponent/turn_indicator.tscn")
 var turn_indicators = []
 var max_future_turns = 4
 
@@ -61,6 +61,3 @@ func _on_round_start(): update_turn_order()
 func _on_post_turn(_character): update_turn_order()
 func _on_battle_start(): update_turn_order()
 func _on_battle_end(_winner): clear_turn_indicators()
-
-func handle_turn_order_changed():
-	update_turn_order()

@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://b113c6rif0cdd"]
+
+[ext_resource type="Texture2D" uid="uid://dcbpc1u02lv60" path="res://assets/menu/button/number_1.png" id="1_ufgnn"]
+[ext_resource type="Texture2D" uid="uid://b3ir5d468xrny" path="res://assets/menu/button/number_2.png" id="2_k3k5g"]
+[ext_resource type="PackedScene" uid="uid://pt623vjaymv5" path="res://scenes/combatUI/abilityInformationComponent/ability_information_ui.tscn" id="3_sgllw"]
+
+[node name="AbilityPanel" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AbilityButtons" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="AbilityButtons"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="AbilityButton1" type="TextureButton" parent="AbilityButtons/AspectRatioContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+texture_normal = ExtResource("1_ufgnn")
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="AbilityButtons"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="AbilityButton2" type="TextureButton" parent="AbilityButtons/AspectRatioContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+texture_normal = ExtResource("2_k3k5g")
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AbilityInformationUI" parent="." instance=ExtResource("3_sgllw")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3

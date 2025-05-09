@@ -1,6 +1,9 @@
 extends Resource
 class_name BattleEventBus
 
+# UI is done intializing signal
+signal ui_initialized()
+
 # Battle flow signals
 signal battle_start
 signal battle_end(winner)
@@ -30,3 +33,7 @@ signal status_effect_removed(character, effect_id)
 
 # Character highlighting signals
 signal character_highlight(character, enable)
+
+# Abilty UI signals
+signal ability_selected(ability_data, ability_index)
+signal ability_executed(ability_data, targets)
