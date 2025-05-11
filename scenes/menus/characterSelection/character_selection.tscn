@@ -67,9 +67,11 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.75
 
 [node name="PlayerTeamPreview" type="HBoxContainer" parent="UIMargin/UIContainer/RightSide"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
 size_flags_stretch_ratio = 2.0
+alignment = 2
 script = ExtResource("5_n0mw4")
 
 [node name="CharacterButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/PlayerTeamPreview"]

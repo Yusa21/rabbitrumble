@@ -1,6 +1,6 @@
 extends Node
 #---------------------USER DATA-------------------------------------------------------
-var unlocked_char_list = ["testDummy","testDummy","testDummy","testDummy","testDummy","testDummy2","testDummy2","testDummy2","testDummy2"]
+var unlocked_char_list = ["testDummy","testDummy2","p_c_003","p_c_004","p_c_005","p_c_006"]
 
 
 #----------------------STAGE INFORMATION---------------------------------------------

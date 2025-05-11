@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=5 format=3 uid="uid://r8y858kuruku"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_rae48"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="2_6hpka"]
+[ext_resource type="Script" uid="uid://be435sed4me66" path="res://scripts/resource_models/effects/damage_effect.gd" id="2_6wgay"]
+
+[sub_resource type="Resource" id="Resource_68rb3"]
+script = ExtResource("2_6wgay")
+metadata/_custom_type_script = "uid://be435sed4me66"
+
+[resource]
+script = ExtResource("2_6hpka")
+name = "Ability"
+description = "Description"
+target_type = "self"
+multiplier = 0.15
+effects = Array[ExtResource("1_rae48")]([SubResource("Resource_68rb3")])
+launch_position = Array[int]([1, 2, 3, 4])
+target_position = Array[int]([1, 2, 3, 4])
+cooldown = 0
+animation_name = "attack"
+is_phase_triggered = true
+trigger_phase = "pre_turn"
+trigger_on_self_turn = true
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"

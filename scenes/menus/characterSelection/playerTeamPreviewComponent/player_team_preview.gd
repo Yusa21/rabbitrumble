@@ -20,10 +20,6 @@ func initialize(bus):
 # Handle character right-click
 func _on_character_right_clicked(char_data):
     # Ensure we have a valid character_id
-    if not char_data.character_id != null:
-        push_error("Character data is missing character_id!")
-        return
-    
     var char_id = char_data.character_id
     
     # Check if this character is already selected
@@ -35,16 +31,7 @@ func _on_character_right_clicked(char_data):
     
     # If character is already selected, remove it
     if existing_index != -1:
-        # Remove from our tracking array
-        selected_characters.remove_at(existing_index)
-        
-        # Find and remove the corresponding button
-        for child in get_children():
-            if child != character_button and child.has_meta("character_data"):
-                var btn_char_data = child.get_meta("character_data")
-                if btn_char_data.character_id == char_id:
-                    child.queue_free()
-                    break
+        _remove_character(char_data)
         return
     
     # If not already selected and we're at max capacity, ignore
@@ -75,11 +62,7 @@ func add_character_button(char_data):
     # Store character data in the button
     new_button.set_meta("character_data", char_data)
     
-    # Connect right-click to remove
-    # You'll need to implement how to detect right-clicks on the button
-    # This depends on how your TextureButton is set up to handle input events
-    
-    # One approach: Connect to gui_input to detect right clicks
+    # Connect gui_input to detect right clicks
     new_button.gui_input.connect(func(event):
         if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
             _remove_character(char_data)
@@ -101,8 +84,13 @@ func _remove_character(char_data):
             selected_characters.remove_at(i)
             break
     
-    # Emit signal that character was removed (if you need this functionality)
-    event_bus.emit_signal("character_deselected", char_data)
+    # Find and remove the button from the UI
+    for child in get_children():
+        if child != character_button and child.has_meta("character_data"):
+            var btn_char_data = child.get_meta("character_data")
+            if btn_char_data.character_id == char_id:
+                child.queue_free()  # Remove the button from the scene
+                break
 
 # Emit character clicked signal
 func _emit_character_clicked(char_data):

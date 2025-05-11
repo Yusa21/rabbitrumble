@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=5 format=3 uid="uid://cmcmiecfbopmp"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_gg8pu"]
+[ext_resource type="Script" uid="uid://dv4sonawua3t6" path="res://scripts/resource_models/effects/healing_effect.gd" id="2_igp54"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="2_smfwg"]
+
+[sub_resource type="Resource" id="Resource_avjr5"]
+script = ExtResource("2_igp54")
+metadata/_custom_type_script = "uid://dv4sonawua3t6"
+
+[resource]
+script = ExtResource("2_smfwg")
+name = "Ability"
+description = "Description"
+target_type = "single_ally"
+multiplier = 1.0
+effects = Array[ExtResource("1_gg8pu")]([SubResource("Resource_avjr5")])
+launch_position = Array[int]([1, 2, 3, 4])
+target_position = Array[int]([1, 2, 3, 4])
+cooldown = 0
+animation_name = "attack"
+is_phase_triggered = false
+trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"
