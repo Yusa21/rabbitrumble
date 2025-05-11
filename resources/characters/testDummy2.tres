@@ -1,9 +1,7 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://d01lm2utcywtg"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://d01lm2utcywtg"]
 
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_ys0c1"]
 [ext_resource type="Resource" uid="uid://b7aqp3a4rajkw" path="res://resources/abilities/test_hit.tres" id="2_auh04"]
-[ext_resource type="Resource" uid="uid://b7s3vcgfwv2dm" path="res://resources/abilities/test_area_hit.tres" id="2_egunq"]
-[ext_resource type="Resource" uid="uid://buotjg2ydfya5" path="res://resources/abilities/phase_trigger_test.tres" id="3_egunq"]
 [ext_resource type="Texture2D" uid="uid://d2i485muxsl4s" path="res://assets/sprites/characters/testDummy2_idle.png" id="4_ys0c1"]
 [ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="5_bq7yr"]
 
@@ -11,10 +9,12 @@
 script = ExtResource("5_bq7yr")
 character_id = "testDummy2"
 character_name = "Oloong"
+character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
 max_hp = 900
 attack = 40
 defense = 2
 speed = 5
+character_icon = ExtResource("4_ys0c1")
 idle_sprite = ExtResource("4_ys0c1")
-abilities = Array[ExtResource("1_ys0c1")]([ExtResource("2_auh04"), ExtResource("2_egunq"), ExtResource("3_egunq")])
+abilities = Array[ExtResource("1_ys0c1")]([ExtResource("2_auh04")])
 metadata/_custom_type_script = "uid://c3msr806gkbc3"

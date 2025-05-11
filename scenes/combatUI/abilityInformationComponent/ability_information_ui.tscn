@@ -54,5 +54,5 @@ fit_content = true
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-text = "Description"
+text = "Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit, volutpat odio ut, scelerisque erat. Aliquam erat volutpat. Pellentesque ac semper mi"
 fit_content = true

@@ -11,10 +11,12 @@
 script = ExtResource("1_ltisk")
 character_id = "testDummy"
 character_name = "Kevin"
+character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
 max_hp = 40
 attack = 40
 defense = 2
 speed = 5
+character_icon = ExtResource("1_i4rv1")
 idle_sprite = ExtResource("1_i4rv1")
 abilities = Array[ExtResource("1_6q88y")]([ExtResource("2_hbmp4"), ExtResource("3_2bmep"), ExtResource("4_2bmep")])
 metadata/_custom_type_script = "uid://c3msr806gkbc3"

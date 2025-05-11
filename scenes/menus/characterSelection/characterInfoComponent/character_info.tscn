@@ -1,0 +1,145 @@
+[gd_scene load_steps=6 format=3 uid="uid://dw4rnrhjoi6kj"]
+
+[ext_resource type="Script" uid="uid://ceul6cto7r03g" path="res://scenes/menus/characterSelection/characterInfoComponent/character_info.gd" id="1_3yrqc"]
+[ext_resource type="Texture2D" uid="uid://b7iccpsbjijvv" path="res://assets/sprites/characters/testDummy_idle.png" id="1_71x57"]
+[ext_resource type="PackedScene" uid="uid://pt623vjaymv5" path="res://scenes/combatUI/abilityInformationComponent/ability_information_ui.tscn" id="2_3yrqc"]
+[ext_resource type="Script" uid="uid://hhmelp6a8h80" path="res://scenes/menus/characterSelection/characterInfoComponent/ability_list.gd" id="3_8mnvf"]
+[ext_resource type="Texture2D" uid="uid://dyql2eh7lhsok" path="res://assets/menu/button/test_icon.png" id="4_6jog8"]
+
+[node name="CharacterInfo" type="VBoxContainer"]
+offset_right = 562.0
+offset_bottom = 517.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.5
+script = ExtResource("1_3yrqc")
+
+[node name="CharName" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+text = "Example Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatsAndSprite" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="Stats" type="VBoxContainer" parent="StatsAndSprite"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="HPLine" type="HBoxContainer" parent="StatsAndSprite/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HPName" type="RichTextLabel" parent="StatsAndSprite/Stats/HPLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Enthusiasm"
+vertical_alignment = 1
+
+[node name="HPValue" type="RichTextLabel" parent="StatsAndSprite/Stats/HPLine"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "000"
+vertical_alignment = 1
+
+[node name="AtkLine" type="HBoxContainer" parent="StatsAndSprite/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AtkName" type="RichTextLabel" parent="StatsAndSprite/Stats/AtkLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Creativity
+"
+vertical_alignment = 1
+
+[node name="AtkValue" type="RichTextLabel" parent="StatsAndSprite/Stats/AtkLine"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "000"
+vertical_alignment = 1
+
+[node name="DefLine" type="HBoxContainer" parent="StatsAndSprite/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DefName" type="RichTextLabel" parent="StatsAndSprite/Stats/DefLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Self-Esteem"
+vertical_alignment = 1
+
+[node name="DefValue" type="RichTextLabel" parent="StatsAndSprite/Stats/DefLine"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "000"
+vertical_alignment = 1
+
+[node name="SpeedLine" type="HBoxContainer" parent="StatsAndSprite/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpeedName" type="RichTextLabel" parent="StatsAndSprite/Stats/SpeedLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quick Wits
+"
+vertical_alignment = 1
+
+[node name="SpeedValue" type="RichTextLabel" parent="StatsAndSprite/Stats/SpeedLine"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "000"
+vertical_alignment = 1
+
+[node name="CharDescription" type="RichTextLabel" parent="StatsAndSprite/Stats"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit, volutpat odio ut, scelerisque erat. Aliquam erat volutpat. Pellentesque ac semper mi"
+
+[node name="CharacterImage" type="TextureRect" parent="StatsAndSprite"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_71x57")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AbilityList" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+alignment = 1
+script = ExtResource("3_8mnvf")
+
+[node name="AbilityButton" type="TextureButton" parent="AbilityList"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture_normal = ExtResource("4_6jog8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="AbilityInformationUI" parent="." instance=ExtResource("2_3yrqc")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[connection signal="pressed" from="AbilityList/AbilityButton" to="AbilityList" method="_on_ability_button_pressed"]

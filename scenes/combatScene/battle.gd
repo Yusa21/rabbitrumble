@@ -21,10 +21,11 @@ var enemy_team = []
 var battle_event_bus: BattleEventBus
 
 func _ready():
-	#TODO debug
-	var players = ["testDummy","testDummy","testDummy","testDummy"]
-	var enemies = ["testDummy2","testDummy2","testDummy2","testDummy2"]
-	start_battle(players, enemies)
+	# Check if we have character data from the menu
+	if GameManager.selected_player_characters.size() > 0 and GameManager.selected_enemy_characters.size() > 0:
+		start_battle(GameManager.selected_player_characters, GameManager.selected_enemy_characters)
+	else:
+		push_error("Error: One of the teams is missing when trying to start the battle")
 
 ##Recibe dos arrrays con los id de los personajes que van a estar involucrados
 func start_battle(player_chars, enemy_chars):

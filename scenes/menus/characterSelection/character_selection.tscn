@@ -1,0 +1,99 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2nxm6hut36wv"]
+
+[ext_resource type="PackedScene" uid="uid://dw4rnrhjoi6kj" path="res://scenes/menus/characterSelection/characterInfoComponent/character_info.tscn" id="1_jiri0"]
+[ext_resource type="Script" uid="uid://bm4avyvtajbs8" path="res://scenes/menus/characterSelection/character_selection.gd" id="1_prrdb"]
+[ext_resource type="Script" uid="uid://48mgfj3pcqyq" path="res://scenes/menus/characterSelection/enemyTeamPreviewComponent/enemy_team_preview.gd" id="3_bdnlr"]
+[ext_resource type="Script" uid="uid://b6o8pqpwabvfj" path="res://scenes/menus/characterSelection/characterListComponent/character_list.gd" id="3_i8m77"]
+[ext_resource type="Texture2D" uid="uid://b7iccpsbjijvv" path="res://assets/sprites/characters/testDummy_idle.png" id="4_bdnlr"]
+[ext_resource type="Script" uid="uid://c20ady8sma232" path="res://scenes/menus/characterSelection/playerTeamPreviewComponent/player_team_preview.gd" id="5_n0mw4"]
+
+[node name="CharacterSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_prrdb")
+
+[node name="UIMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UIMargin"]
+layout_mode = 2
+
+[node name="UIContainer" type="HBoxContainer" parent="UIMargin"]
+layout_mode = 2
+
+[node name="LeftSide" type="VBoxContainer" parent="UIMargin/UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharacterInfo" parent="UIMargin/UIContainer/LeftSide" instance=ExtResource("1_jiri0")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EnemyTeamPreview" type="HBoxContainer" parent="UIMargin/UIContainer/LeftSide"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+script = ExtResource("3_bdnlr")
+
+[node name="CharacterButton" type="TextureButton" parent="UIMargin/UIContainer/LeftSide/EnemyTeamPreview"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = ExtResource("4_bdnlr")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="VSeparator" type="VSeparator" parent="UIMargin/UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="RightSide" type="VBoxContainer" parent="UIMargin/UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopRightOptions" type="HBoxContainer" parent="UIMargin/UIContainer/RightSide"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.75
+
+[node name="PlayerTeamPreview" type="HBoxContainer" parent="UIMargin/UIContainer/RightSide"]
+layout_mode = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.0
+script = ExtResource("5_n0mw4")
+
+[node name="CharacterButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/PlayerTeamPreview"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = ExtResource("4_bdnlr")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="CharacterList" type="GridContainer" parent="UIMargin/UIContainer/RightSide"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+columns = 5
+script = ExtResource("3_i8m77")
+
+[node name="CharacterButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/CharacterList"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = ExtResource("4_bdnlr")
+ignore_texture_size = true
+stretch_mode = 4
+
+[connection signal="pressed" from="UIMargin/UIContainer/LeftSide/EnemyTeamPreview/CharacterButton" to="UIMargin/UIContainer/LeftSide/EnemyTeamPreview" method="_on_character_button_pressed"]
+[connection signal="pressed" from="UIMargin/UIContainer/RightSide/PlayerTeamPreview/CharacterButton" to="UIMargin/UIContainer/RightSide/PlayerTeamPreview" method="_on_character_button_pressed"]
+[connection signal="pressed" from="UIMargin/UIContainer/RightSide/CharacterList/CharacterButton" to="UIMargin/UIContainer/RightSide/CharacterList" method="_on_character_button_pressed"]
