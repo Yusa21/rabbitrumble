@@ -16,6 +16,7 @@ func initialize(bus):
     event_bus = bus
     # Connect to the right-click signal
     event_bus.character_right_clicked.connect(_on_character_right_clicked)
+    event_bus.clear_button_clicked.connect(_on_clear_button_clicked)
 
 # Handle character right-click
 func _on_character_right_clicked(char_data):
@@ -41,6 +42,9 @@ func _on_character_right_clicked(char_data):
     # Add the character
     selected_characters.append(char_data)
     add_character_button(char_data)
+
+func _on_clear_button_clicked():
+    clear_selection()
 
 # Add a button for the character
 func add_character_button(char_data):

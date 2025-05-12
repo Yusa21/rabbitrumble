@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 CharacterRepo="*res://scripts/repositories/CharacterRepository.gd"
 GameManager="*res://scripts/singletons/game_manager.gd"
+StageRepo="*res://scripts/repositories/stage_repository.gd"
 
 [gui]
 

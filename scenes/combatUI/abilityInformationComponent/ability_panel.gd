@@ -90,7 +90,6 @@ func _update_ability_buttons(character):
 			print("Ability 1 disabled due to position:", abilities[0].name)
 	else:
 		ability_button_1.disabled = true
-		ability_button_1.text = "No Ability"
 		print("No ability 1 available")
 	
 	# Update button 2
@@ -105,7 +104,6 @@ func _update_ability_buttons(character):
 			print("Ability 2 disabled due to position:", abilities[1].name)
 	else:
 		ability_button_2.disabled = true
-		ability_button_2.text = "No Ability"
 		print("No ability 2 available")
 
 func _on_ability_button_1_pressed():

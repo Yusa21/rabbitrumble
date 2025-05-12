@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cgfys0mix6p3o"]
+
+[node name="StageSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="UIContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LeftSide" type="VBoxContainer" parent="MarginContainer/UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightSide" type="VBoxContainer" parent="MarginContainer/UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopRightOptions" type="HBoxContainer" parent="MarginContainer/UIContainer/RightSide"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StageInformation" type="VBoxContainer" parent="MarginContainer/UIContainer/RightSide"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.0

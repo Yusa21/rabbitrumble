@@ -4,3 +4,6 @@ class_name CharacterSelectionBus
 signal character_clicked(character)
 signal character_right_clicked(character)
 signal ability_clicked(ability)
+signal clear_button_clicked
+signal start_button_clicked
+signal back_button_clicked
