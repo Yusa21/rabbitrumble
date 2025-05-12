@@ -1,7 +1,7 @@
 extends Node
 #---------------------USER DATA-------------------------------------------------------
 var unlocked_char_list = ["testDummy","testDummy2","p_c_003","p_c_004","p_c_005","p_c_006"]
-var unlocked_stage_list = []
+var unlocked_stage_list = ["test_stage"]
 var completed_stage_list = []
 
 

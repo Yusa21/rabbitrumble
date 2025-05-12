@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StageData" load_steps=2 format=3 uid="uid://34ukpxxe1ut4"]
+
+[ext_resource type="Script" uid="uid://dislvogsap4ag" path="res://scripts/resource_models/stages/stage_data.gd" id="1_3oii8"]
+
+[resource]
+script = ExtResource("1_3oii8")
+id = "test_stage"
+name = "Testing testing"
+number = 0
+description = "If this is working properly this should show"
+enemies = Array[String](["testDummy", "testDummy", "testDummy", "testDummy"])
+reward = ""
+metadata/_custom_type_script = "uid://dislvogsap4ag"
