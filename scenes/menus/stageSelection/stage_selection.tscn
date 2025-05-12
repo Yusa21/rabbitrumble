@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgfys0mix6p3o"]
+[gd_scene load_steps=4 format=3 uid="uid://cgfys0mix6p3o"]
 
 [ext_resource type="PackedScene" uid="uid://u86114strhxn" path="res://scenes/menus/stageSelection/stagePanel/stage_information.tscn" id="1_0ejd1"]
 [ext_resource type="Script" uid="uid://dyhfgoxxqogqj" path="res://scenes/menus/stageSelection/stage_selection.gd" id="1_70y1c"]
+[ext_resource type="PackedScene" uid="uid://bkj64jlbcgesg" path="res://scenes/menus/stageSelection/stageList/stage_list.tscn" id="2_jj88m"]
 
 [node name="StageSelection" type="Control"]
 layout_mode = 3
@@ -26,9 +27,9 @@ layout_mode = 2
 [node name="UIContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="LeftSide" type="VBoxContainer" parent="MarginContainer/UIContainer"]
+[node name="StageList" parent="MarginContainer/UIContainer" instance=ExtResource("2_jj88m")]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="RightSide" type="VBoxContainer" parent="MarginContainer/UIContainer"]
 layout_mode = 2
