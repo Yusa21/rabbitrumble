@@ -1,0 +1,5 @@
+extends Node
+class_name MainMenuBus
+
+signal start_button_clicked
+signal exit_button_clicked

@@ -5,7 +5,8 @@ var unlocked_stage_list = ["test_stage", "test_stage_2"]
 var completed_stage_list = ["test_stage"]
 
 #----------------------MAIN MENU TRANSITION-------------------------------------------
-
+func go_to_main_menu():
+    get_tree().change_scene_to_file("res://scenes/menus/mainMenu/main_menu.tscn")
 
 #----------------------STAGE SELECTION TRANSITION-------------------------------------
 func go_to_stage_select():

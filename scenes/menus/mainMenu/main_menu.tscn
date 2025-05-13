@@ -1,4 +1,8 @@
-[gd_scene format=3 uid="uid://cc31u1pyw88f0"]
+[gd_scene load_steps=4 format=3 uid="uid://cc31u1pyw88f0"]
+
+[ext_resource type="Script" uid="uid://csn5s8d2b66bx" path="res://scenes/menus/mainMenu/main_menu.gd" id="1_c4fbq"]
+[ext_resource type="Texture2D" uid="uid://dul5mvi43owju" path="res://assets/menu/sprites/images.png" id="1_ntpyp"]
+[ext_resource type="Script" uid="uid://cvfg3iucvrrw2" path="res://scenes/menus/mainMenu/mainSection/main_section.gd" id="2_kf8dr"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -7,3 +11,75 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_c4fbq")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UIContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftSide" type="VBoxContainer" parent="UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MainSection" type="VBoxContainer" parent="UIContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+script = ExtResource("2_kf8dr")
+
+[node name="TittleMargin" type="MarginContainer" parent="UIContainer/MainSection"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="TittleImage" type="TextureRect" parent="UIContainer/MainSection/TittleMargin"]
+layout_mode = 2
+texture = ExtResource("1_ntpyp")
+
+[node name="StartMargin" type="MarginContainer" parent="UIContainer/MainSection"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 25
+
+[node name="StartButton" type="Button" parent="UIContainer/MainSection/StartMargin"]
+layout_mode = 2
+text = "Start"
+
+[node name="ExitMargin" type="MarginContainer" parent="UIContainer/MainSection"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 25
+
+[node name="ExitButton" type="Button" parent="UIContainer/MainSection/ExitMargin"]
+layout_mode = 2
+text = "Exit game"
+
+[node name="RightSide" type="VBoxContainer" parent="UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="UIContainer/MainSection/StartMargin/StartButton" to="UIContainer/MainSection" method="_on_start_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainSection/ExitMargin/ExitButton" to="UIContainer/MainSection" method="_on_exit_button_pressed"]

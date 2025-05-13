@@ -39,8 +39,7 @@ func _on_start_button_clicked():
 	GameManager.go_to_character_select()
 
 func _on_back_button_clicked():
-	#TODO de aquí al menú principal
-	pass
+	GameManager.go_to_main_menu()
 
 func _on_stage_clicked(stage):
 	current_selected_stage = stage
