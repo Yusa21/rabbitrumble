@@ -52,14 +52,18 @@ func transition_to_battle():
 			var char_data = character.get_meta("character_data")
 			player_team.append(char_data["character_id"])
 
-	for character in enemy_team_preview_panel.get_children():
-		if character.has_meta("character_data"):
-			var char_data = character.get_meta("character_data")
-			enemy_team.append(char_data["character_id"])
+	#Si no hay al menos un personaje en el equipo jugador no puede empezar el combate
+	if player_team.size() <= 0:
+		return
+	else:
+		for character in enemy_team_preview_panel.get_children():
+			if character.has_meta("character_data"):
+				var char_data = character.get_meta("character_data")
+				enemy_team.append(char_data["character_id"])
 
-	GameManager.setup_battle(player_team,enemy_team)
-	GameManager.start_battle()
+		GameManager.setup_battle(player_team,enemy_team)
+		GameManager.start_battle()
 
 func transition_to_stage_selection():
-	#TODO
+	GameManager.go_to_stage_select()
 	pass

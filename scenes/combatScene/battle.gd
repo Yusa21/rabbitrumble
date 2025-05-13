@@ -134,13 +134,9 @@ func _connect_battle_signals():
 		
 	# Connect to the event bus battle_end signal
 	battle_event_bus.battle_end.connect(_on_battle_end)
-
-# This method is no longer needed as characters connect to the event bus themselves
-# Keeping as a stub for backward compatibility during transition if needed
-func _connect_character_signals(character):
-	pass
 	
 func _on_battle_end(winner):
 	# Handle battle end
 	print("Battle ended with " + winner + " victory!")
+	GameManager.end_battle()
 	# Additional end-of-battle logic

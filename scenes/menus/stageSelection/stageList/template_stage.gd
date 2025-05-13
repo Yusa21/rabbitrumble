@@ -1,6 +1,5 @@
 extends HBoxContainer
 
-# Use @export var instead of @onready if you're working with duplicated nodes
 var stage_number_display
 var stage_name_display
 var completed_check_display

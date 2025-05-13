@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgfys0mix6p3o"]
+[gd_scene load_steps=6 format=3 uid="uid://cgfys0mix6p3o"]
 
 [ext_resource type="PackedScene" uid="uid://u86114strhxn" path="res://scenes/menus/stageSelection/stagePanel/stage_information.tscn" id="1_0ejd1"]
 [ext_resource type="Script" uid="uid://dyhfgoxxqogqj" path="res://scenes/menus/stageSelection/stage_selection.gd" id="1_70y1c"]
 [ext_resource type="PackedScene" uid="uid://bkj64jlbcgesg" path="res://scenes/menus/stageSelection/stageList/stage_list.tscn" id="2_jj88m"]
+[ext_resource type="Script" uid="uid://cedd36gu6lp6i" path="res://scenes/menus/stageSelection/optionButtons/options_buttons.gd" id="3_byybc"]
+[ext_resource type="Texture2D" uid="uid://byr5n2dkedagk" path="res://assets/menu/button/back_arrow.png" id="4_gg72n"]
 
 [node name="StageSelection" type="Control"]
 layout_mode = 3
@@ -36,9 +38,22 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="TopRightOptions" type="HBoxContainer" parent="MarginContainer/UIContainer/RightSide"]
+unique_name_in_owner = true
+layout_direction = 3
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.75
+script = ExtResource("3_byybc")
+
+[node name="BackButton" type="TextureButton" parent="MarginContainer/UIContainer/RightSide/TopRightOptions"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("4_gg72n")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="StageInformation" parent="MarginContainer/UIContainer/RightSide" instance=ExtResource("1_0ejd1")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[connection signal="pressed" from="MarginContainer/UIContainer/RightSide/TopRightOptions/BackButton" to="MarginContainer/UIContainer/RightSide/TopRightOptions" method="_on_back_button_pressed"]
