@@ -9,6 +9,7 @@ var current_selected_stage
 @onready var stage_list_display = get_node("%StageList")
 @onready var stage_information_panel = get_node("%StageInformation")
 @onready var options_buttons = get_node("%TopRightOptions")
+@onready var character_unlocked_popup = get_node("%UnlockedCharacter")
 
 func _ready() -> void:
 	event_bus = StageSelectionBus.new()
@@ -32,6 +33,13 @@ func _ready() -> void:
 	
 	#Esto es mazo cutre pero asegura que muestre la primera mision al cargar
 	event_bus.emit_signal("stage_clicked", unlocked_stage_list[0])
+
+	if GameManager.new_chars_unlocked != [""]:
+		for char_id in GameManager.new_chars_unlocked:
+			var unlocked_char_data = CharacterRepo.load_character_data_by_id(char_id)
+			if unlocked_char_data != null:
+				character_unlocked_popup.show_character_unlock(unlocked_char_data)
+		GameManager.new_chars_unlocked = [""]
 
 
 func _on_start_button_clicked():

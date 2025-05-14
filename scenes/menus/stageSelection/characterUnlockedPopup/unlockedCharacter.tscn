@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpgm3l168osee"]
+
+[ext_resource type="Texture2D" uid="uid://kufm8rm6mxrl" path="res://assets/sprites/characters/p_c_001.png" id="1_7ukmg"]
+[ext_resource type="Script" uid="uid://cwv22q78qsxqu" path="res://scenes/menus/stageSelection/characterUnlockedPopup/unlocked_character.gd" id="1_reenc"]
+
+[node name="UnlockedCharacter" type="PopupPanel"]
+initial_position = 1
+size = Vector2i(450, 500)
+visible = true
+script = ExtResource("1_reenc")
+
+[node name="PopUpContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 446.0
+offset_bottom = 496.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="UnlockedTittle" type="RichTextLabel" parent="PopUpContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_font_sizes/normal_font_size = 30
+text = "Default is joning the team!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ImageMargin" type="MarginContainer" parent="PopUpContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = 30
+
+[node name="CharacterIcon" type="TextureRect" parent="PopUpContainer/ImageMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_7ukmg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ButtonMargin" type="MarginContainer" parent="PopUpContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 10
+
+[node name="OkButton" type="Button" parent="PopUpContainer/ButtonMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
+text = "That's cool!🐇"
+
+[connection signal="pressed" from="PopUpContainer/ButtonMargin/OkButton" to="." method="_on_ok_button_pressed"]

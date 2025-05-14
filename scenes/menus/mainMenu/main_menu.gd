@@ -5,7 +5,7 @@ var event_bus: MainMenuBus
 @onready var main_section = get_node("%MainSection")
 
 func _ready() -> void:
-
+	GameManager.load_game()
 	event_bus = MainMenuBus.new()
 
 	main_section.initialize(event_bus)

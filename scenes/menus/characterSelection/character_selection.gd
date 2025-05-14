@@ -16,6 +16,7 @@ func _ready() -> void:
 	#Saca los personajes desbloqueados del game manager
 	for character_id in GameManager.unlocked_char_list:
 		unlocked_char_list.append(CharacterRepo.load_character_data_by_id(character_id))
+		print(character_id)
 
 	#Saca los enemigos del nivel del game manager
 	for character_id in GameManager.level_enemy_characters:
