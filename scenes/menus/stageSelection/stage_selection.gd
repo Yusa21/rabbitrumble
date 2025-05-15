@@ -39,7 +39,10 @@ func _ready() -> void:
 			var unlocked_char_data = CharacterRepo.load_character_data_by_id(char_id)
 			if unlocked_char_data != null:
 				character_unlocked_popup.show_character_unlock(unlocked_char_data)
+				await character_unlocked_popup.popup_hide
+				await get_tree().process_frame 
 		GameManager.new_chars_unlocked = [""]
+
 
 
 func _on_start_button_clicked():

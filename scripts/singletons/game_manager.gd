@@ -33,22 +33,22 @@ var selected_enemy_characters = ["testDummy2","testDummy2","testDummy2","testDum
 func setup_battle(players, enemies):
 	selected_player_characters = players
 	selected_enemy_characters = enemies
-
+	
 # Function to start the battle scene
 func start_battle():
 	# Transition to battle scene
 	get_tree().change_scene_to_file("res://scenes/combatScene/Battle.tscn")
-
+	
 func end_battle():
 	mark_stage_as_completed()
 	check_unlocks()
 	save_game()
 	go_to_stage_select()
-
+	
 func mark_stage_as_completed():
 	if !completed_stage_list.has(stage_id):
 		completed_stage_list.append(stage_id)
-
+		
 func check_unlocks():
 	var stage_data = StageRepo.load_stage_data_by_id(stage_id)
 	if stage_data.char_unlocks != [""]:
@@ -56,18 +56,21 @@ func check_unlocks():
 			if !char_id in unlocked_char_list:
 				new_chars_unlocked.append(char_id)
 				unlocked_char_list.append(char_id)
-	
+   
 	if stage_data.stage_unlocks != [""]:
 		for unlocked_stage_id in stage_data.stage_unlocks:
-			if !unlocked_stage_id in unlocked_stage_id:
+			print("TRYING TO UNLOCK STAGE WITH ID:" + unlocked_stage_id)
+			if !unlocked_stage_id in unlocked_stage_list:
+				print("TRYING TO ADD THE STAGE")
 				unlocked_stage_list.append(unlocked_stage_id)
+				print(unlocked_stage_list)
 
 #-----------------------------SAVE DATA MANAGEMENT--------------------------------
 func save_game():
 	var save_data = GameSave.new()
-	save_data.unlocked_char_list = unlocked_char_list
-	save_data.unlocked_stage_list = unlocked_stage_list
-	save_data.completed_stage_list = completed_stage_list
+	save_data.unlocked_char_list = unlocked_char_list.duplicate()
+	save_data.unlocked_stage_list = unlocked_stage_list.duplicate()
+	save_data.completed_stage_list = completed_stage_list.duplicate()
 
 	var error = ResourceSaver.save(save_data, "user://save_game.tres")
 	if error != OK:
@@ -86,9 +89,10 @@ func load_game():
 		push_error("Failed to load save file")
 		return false
 
-	unlocked_char_list = save_data.unlocked_char_list
-	unlocked_stage_list = save_data.unlocked_stage_list
-	completed_stage_list = save_data.completed_stage_list
+	# Create new modifiable copies of the arrays
+	unlocked_char_list = save_data.unlocked_char_list.duplicate()
+	unlocked_stage_list = save_data.unlocked_stage_list.duplicate()
+	completed_stage_list = save_data.completed_stage_list.duplicate()
 
 	print("Loaded game")
 
@@ -100,19 +104,20 @@ const default_completed_list: Array[String] = [""]
 
 func create_default_save_file():
 	var save_data = GameSave.new()
-	save_data.unlocked_char_list = default_char_list
-	save_data.unlocked_stage_list = default_stage_list
-	save_data.completed_stage_list = default_completed_list
+	# Use duplicate() to ensure we're using new modifiable arrays
+	save_data.unlocked_char_list = default_char_list.duplicate()
+	save_data.unlocked_stage_list = default_stage_list.duplicate()
+	save_data.completed_stage_list = default_completed_list.duplicate()
 
 	var error = ResourceSaver.save(save_data, "user://save_game.tres")
 	if error != OK:
 		push_error("Failed to create new save file: ", error)
 		return false
 
-	unlocked_char_list = default_char_list
-	unlocked_stage_list = default_stage_list
-	completed_stage_list = default_completed_list
+	# Make sure we have modifiable copies here too
+	unlocked_char_list = default_char_list.duplicate()
+	unlocked_stage_list = default_stage_list.duplicate()
+	completed_stage_list = default_completed_list.duplicate()
 
 	print("Save file created")
-	return true
 	

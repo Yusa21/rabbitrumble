@@ -10,6 +10,6 @@ number = 0
 difficulty = 1
 description = "If this is working properly this should show"
 enemies = Array[String](["testDummy", "testDummy", "testDummy", "testDummy"])
-char_unlocks = Array[String](["p_c_006"])
+char_unlocks = Array[String](["p_c_006", "p_c_005"])
 stage_unlocks = Array[String](["test_stage_2"])
 metadata/_custom_type_script = "uid://dislvogsap4ag"
