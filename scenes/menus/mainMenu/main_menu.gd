@@ -3,6 +3,7 @@ extends Control
 var event_bus: MainMenuBus
 
 @onready var main_section = get_node("%MainSection")
+@onready var options_pop_up = get_node("%OptionsPopup")
 
 func _ready() -> void:
 	GameManager.load_game()
@@ -19,3 +20,6 @@ func _on_start_button_clicked():
 
 func _on_exit_button_clicked():
 	get_tree().quit()
+
+func _on_options_button_pressed() -> void:
+	options_pop_up.show_options_pop_up()

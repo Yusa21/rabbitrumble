@@ -1,0 +1,101 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4j7kesycb6oa"]
+
+[ext_resource type="Script" uid="uid://bvt1vafgbx5t7" path="res://scenes/menus/optionsPopup/options_popup.gd" id="1_bsw6y"]
+
+[node name="OptionsPopup" type="PopupPanel"]
+size = Vector2i(459, 500)
+visible = true
+unfocusable = true
+script = ExtResource("1_bsw6y")
+
+[node name="PopupContainer" type="VBoxContainer" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 455.0
+offset_bottom = 496.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MenuTittle" type="RichTextLabel" parent="PopupContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 32
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionsMargin" type="MarginContainer" parent="PopupContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 100
+
+[node name="VolumeSection" type="VBoxContainer" parent="PopupContainer/OptionsMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MasterVolume" type="VBoxContainer" parent="PopupContainer/OptionsMargin/VolumeSection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MasterVolumeLabel" type="RichTextLabel" parent="PopupContainer/OptionsMargin/VolumeSection/MasterVolume"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Master Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MasterVolumeSlider" type="HSlider" parent="PopupContainer/OptionsMargin/VolumeSection/MasterVolume"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="MusicVolume" type="VBoxContainer" parent="PopupContainer/OptionsMargin/VolumeSection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MusicVolumeLabel" type="RichTextLabel" parent="PopupContainer/OptionsMargin/VolumeSection/MusicVolume"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Music Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicVolumeSlider" type="HSlider" parent="PopupContainer/OptionsMargin/VolumeSection/MusicVolume"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="SFXVolume" type="VBoxContainer" parent="PopupContainer/OptionsMargin/VolumeSection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SFXVolumeLabel" type="RichTextLabel" parent="PopupContainer/OptionsMargin/VolumeSection/SFXVolume"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "SFX Volume
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SFXVolumeSlider" type="HSlider" parent="PopupContainer/OptionsMargin/VolumeSection/SFXVolume"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="ButtonMargin" type="MarginContainer" parent="PopupContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 20
+
+[node name="DoneButton" type="Button" parent="PopupContainer/ButtonMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Done 👍"
+
+[connection signal="pressed" from="PopupContainer/ButtonMargin/DoneButton" to="." method="_on_done_button_pressed"]

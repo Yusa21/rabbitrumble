@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://cgfys0mix6p3o"]
+[gd_scene load_steps=9 format=3 uid="uid://cgfys0mix6p3o"]
 
 [ext_resource type="PackedScene" uid="uid://u86114strhxn" path="res://scenes/menus/stageSelection/stagePanel/stage_information.tscn" id="1_0ejd1"]
 [ext_resource type="Script" uid="uid://dyhfgoxxqogqj" path="res://scenes/menus/stageSelection/stage_selection.gd" id="1_70y1c"]
 [ext_resource type="PackedScene" uid="uid://bkj64jlbcgesg" path="res://scenes/menus/stageSelection/stageList/stage_list.tscn" id="2_jj88m"]
 [ext_resource type="Script" uid="uid://cedd36gu6lp6i" path="res://scenes/menus/stageSelection/optionButtons/options_buttons.gd" id="3_byybc"]
 [ext_resource type="Texture2D" uid="uid://byr5n2dkedagk" path="res://assets/menu/button/back_arrow.png" id="4_gg72n"]
+[ext_resource type="Texture2D" uid="uid://skyu4u5uoadv" path="res://assets/sprites/abilities/test_ability_icon.png" id="5_7xged"]
 [ext_resource type="PackedScene" uid="uid://bpgm3l168osee" path="res://scenes/menus/stageSelection/characterUnlockedPopup/unlockedCharacter.tscn" id="6_gg72n"]
+[ext_resource type="PackedScene" uid="uid://c4j7kesycb6oa" path="res://scenes/menus/optionsPopup/options_popup.tscn" id="7_ek5gi"]
 
 [node name="StageSelection" type="Control"]
 layout_mode = 3
@@ -53,6 +55,19 @@ texture_normal = ExtResource("4_gg72n")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/UIContainer/RightSide/TopRightOptions"]
+layout_mode = 2
+
+[node name="OptionsButton" type="TextureButton" parent="MarginContainer/UIContainer/RightSide/TopRightOptions/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("5_7xged")
+ignore_texture_size = true
+stretch_mode = 4
+flip_h = true
+
 [node name="StageInformation" parent="MarginContainer/UIContainer/RightSide" instance=ExtResource("1_0ejd1")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -61,4 +76,11 @@ layout_mode = 2
 unique_name_in_owner = true
 visible = false
 
+[node name="OptionsPopup" parent="." instance=ExtResource("7_ek5gi")]
+unique_name_in_owner = true
+auto_translate_mode = 1
+visible = false
+unfocusable = false
+
 [connection signal="pressed" from="MarginContainer/UIContainer/RightSide/TopRightOptions/BackButton" to="MarginContainer/UIContainer/RightSide/TopRightOptions" method="_on_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/UIContainer/RightSide/TopRightOptions/MarginContainer/OptionsButton" to="." method="_on_options_button_pressed"]

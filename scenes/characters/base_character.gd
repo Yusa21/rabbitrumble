@@ -56,7 +56,7 @@ func initialize_character(char_data_id: String, new_id: int, char_pos: int):
 	#Llama al repositorio de personajes para cargar sus datos
 	var character = CharacterRepo.load_character_data_by_id(char_data_id)
 	if character == null:
-		print("Character not found")
+		push_error("Character not found")
 		return null
 	set_character_info(character, new_id, char_pos)
 	return true
@@ -142,7 +142,7 @@ func automatic_targeting(ability):
 	
 ##Funcion que hace lo que le toque al empezar el turno, siempre se sobreescribe
 func start_turn():
-	print("start_turn called directly, this function should be overriden")
+	push_error("start_turn called directly, this function should be overriden")
 	print_character_stats()
 	return true
 
@@ -153,6 +153,7 @@ func execute_ability(ability, tar: Array):
 	if event_bus:
 		event_bus.emit_signal("ability_used", self, ability, targets)
 
+	print("Playing attack animation for character with id", id)
 	animationPlayer.play("attack")
 	await animationPlayer.animation_finished
 
@@ -165,51 +166,62 @@ func execute_ability(ability, tar: Array):
 		# Print del la vida del target, to rechulon porque escribe el equipo del que es
 		if targets.size() > 0:
 			var target_type = "Self" if targets[0] == self else ("Ally" if targets[0] in ally_team else "Enemy")
-			print(target_type + " health: " + str(targets[0].current_hp))
 	else:
-		print("Error- Targets is empty - This should be imposible")
+		push_error("Error- Targets is empty - This should be imposible")
 	
 	notify_stats_changed()
 	return true
 
-##Funcion para recibir dano, le llega la cantidad que tiene que recibir y el atacante
-##TODO le faltaria triggers y cosas por el estilo
+
+##Function to take damage, gets the amount to receive and the attacker
 func take_damage(dmg, attacker):
+	# Notify battle manager to increment pending damage responses
+	var battle_manager = get_parent().get_parent().get_node("BattleManager")
+
+	if battle_manager != null:
+		battle_manager.increment_pending_damage()
+	else:
+		push_error("Error: Battle manager not found in character script")
+	
 	var old_hp = current_hp
 	current_hp -= dmg
-
+	
+	# Play hurt animation and wait for it to finish
 	animationPlayer.play("hurt")
 	await animationPlayer.animation_finished
-
+	
+	# Check if character is defeated
 	if current_hp <= 0:
 		current_hp = 0
 		defeat()
 	else:
-		event_bus.emit_signal("still_alive", self)
-	
+		# Character survived the attack
+		if event_bus:
+			event_bus.emit_signal("still_alive", self)
+   
 	notify_stats_changed()
-	
+   
 	# Notify health changed through bus
 	if event_bus:
 		event_bus.emit_signal("health_changed", self, current_hp, max_hp)
-	
+   
 	return true
 
-# New function to handle character defeat
+# Function to handle character defeat
 func defeat():
 	if is_defeated:
 		return true
-	
+   
 	is_defeated = true
 	print(char_name + " has been defeated!")
-	
+   
 	# Visual indication
 	modulate = defeated_modulate
-	
+   
 	# Signal defeat through the event bus
 	if event_bus:
 		event_bus.emit_signal("character_defeated", self)
-	
+   
 	return true
 
 ##Recibe curacion, recibe la cantidad a curar y el curador

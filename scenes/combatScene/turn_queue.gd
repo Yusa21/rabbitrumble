@@ -26,6 +26,9 @@ var participants = []
 var active_character = null
 var defeat_queue = []
 
+# Damage tracking system
+var pending_damage_responses = 0
+
 # Constants for trigger types
 const GLOBAL_TRIGGERS = ["battle_start", "battle_end", "round_start", "round_end"]
 const TURN_TRIGGERS = ["pre_turn", "main_turn", "post_turn"]
@@ -48,7 +51,10 @@ func initialize(p_team: Array, e_team: Array, bus: BattleEventBus):
 		enemy.opps_team = player_team
 		enemy.update_position()
 	
+	# Connect signals for character defeat and still alive
 	event_bus.character_defeated.connect(_on_character_defeated)
+	event_bus.still_alive.connect(_on_character_still_alive)
+	
 	# Sort participants by speed
 	participants.sort_custom(func(a, b): return a.speed > b.speed)
 	
@@ -107,11 +113,9 @@ func change_state(new_state: BattleState):
 
 # State processing functions
 func process_init_state():
-	print("Battle starting!")
 	change_state(BattleState.ROUND_START)
 
 func process_round_start():
-	print("Round starting!")
 	# Reset turn status
 	for p in participants:
 		p.has_taken_turn = false
@@ -134,8 +138,17 @@ func process_pre_turn():
 
 func process_main_turn():
 	print(str(active_character.char_name) + "'s turn (main)")
-	await active_character.start_turn()
 	active_character.has_taken_turn = true
+	await active_character.start_turn()
+	
+	# Small delay to ensure all damage signals are processed
+	await get_tree().create_timer(2).timeout
+
+	# Wait for any pending damage responses before proceeding
+	if pending_damage_responses > 0:
+		print("Waiting for " + str(pending_damage_responses) + " damage responses to resolve...")
+		await event_bus.all_damage_resolved
+	
 	change_state(BattleState.POST_TURN)
 
 func process_post_turn():
@@ -154,7 +167,6 @@ func process_post_turn():
 			change_state(BattleState.ROUND_END)
 
 func process_round_end():
-	print("Round ending")
 	await process_phase_abilities("round_end")
 	
 	# Check if battle should end
@@ -166,7 +178,6 @@ func process_round_end():
 func process_character_defeated():
 	while defeat_queue.size() > 0:
 		var defeated = defeat_queue.pop_front()
-		print(str(defeated.char_name) + " has been defeated")
 		
 		# Remove from appropriate teams and participants list
 		if defeated in player_team:
@@ -209,12 +220,12 @@ func process_phase_abilities(phase_trigger):
 	for character in participants:
 		# Check for null objects
 		if character == null:
-			print("Warning: Found null character in participants array")
+			push_error("Warning: Found null character in participants array")
 			continue
 			
 		# Fix: Add safety check for method existence
 		if not character.has_method("get_phase_triggered_abilities"):
-			print("Warning: Character " + str(character) + " doesn't have get_phase_triggered_abilities method")
+			push_error("Warning: Character " + str(character) + " doesn't have get_phase_triggered_abilities method")
 			continue
 			
 		var triggered_abilities = character.get_phase_triggered_abilities(phase_trigger)
@@ -222,7 +233,7 @@ func process_phase_abilities(phase_trigger):
 		for ability in triggered_abilities:
 			# Fix: Add null check for ability
 			if ability == null:
-				print("Warning: Null ability found for character " + str(character.char_name))
+				push_error("Warning: Null ability found for character " + str(character.char_name))
 				continue
 				
 			if character.can_use_ability(ability):
@@ -231,6 +242,22 @@ func process_phase_abilities(phase_trigger):
 					var targets = character.automatic_targeting(ability)
 					if targets.size() > 0:
 						await character.execute_ability(ability, targets)
+						
+						# Wait for any pending damage responses after ability execution
+						if pending_damage_responses > 0:
+							await event_bus.all_damage_resolved
+
+# Damage tracking functions
+func increment_pending_damage():
+	pending_damage_responses += 1
+	print("Pending damage responses: " + str(pending_damage_responses))
+
+func decrement_pending_damage():
+	pending_damage_responses -= 1
+	print("Pending damage responses: " + str(pending_damage_responses))
+	if pending_damage_responses <= 0:
+		pending_damage_responses = 0
+		event_bus.emit_signal("all_damage_resolved")
 
 # Helper functions
 func get_next_active_character():
@@ -286,9 +313,17 @@ func is_ally(character1, character2):
 		
 	return character1.ally_team.has(character2) && character2.ally_team.has(character1)
 
-# Signal handler for character defeat
+# Signal handlers for character damage responses
 func _on_character_defeated(character):
 	print(str(character.char_name) + " signal defeated")
 	# Add to defeat queue to be processed at appropriate time
 	if !defeat_queue.has(character):
 		defeat_queue.append(character)
+	
+	# Decrement pending damage responses counter
+	decrement_pending_damage()
+
+func _on_character_still_alive(character):
+	print(str(character.char_name) + " signal still alive")
+	# Decrement pending damage responses counter
+	decrement_pending_damage()

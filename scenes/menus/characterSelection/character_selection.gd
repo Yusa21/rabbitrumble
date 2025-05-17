@@ -10,6 +10,7 @@ var level_enemy_characters: Array
 @onready var player_team_preview_panel = get_node("%PlayerTeamPreview")
 @onready var team_buttons = get_node("%TeamButtons")
 @onready var options_buttons = get_node("%TopRightOptions")
+@onready var options_menu = get_node("%OptionsPopup")
 
 func _ready() -> void:
 
@@ -68,3 +69,7 @@ func transition_to_battle():
 func transition_to_stage_selection():
 	GameManager.go_to_stage_select()
 	pass
+
+
+func _on_options_button_pressed() -> void:
+	options_menu.show_options_pop_up()

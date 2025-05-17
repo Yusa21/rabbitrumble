@@ -139,5 +139,8 @@ func _connect_battle_signals():
 func _on_battle_end(winner):
 	# Handle battle end
 	print("Battle ended with " + winner + " victory!")
-	GameManager.end_battle()
+	if winner == "player":
+		GameManager.end_battle()
+	else:
+		GameManager.end_battle_defeat()
 	# Additional end-of-battle logic

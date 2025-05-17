@@ -13,7 +13,6 @@ func _ready():
 	# Get screen dimensions
 	screen_size = get_viewport().size
 	screen_center = screen_size / 2
-	print("Screen center: ", screen_center)
 
 # Returns world position for a character based on team and position
 func get_new_position(team_name: String, position_index: int) -> Vector2:
@@ -23,13 +22,11 @@ func get_new_position(team_name: String, position_index: int) -> Vector2:
 		# Player team on left side
 		var x = screen_center.x - team_offset_from_center - (position_index * character_spacing)
 		var pos = Vector2(x, base_y)
-		print("Player at position: ", pos)
 		return pos
 	else:
 		# Enemy team on right side
 		var x = screen_center.x + team_offset_from_center + (position_index * character_spacing)
 		var pos = Vector2(x, base_y)
-		print("Enemy at position: ", pos)
 		return pos
 
 # Draw helper function for debugging

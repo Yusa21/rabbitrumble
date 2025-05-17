@@ -17,6 +17,7 @@ var battle_bus: BattleEventBus
 @onready var character_ui_container = get_node("%CharacterUIContainer")
 @onready var ability_panel = get_node("%AbilityPanel")
 @onready var turn_order_display = get_node("%TurnOrderDisplay")
+@onready var options_menu = get_node("%OptionsPopup")
 
 func _ready():
 	# Debug print
@@ -326,3 +327,7 @@ func _input(event):
 		elif event is InputEventKey and event.keycode == KEY_ESCAPE and event.pressed:
 			print("Escape key detected, canceling targeting")
 			_cancel_targeting()
+
+
+func _on_options_button_pressed() -> void:
+	options_menu.show_options_pop_up()

@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://fd3yk1rhccrb"]
+[gd_scene load_steps=10 format=3 uid="uid://fd3yk1rhccrb"]
 
 [ext_resource type="Script" uid="uid://drkw847rhmuws" path="res://scenes/combatUI/combat_ui.gd" id="1_2twv5"]
 [ext_resource type="PackedScene" uid="uid://bsu1vuvwd1mwq" path="res://scenes/combatUI/turnOrderComponent/turn_order_display.tscn" id="2_3j1iq"]
 [ext_resource type="PackedScene" uid="uid://gmyn8nqy5skf" path="res://scenes/combatUI/labelComponent/battle_state_display.tscn" id="3_wklje"]
 [ext_resource type="Script" uid="uid://brsr18uss24kv" path="res://scenes/combatUI/labelComponent/battle_state_display.gd" id="4_2fjmf"]
 [ext_resource type="PackedScene" uid="uid://b113c6rif0cdd" path="res://scenes/combatUI/abilityInformationComponent/ability_panel.tscn" id="5_3j1iq"]
+[ext_resource type="Texture2D" uid="uid://skyu4u5uoadv" path="res://assets/sprites/abilities/test_ability_icon.png" id="5_4lml0"]
 [ext_resource type="Script" uid="uid://rwmviksxu5oy" path="res://scenes/combatUI/abilityInformationComponent/ability_panel.gd" id="6_p6ojb"]
 [ext_resource type="PackedScene" uid="uid://83p02rgfg0ay" path="res://scenes/combatUI/charactersUIComponent/character_ui_manager.tscn" id="7_wklje"]
+[ext_resource type="PackedScene" uid="uid://c4j7kesycb6oa" path="res://scenes/menus/optionsPopup/options_popup.tscn" id="8_2fjmf"]
 
 [node name="CombatUI" type="Control"]
 layout_mode = 3
@@ -47,6 +49,25 @@ script = ExtResource("4_2fjmf")
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="OptionsButtons" type="HBoxContainer" parent="UIMargin/FullUI/TopSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UIMargin/FullUI/TopSection/OptionsButtons"]
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OptionsButton" type="TextureButton" parent="UIMargin/FullUI/TopSection/OptionsButtons/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("5_4lml0")
+ignore_texture_size = true
+stretch_mode = 4
+flip_h = true
+
 [node name="TransparentSeparator" type="HSeparator" parent="UIMargin/FullUI"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -66,3 +87,11 @@ script = ExtResource("6_p6ojb")
 
 [node name="CharacterUIContainer" parent="." instance=ExtResource("7_wklje")]
 unique_name_in_owner = true
+
+[node name="OptionsPopup" parent="." instance=ExtResource("8_2fjmf")]
+unique_name_in_owner = true
+auto_translate_mode = 1
+visible = false
+unfocusable = false
+
+[connection signal="pressed" from="UIMargin/FullUI/TopSection/OptionsButtons/MarginContainer/OptionsButton" to="." method="_on_options_button_pressed"]

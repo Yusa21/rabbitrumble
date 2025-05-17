@@ -315,6 +315,9 @@ func end_battle():
 	check_unlocks()
 	save_game()
 	go_to_stage_select()
+
+func end_battle_defeat():
+	go_to_stage_select()
 	
 func mark_stage_as_completed():
 	if !completed_stage_list.has(stage_id):

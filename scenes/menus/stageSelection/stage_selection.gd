@@ -10,6 +10,7 @@ var current_selected_stage
 @onready var stage_information_panel = get_node("%StageInformation")
 @onready var options_buttons = get_node("%TopRightOptions")
 @onready var character_unlocked_popup = get_node("%UnlockedCharacter")
+@onready var menu_options = get_node("%OptionsPopup")
 
 func _ready() -> void:
 	event_bus = StageSelectionBus.new()
@@ -54,3 +55,7 @@ func _on_back_button_clicked():
 
 func _on_stage_clicked(stage):
 	current_selected_stage = stage
+
+
+func _on_options_button_pressed() -> void:
+	menu_options.show_options_pop_up()

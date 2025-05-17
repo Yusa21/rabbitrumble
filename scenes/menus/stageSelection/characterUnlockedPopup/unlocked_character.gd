@@ -13,5 +13,6 @@ func show_character_unlock(char_data: CharacterData) -> void:
 	character_image.texture = char_data.character_icon
 
 	popup_centered()
+	
 func _on_ok_button_pressed() -> void:
 	hide()

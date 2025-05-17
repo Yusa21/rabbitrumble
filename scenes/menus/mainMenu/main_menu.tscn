@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc31u1pyw88f0"]
+[gd_scene load_steps=6 format=3 uid="uid://cc31u1pyw88f0"]
 
 [ext_resource type="Script" uid="uid://csn5s8d2b66bx" path="res://scenes/menus/mainMenu/main_menu.gd" id="1_c4fbq"]
 [ext_resource type="Texture2D" uid="uid://dul5mvi43owju" path="res://assets/menu/sprites/images.png" id="1_ntpyp"]
 [ext_resource type="Script" uid="uid://cvfg3iucvrrw2" path="res://scenes/menus/mainMenu/mainSection/main_section.gd" id="2_kf8dr"]
+[ext_resource type="Texture2D" uid="uid://skyu4u5uoadv" path="res://assets/sprites/abilities/test_ability_icon.png" id="4_1x8ff"]
+[ext_resource type="PackedScene" uid="uid://c4j7kesycb6oa" path="res://scenes/menus/optionsPopup/options_popup.tscn" id="4_kf8dr"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -81,5 +83,30 @@ text = "Exit game"
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="OptionsContainer" type="HBoxContainer" parent="UIContainer/RightSide"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UIContainer/RightSide/OptionsContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 70
+
+[node name="OptionsButton" type="TextureButton" parent="UIContainer/RightSide/OptionsContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("4_1x8ff")
+ignore_texture_size = true
+stretch_mode = 4
+flip_h = true
+
+[node name="OptionsPopup" parent="." instance=ExtResource("4_kf8dr")]
+unique_name_in_owner = true
+visible = false
+unfocusable = false
+
 [connection signal="pressed" from="UIContainer/MainSection/StartMargin/StartButton" to="UIContainer/MainSection" method="_on_start_button_pressed"]
 [connection signal="pressed" from="UIContainer/MainSection/ExitMargin/ExitButton" to="UIContainer/MainSection" method="_on_exit_button_pressed"]
+[connection signal="pressed" from="UIContainer/RightSide/OptionsContainer/MarginContainer/OptionsButton" to="." method="_on_options_button_pressed"]
