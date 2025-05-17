@@ -13,7 +13,7 @@ var current_selected_stage
 
 func _ready() -> void:
 	event_bus = StageSelectionBus.new()
-
+	GameManager.play_music("res://audio/music/menu_music.ogg")
 	#Saca los personajes desbloqueados del game manager
 	for stage_id in GameManager.unlocked_stage_list:
 		var unlocked_stage = StageRepo.load_stage_data_by_id(stage_id)

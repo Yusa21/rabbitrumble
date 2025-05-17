@@ -6,6 +6,7 @@ var event_bus: MainMenuBus
 
 func _ready() -> void:
 	GameManager.load_game()
+	GameManager.play_music("res://audio/music/menu_music.ogg")
 	event_bus = MainMenuBus.new()
 
 	main_section.initialize(event_bus)

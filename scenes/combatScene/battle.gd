@@ -22,6 +22,7 @@ var battle_event_bus: BattleEventBus
 
 func _ready():
 	# Check if we have character data from the menu
+	GameManager.play_music("res://audio/music/battle_music.ogg")
 	if GameManager.selected_player_characters.size() > 0 and GameManager.selected_enemy_characters.size() > 0:
 		start_battle(GameManager.selected_player_characters, GameManager.selected_enemy_characters)
 	else:

@@ -4,4 +4,8 @@
 [ext_resource type="Script" uid="uid://df65ic1titvk0" path="res://scenes/characters/enemy/enemy_character.gd" id="2_fbgll"]
 
 [node name="EnemyCharacter" instance=ExtResource("1_7sbwj")]
+scale = Vector2(-1, 1)
 script = ExtResource("2_fbgll")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.099, 0.092)

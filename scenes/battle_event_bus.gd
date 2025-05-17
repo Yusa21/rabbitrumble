@@ -20,6 +20,7 @@ signal state_changed(from_state, to_state)
 
 # Character status signals
 signal character_defeated(character)
+signal still_alive(character)
 signal health_changed(character, old_health, new_health)
 signal ability_used(character, ability, targets)
 signal character_stats_changed(character)
