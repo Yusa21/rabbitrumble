@@ -1,16 +1,24 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2nxm6hut36wv"]
+[gd_scene load_steps=16 format=3 uid="uid://c2nxm6hut36wv"]
 
 [ext_resource type="PackedScene" uid="uid://dw4rnrhjoi6kj" path="res://scenes/menus/characterSelection/characterInfoComponent/character_info.tscn" id="1_jiri0"]
 [ext_resource type="Script" uid="uid://bm4avyvtajbs8" path="res://scenes/menus/characterSelection/character_selection.gd" id="1_prrdb"]
 [ext_resource type="Script" uid="uid://48mgfj3pcqyq" path="res://scenes/menus/characterSelection/enemyTeamPreviewComponent/enemy_team_preview.gd" id="3_bdnlr"]
 [ext_resource type="Script" uid="uid://b6o8pqpwabvfj" path="res://scenes/menus/characterSelection/characterListComponent/character_list.gd" id="3_i8m77"]
-[ext_resource type="Texture2D" uid="uid://b7iccpsbjijvv" path="res://assets/sprites/characters/testDummy_idle.png" id="4_bdnlr"]
 [ext_resource type="Script" uid="uid://vvv4evbnnhv4" path="res://scenes/menus/characterSelection/topRightOptionsComponent/top_right_options.gd" id="5_2s4wh"]
 [ext_resource type="Texture2D" uid="uid://byr5n2dkedagk" path="res://assets/menu/button/back_arrow.png" id="5_4xs55"]
 [ext_resource type="Script" uid="uid://c20ady8sma232" path="res://scenes/menus/characterSelection/playerTeamPreviewComponent/player_team_preview.gd" id="5_n0mw4"]
+[ext_resource type="Texture2D" uid="uid://dubbe7ax2pvt3" path="res://assets/menu/sprites/settings_icon.png" id="7_2wxh2"]
 [ext_resource type="Script" uid="uid://bpapccbhtrpqg" path="res://scenes/menus/characterSelection/teamButtonsComponent/team_buttons.gd" id="7_3hanb"]
-[ext_resource type="Texture2D" uid="uid://skyu4u5uoadv" path="res://assets/sprites/abilities/test_ability_icon.png" id="7_cvhfq"]
+[ext_resource type="StyleBox" uid="uid://cwhdn7o31s6sa" path="res://resources/themes/panel_grey_background.tres" id="9_2wxh2"]
 [ext_resource type="PackedScene" uid="uid://c4j7kesycb6oa" path="res://scenes/menus/optionsPopup/options_popup.tscn" id="10_xjjqo"]
+[ext_resource type="Texture2D" uid="uid://bof01yqpq8c4e" path="res://assets/menu/button/ORANGE.png" id="11_g6lcf"]
+[ext_resource type="Texture2D" uid="uid://g55yakoh2etj" path="res://assets/menu/backgrounds/PRESSED.png" id="13_2wxh2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g6lcf"]
+bg_color = Color(0.882353, 0.85098, 0.819608, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tit23"]
+load_path = "res://.godot/imported/testDummy_idle.png-87511388f462955f4b06064f9b34d75b.ctex"
 
 [node name="CharacterSelection" type="Control"]
 layout_mode = 3
@@ -31,6 +39,7 @@ grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="UIMargin"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g6lcf")
 
 [node name="UIContainer" type="HBoxContainer" parent="UIMargin"]
 layout_mode = 2
@@ -43,6 +52,51 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="CharName" parent="UIMargin/UIContainer/LeftSide/CharacterInfo" index="0"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="HPName" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/StatsAndSprite/Stats/HPLine" index="0"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="HPValue" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/StatsAndSprite/Stats/HPLine" index="1"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="AtkName" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/StatsAndSprite/Stats/AtkLine" index="0"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="AtkValue" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/StatsAndSprite/Stats/AtkLine" index="1"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="DefName" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/StatsAndSprite/Stats/DefLine" index="0"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="DefValue" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/StatsAndSprite/Stats/DefLine" index="1"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="SpeedName" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/StatsAndSprite/Stats/SpeedLine" index="0"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="SpeedValue" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/StatsAndSprite/Stats/SpeedLine" index="1"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="CharDescription" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/StatsAndSprite/Stats" index="4"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="AbilityNameLabel" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/AbilityInformationUI/VBoxContainer" index="0"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="LaunchPositionUI" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/AbilityInformationUI/VBoxContainer/HBoxContainer" index="0"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="TargetPositionUI" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/AbilityInformationUI/VBoxContainer/HBoxContainer" index="1"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="MultUI" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/AbilityInformationUI/VBoxContainer/HBoxContainer" index="2"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="AbilityDescriptionLabel" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/AbilityInformationUI/VBoxContainer" index="2"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
 [node name="EnemyTeamPreview" type="HBoxContainer" parent="UIMargin/UIContainer/LeftSide"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -53,7 +107,7 @@ script = ExtResource("3_bdnlr")
 [node name="CharacterButton" type="TextureButton" parent="UIMargin/UIContainer/LeftSide/EnemyTeamPreview"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-texture_normal = ExtResource("4_bdnlr")
+texture_normal = SubResource("CompressedTexture2D_tit23")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -89,38 +143,92 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("7_cvhfq")
+texture_normal = ExtResource("7_2wxh2")
 ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
 
-[node name="PlayerTeamPreview" type="HBoxContainer" parent="UIMargin/UIContainer/RightSide"]
+[node name="CharacterTeamMarign" type="MarginContainer" parent="UIMargin/UIContainer/RightSide"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Panel" type="Panel" parent="UIMargin/UIContainer/RightSide/CharacterTeamMarign"]
+layout_mode = 2
+size_flags_stretch_ratio = 2.0
+theme_override_styles/panel = ExtResource("9_2wxh2")
+
+[node name="MarginContainer" type="MarginContainer" parent="UIMargin/UIContainer/RightSide/CharacterTeamMarign/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 0
+
+[node name="PlayerTeamPreview" type="HBoxContainer" parent="UIMargin/UIContainer/RightSide/CharacterTeamMarign/Panel/MarginContainer"]
 unique_name_in_owner = true
 layout_direction = 3
 layout_mode = 2
 size_flags_vertical = 6
 size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 25
 script = ExtResource("5_n0mw4")
 
-[node name="CharacterButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/PlayerTeamPreview"]
+[node name="CharacterButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/CharacterTeamMarign/Panel/MarginContainer/PlayerTeamPreview"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-texture_normal = ExtResource("4_bdnlr")
+texture_normal = SubResource("CompressedTexture2D_tit23")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="CharacterList" type="GridContainer" parent="UIMargin/UIContainer/RightSide"]
+[node name="MarginContainer" type="MarginContainer" parent="UIMargin/UIContainer/RightSide"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="UIMargin/UIContainer/RightSide/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+theme_override_styles/panel = ExtResource("9_2wxh2")
+
+[node name="MarginContainer" type="MarginContainer" parent="UIMargin/UIContainer/RightSide/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CharacterList" type="GridContainer" parent="UIMargin/UIContainer/RightSide/MarginContainer/Panel/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 7
 columns = 5
 script = ExtResource("3_i8m77")
 
-[node name="CharacterButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/CharacterList"]
+[node name="CharacterButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/MarginContainer/Panel/MarginContainer/CharacterList"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-texture_normal = ExtResource("4_bdnlr")
+texture_normal = SubResource("CompressedTexture2D_tit23")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -130,20 +238,50 @@ layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("7_3hanb")
 
-[node name="ClearButton" type="Button" parent="UIMargin/UIContainer/RightSide/TeamButtons"]
+[node name="ClearButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/TeamButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Clear team"
+texture_normal = ExtResource("11_g6lcf")
+texture_pressed = ExtResource("13_2wxh2")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="VSeparator" type="VSeparator" parent="UIMargin/UIContainer/RightSide/TeamButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.05
+[node name="Label" type="Label" parent="UIMargin/UIContainer/RightSide/TeamButtons/ClearButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.5
+offset_top = -11.1667
+offset_right = 42.5
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Clear team 🗑️"
 
-[node name="StartButton" type="Button" parent="UIMargin/UIContainer/RightSide/TeamButtons"]
+[node name="StartButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/TeamButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Start battle"
+texture_normal = ExtResource("11_g6lcf")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UIMargin/UIContainer/RightSide/TeamButtons/StartButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start battle ▶️"
 
 [node name="OptionsPopup" parent="." instance=ExtResource("10_xjjqo")]
 unique_name_in_owner = true
@@ -154,7 +292,10 @@ unfocusable = false
 [connection signal="pressed" from="UIMargin/UIContainer/LeftSide/EnemyTeamPreview/CharacterButton" to="UIMargin/UIContainer/LeftSide/EnemyTeamPreview" method="_on_character_button_pressed"]
 [connection signal="pressed" from="UIMargin/UIContainer/RightSide/TopRightOptions/BackButton" to="UIMargin/UIContainer/RightSide/TopRightOptions" method="_on_back_button_pressed"]
 [connection signal="pressed" from="UIMargin/UIContainer/RightSide/TopRightOptions/MarginContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="UIMargin/UIContainer/RightSide/PlayerTeamPreview/CharacterButton" to="UIMargin/UIContainer/RightSide/PlayerTeamPreview" method="_on_character_button_pressed"]
-[connection signal="pressed" from="UIMargin/UIContainer/RightSide/CharacterList/CharacterButton" to="UIMargin/UIContainer/RightSide/CharacterList" method="_on_character_button_pressed"]
+[connection signal="pressed" from="UIMargin/UIContainer/RightSide/CharacterTeamMarign/Panel/MarginContainer/PlayerTeamPreview/CharacterButton" to="UIMargin/UIContainer/RightSide/CharacterTeamMarign/Panel/MarginContainer/PlayerTeamPreview" method="_on_character_button_pressed"]
+[connection signal="pressed" from="UIMargin/UIContainer/RightSide/MarginContainer/Panel/MarginContainer/CharacterList/CharacterButton" to="UIMargin/UIContainer/RightSide/MarginContainer/Panel/MarginContainer/CharacterList" method="_on_character_button_pressed"]
 [connection signal="pressed" from="UIMargin/UIContainer/RightSide/TeamButtons/ClearButton" to="UIMargin/UIContainer/RightSide/TeamButtons" method="_on_clear_button_pressed"]
 [connection signal="pressed" from="UIMargin/UIContainer/RightSide/TeamButtons/StartButton" to="UIMargin/UIContainer/RightSide/TeamButtons" method="_on_start_button_pressed"]
+
+[editable path="UIMargin/UIContainer/LeftSide/CharacterInfo"]
+[editable path="UIMargin/UIContainer/LeftSide/CharacterInfo/AbilityInformationUI"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2i485muxsl4s"
-path="res://.godot/imported/testDummy2_idle.png-97a52f49ff973f3d8c977cdc995a1e25.ctex"
+uid="uid://dubbe7ax2pvt3"
+path="res://.godot/imported/settings_icon.png-857c974fbd46611dea0869d1ceeb7caf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/characters/testDummy2_idle.png"
-dest_files=["res://.godot/imported/testDummy2_idle.png-97a52f49ff973f3d8c977cdc995a1e25.ctex"]
+source_file="res://assets/menu/sprites/settings_icon.png"
+dest_files=["res://.godot/imported/settings_icon.png-857c974fbd46611dea0869d1ceeb7caf.ctex"]
 
 [params]
 

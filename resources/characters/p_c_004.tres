@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://ch4m7fa1h3hrk"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3 uid="uid://ch4m7fa1h3hrk"]
 
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_8dvlv"]
 [ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="2_7msdl"]
 [ext_resource type="Resource" uid="uid://cmcmiecfbopmp" path="res://resources/abilities/commonHealing/healing_from_anywhere.tres" id="2_84hrj"]
-[ext_resource type="Texture2D" uid="uid://c8ekl2d2fiv46" path="res://assets/sprites/characters/p_c_004.png" id="3_44ebd"]
+[ext_resource type="Texture2D" uid="uid://bwmljwuycbin2" path="res://assets/sprites/characters/p_c_004.png" id="3_44ebd"]
+[ext_resource type="Texture2D" uid="uid://bep60o5eoao2i" path="res://assets/sprites/icon/p_i_004.png" id="3_gpkyb"]
 
 [resource]
 script = ExtResource("2_7msdl")
@@ -14,7 +15,7 @@ max_hp = 100
 attack = 10
 defense = 10
 speed = 10
-character_icon = ExtResource("3_44ebd")
+character_icon = ExtResource("3_gpkyb")
 idle_sprite = ExtResource("3_44ebd")
 abilities = Array[ExtResource("1_8dvlv")]([ExtResource("2_84hrj")])
 metadata/_custom_type_script = "uid://c3msr806gkbc3"

@@ -1,14 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://fd3yk1rhccrb"]
+[gd_scene load_steps=13 format=3 uid="uid://fd3yk1rhccrb"]
 
 [ext_resource type="Script" uid="uid://drkw847rhmuws" path="res://scenes/combatUI/combat_ui.gd" id="1_2twv5"]
 [ext_resource type="PackedScene" uid="uid://bsu1vuvwd1mwq" path="res://scenes/combatUI/turnOrderComponent/turn_order_display.tscn" id="2_3j1iq"]
 [ext_resource type="PackedScene" uid="uid://gmyn8nqy5skf" path="res://scenes/combatUI/labelComponent/battle_state_display.tscn" id="3_wklje"]
 [ext_resource type="Script" uid="uid://brsr18uss24kv" path="res://scenes/combatUI/labelComponent/battle_state_display.gd" id="4_2fjmf"]
 [ext_resource type="PackedScene" uid="uid://b113c6rif0cdd" path="res://scenes/combatUI/abilityInformationComponent/ability_panel.tscn" id="5_3j1iq"]
-[ext_resource type="Texture2D" uid="uid://skyu4u5uoadv" path="res://assets/sprites/abilities/test_ability_icon.png" id="5_4lml0"]
+[ext_resource type="Texture2D" uid="uid://dubbe7ax2pvt3" path="res://assets/menu/sprites/settings_icon.png" id="5_qb8ag"]
+[ext_resource type="StyleBox" uid="uid://g1n3g3xt3cdu" path="res://resources/themes/panel_white_background.tres" id="6_hcry7"]
 [ext_resource type="Script" uid="uid://rwmviksxu5oy" path="res://scenes/combatUI/abilityInformationComponent/ability_panel.gd" id="6_p6ojb"]
 [ext_resource type="PackedScene" uid="uid://83p02rgfg0ay" path="res://scenes/combatUI/charactersUIComponent/character_ui_manager.tscn" id="7_wklje"]
 [ext_resource type="PackedScene" uid="uid://c4j7kesycb6oa" path="res://scenes/menus/optionsPopup/options_popup.tscn" id="8_2fjmf"]
+[ext_resource type="Theme" uid="uid://djda6c5tcd13h" path="res://resources/themes/default_theme.tres" id="8_qb8ag"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qb8ag"]
 
 [node name="CombatUI" type="Control"]
 layout_mode = 3
@@ -63,7 +67,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("5_4lml0")
+texture_normal = ExtResource("5_qb8ag")
 ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
@@ -73,16 +77,19 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.7
 mouse_filter = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_qb8ag")
 
 [node name="BotomBackground" type="PanelContainer" parent="UIMargin/FullUI"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 mouse_filter = 2
+theme_override_styles/panel = ExtResource("6_hcry7")
 
 [node name="AbilityPanel" parent="UIMargin/FullUI/BotomBackground" instance=ExtResource("5_3j1iq")]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("8_qb8ag")
 script = ExtResource("6_p6ojb")
 
 [node name="CharacterUIContainer" parent="." instance=ExtResource("7_wklje")]

@@ -1,13 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://cgfys0mix6p3o"]
+[gd_scene load_steps=15 format=3 uid="uid://cgfys0mix6p3o"]
 
 [ext_resource type="PackedScene" uid="uid://u86114strhxn" path="res://scenes/menus/stageSelection/stagePanel/stage_information.tscn" id="1_0ejd1"]
 [ext_resource type="Script" uid="uid://dyhfgoxxqogqj" path="res://scenes/menus/stageSelection/stage_selection.gd" id="1_70y1c"]
+[ext_resource type="Theme" uid="uid://djda6c5tcd13h" path="res://resources/themes/default_theme.tres" id="1_hg4b8"]
 [ext_resource type="PackedScene" uid="uid://bkj64jlbcgesg" path="res://scenes/menus/stageSelection/stageList/stage_list.tscn" id="2_jj88m"]
 [ext_resource type="Script" uid="uid://cedd36gu6lp6i" path="res://scenes/menus/stageSelection/optionButtons/options_buttons.gd" id="3_byybc"]
+[ext_resource type="StyleBox" uid="uid://cwhdn7o31s6sa" path="res://resources/themes/panel_grey_background.tres" id="3_hkx0b"]
 [ext_resource type="Texture2D" uid="uid://byr5n2dkedagk" path="res://assets/menu/button/back_arrow.png" id="4_gg72n"]
-[ext_resource type="Texture2D" uid="uid://skyu4u5uoadv" path="res://assets/sprites/abilities/test_ability_icon.png" id="5_7xged"]
 [ext_resource type="PackedScene" uid="uid://bpgm3l168osee" path="res://scenes/menus/stageSelection/characterUnlockedPopup/unlockedCharacter.tscn" id="6_gg72n"]
 [ext_resource type="PackedScene" uid="uid://c4j7kesycb6oa" path="res://scenes/menus/optionsPopup/options_popup.tscn" id="7_ek5gi"]
+[ext_resource type="Texture2D" uid="uid://dubbe7ax2pvt3" path="res://assets/menu/sprites/settings_icon.png" id="7_rcrfm"]
+[ext_resource type="Texture2D" uid="uid://bof01yqpq8c4e" path="res://assets/menu/button/ORANGE.png" id="8_df7c3"]
+[ext_resource type="StyleBox" uid="uid://g1n3g3xt3cdu" path="res://resources/themes/panel_white_background.tres" id="11_rcrfm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkx0b"]
+bg_color = Color(0.882353, 0.85098, 0.819608, 1)
+
+[sub_resource type="Theme" id="Theme_hkx0b"]
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
 
 [node name="StageSelection" type="Control"]
 layout_mode = 3
@@ -25,16 +35,36 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_hg4b8")
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 layout_mode = 2
+theme = ExtResource("1_hg4b8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hkx0b")
 
 [node name="UIContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="StageList" parent="MarginContainer/UIContainer" instance=ExtResource("2_jj88m")]
+[node name="StageListContainer" type="MarginContainer" parent="MarginContainer/UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="MarginContainer/UIContainer/StageListContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_hkx0b")
+
+[node name="StageList" parent="MarginContainer/UIContainer/StageListContainer/Panel" instance=ExtResource("2_jj88m")]
 unique_name_in_owner = true
 layout_mode = 2
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 549.0
+offset_bottom = 623.0
+theme = SubResource("Theme_hkx0b")
 
 [node name="RightSide" type="VBoxContainer" parent="MarginContainer/UIContainer"]
 layout_mode = 2
@@ -63,7 +93,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("5_7xged")
+texture_normal = ExtResource("7_rcrfm")
 ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
@@ -72,9 +102,13 @@ flip_h = true
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="StartButton" parent="MarginContainer/UIContainer/RightSide/StageInformation/StartButtonAndTick/MarginContainer" index="0"]
+texture_normal = ExtResource("8_df7c3")
+
 [node name="UnlockedCharacter" parent="." instance=ExtResource("6_gg72n")]
 unique_name_in_owner = true
 visible = false
+theme_override_styles/panel = ExtResource("11_rcrfm")
 
 [node name="OptionsPopup" parent="." instance=ExtResource("7_ek5gi")]
 unique_name_in_owner = true
@@ -84,3 +118,5 @@ unfocusable = false
 
 [connection signal="pressed" from="MarginContainer/UIContainer/RightSide/TopRightOptions/BackButton" to="MarginContainer/UIContainer/RightSide/TopRightOptions" method="_on_back_button_pressed"]
 [connection signal="pressed" from="MarginContainer/UIContainer/RightSide/TopRightOptions/MarginContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+
+[editable path="MarginContainer/UIContainer/RightSide/StageInformation"]

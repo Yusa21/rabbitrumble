@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dnxfvk8s8ufop"]
+[gd_scene load_steps=9 format=3 uid="uid://dnxfvk8s8ufop"]
 
 [ext_resource type="Script" uid="uid://d14hjkwxprfen" path="res://scenes/characters/base_character.gd" id="1_xktx3"]
-[ext_resource type="Texture2D" uid="uid://b7iccpsbjijvv" path="res://assets/sprites/characters/testDummy_idle.png" id="2_u1txu"]
+[ext_resource type="Script" uid="uid://db7icbqrpuxag" path="res://scenes/characters/sprite_2d.gd" id="3_5pixi"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tit23"]
+load_path = "res://.godot/imported/testDummy_idle.png-87511388f462955f4b06064f9b34d75b.ctex"
 
 [sub_resource type="Animation" id="Animation_5pixi"]
 length = 0.001
@@ -88,7 +91,9 @@ script = ExtResource("1_xktx3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0986112, 0.0916667)
-texture = ExtResource("2_u1txu")
+texture = SubResource("CompressedTexture2D_tit23")
+script = ExtResource("3_5pixi")
+target_size = Vector2(80, 80)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 root_node = NodePath("../..")

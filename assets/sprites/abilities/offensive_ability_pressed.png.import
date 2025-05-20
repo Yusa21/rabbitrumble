@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://spjba6tjbymk"
-path="res://.godot/imported/p_c_007.png-b8c52e3a3a4a76d4f574d2e22df5356a.ctex"
+uid="uid://bcqugc47enu8p"
+path="res://.godot/imported/offensive_ability_pressed.png-c64085671433ff7e6881f39b49b8313b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/characters/p_c_007.png"
-dest_files=["res://.godot/imported/p_c_007.png-b8c52e3a3a4a76d4f574d2e22df5356a.ctex"]
+source_file="res://assets/sprites/abilities/offensive_ability_pressed.png"
+dest_files=["res://.godot/imported/offensive_ability_pressed.png-c64085671433ff7e6881f39b49b8313b.ctex"]
 
 [params]
 

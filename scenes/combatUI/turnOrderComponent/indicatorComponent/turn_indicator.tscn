@@ -1,22 +1,27 @@
 [gd_scene load_steps=3 format=3 uid="uid://qvnrvli6owa5"]
 
 [ext_resource type="Script" uid="uid://dwgvo7gp3qiur" path="res://scenes/combatUI/turnOrderComponent/indicatorComponent/turn_indicator.gd" id="1_1vgsm"]
+[ext_resource type="Texture2D" uid="uid://bltust5p8yn3x" path="res://assets/sprites/icon/p_i_001.png" id="2_gp1vw"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1vgsm"]
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_color = Color(0, 0, 0, 0)
-
-[node name="TurnIndicator" type="Panel"]
+[node name="TurnIndicator" type="VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_1vgsm")
+offset_right = 300.0
+offset_bottom = 253.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_1vgsm")
 
+[node name="CharacterIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_gp1vw")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="CharacterName" type="Label" parent="."]
-layout_mode = 0
-offset_right = 50.0
-offset_bottom = 22.3333
+unique_name_in_owner = true
+layout_mode = 2
+text = "Default name
+"
+horizontal_alignment = 1

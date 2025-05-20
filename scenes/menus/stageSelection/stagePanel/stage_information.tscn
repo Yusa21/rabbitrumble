@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://u86114strhxn"]
+[gd_scene load_steps=7 format=3 uid="uid://u86114strhxn"]
 
 [ext_resource type="Script" uid="uid://3fr0oemvd5jy" path="res://scenes/menus/stageSelection/stagePanel/stage_information.gd" id="1_jst74"]
 [ext_resource type="Texture2D" uid="uid://d1fa7uefvniqx" path="res://assets/menu/sprites/green_check.png" id="1_lh50f"]
-[ext_resource type="Texture2D" uid="uid://b7iccpsbjijvv" path="res://assets/sprites/characters/testDummy_idle.png" id="2_5gp8m"]
 [ext_resource type="Script" uid="uid://d17bakipvd7ey" path="res://scenes/menus/stageSelection/stagePanel/enemyTeamPreview/enemy_team_preview.gd" id="2_dp4hg"]
+[ext_resource type="Texture2D" uid="uid://b6ex23e5c1ck1" path="res://assets/menu/button/GREEN.png" id="4_qxpgq"]
+[ext_resource type="Texture2D" uid="uid://g55yakoh2etj" path="res://assets/menu/backgrounds/PRESSED.png" id="5_1no0l"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tit23"]
+load_path = "res://.godot/imported/testDummy_idle.png-87511388f462955f4b06064f9b34d75b.ctex"
 
 [node name="StageInformation" type="VBoxContainer"]
 offset_right = 468.0
@@ -43,7 +47,7 @@ script = ExtResource("2_dp4hg")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-texture = ExtResource("2_5gp8m")
+texture = SubResource("CompressedTexture2D_tit23")
 expand_mode = 1
 stretch_mode = 4
 
@@ -59,10 +63,32 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.6
 
-[node name="StartButton" type="Button" parent="StartButtonAndTick"]
+[node name="MarginContainer" type="MarginContainer" parent="StartButtonAndTick"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StartButton" type="TextureButton" parent="StartButtonAndTick/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+texture_normal = ExtResource("4_qxpgq")
+texture_pressed = ExtResource("5_1no0l")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="StartButtonAndTick/MarginContainer/StartButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
 text = "LET'S GO!"
 
 [node name="CheckMargin" type="MarginContainer" parent="StartButtonAndTick"]
@@ -78,4 +104,4 @@ texture = ExtResource("1_lh50f")
 expand_mode = 1
 stretch_mode = 4
 
-[connection signal="pressed" from="StartButtonAndTick/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="StartButtonAndTick/MarginContainer/StartButton" to="." method="_on_start_button_pressed"]

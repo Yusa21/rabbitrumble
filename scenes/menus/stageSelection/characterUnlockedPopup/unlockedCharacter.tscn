@@ -1,22 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpgm3l168osee"]
+[gd_scene load_steps=6 format=3 uid="uid://bpgm3l168osee"]
 
-[ext_resource type="Texture2D" uid="uid://kufm8rm6mxrl" path="res://assets/sprites/characters/p_c_001.png" id="1_7ukmg"]
+[ext_resource type="Texture2D" uid="uid://b6ex23e5c1ck1" path="res://assets/menu/button/GREEN.png" id="1_bl13e"]
 [ext_resource type="Script" uid="uid://cwv22q78qsxqu" path="res://scenes/menus/stageSelection/characterUnlockedPopup/unlocked_character.gd" id="1_reenc"]
+[ext_resource type="StyleBox" uid="uid://cwhdn7o31s6sa" path="res://resources/themes/panel_grey_background.tres" id="1_xftjq"]
+[ext_resource type="Texture2D" uid="uid://g55yakoh2etj" path="res://assets/menu/backgrounds/PRESSED.png" id="5_vdhgj"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xftjq"]
+load_path = "res://.godot/imported/p_c_001.png-c09d06d1eb09bd9327488ddc86b70b4e.ctex"
 
 [node name="UnlockedCharacter" type="PopupPanel"]
 initial_position = 1
-size = Vector2i(450, 500)
+size = Vector2i(518, 500)
 visible = true
+theme_override_styles/panel = ExtResource("1_xftjq")
 script = ExtResource("1_reenc")
 
 [node name="PopUpContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 446.0
-offset_bottom = 496.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 513.0
+offset_bottom = 495.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -27,8 +33,9 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
+theme_override_colors/default_color = Color(0.941176, 0.619608, 0.160784, 1)
 theme_override_font_sizes/normal_font_size = 30
-text = "Default is joning the team!"
+text = "Default is joining the team!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -41,7 +48,7 @@ theme_override_constants/margin_bottom = 30
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("1_7ukmg")
+texture = SubResource("CompressedTexture2D_xftjq")
 expand_mode = 1
 stretch_mode = 5
 
@@ -54,11 +61,27 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 10
 
-[node name="OkButton" type="Button" parent="PopUpContainer/ButtonMargin"]
+[node name="OkButton" type="TextureButton" parent="PopUpContainer/ButtonMargin"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 40
+size_flags_vertical = 6
+texture_normal = ExtResource("1_bl13e")
+texture_pressed = ExtResource("5_vdhgj")
+
+[node name="Label" type="Label" parent="PopUpContainer/ButtonMargin/OkButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 39
 text = "That's cool!🐇"
 
 [connection signal="pressed" from="PopUpContainer/ButtonMargin/OkButton" to="." method="_on_ok_button_pressed"]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="RabbitRumble"
-run/main_scene="uid://bmbhegyeid52l"
+run/main_scene="uid://cc31u1pyw88f0"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 

@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://djda6c5tcd13h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0oxu6"]
+bg_color = Color(0.882353, 0.85098, 0.819608, 1)
+
+[resource]
+/colors/FontColor = Color(0, 0, 0, 1)
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_0oxu6")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)

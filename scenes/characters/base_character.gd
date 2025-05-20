@@ -6,7 +6,7 @@ class_name BaseCharacter
 ##todas las funciones que hacer falta para que los personajes puedan funcionar, como recibir dano, moverse...
 ##tambien tiene algunas funciones que se sobreescriben en las clases hija como las de que ocurre cuando empieza un turno
 
-@onready var sprite: Sprite2D
+@onready var sprite
 @onready var animationPlayer: AnimationPlayer
 @onready var area2D: Area2D
 @onready var statusEffects: Node2D
@@ -24,6 +24,7 @@ var event_bus: BattleEventBus = null
 var id ##Id de la INSTANCIA especifica de personaje
 var alignment ##A que equipo pertenece el personaje, se le da valor en las subclases
 var char_name ##Nombre del personaje
+var character_icon ##Icono del personaje, no se usa directamente pero sirve de referencia de otros elementos
 var max_hp ##Salud maxima
 var current_hp ##Salud actual
 var atk ##Ataque del personaje
@@ -71,6 +72,7 @@ func initialize_with_event_bus(bus: BattleEventBus):
 func set_character_info(character: CharacterData, new_id: int, char_pos: int):
 	id = new_id
 	char_name = character.character_name
+	character_icon = character.character_icon
 	max_hp = character.max_hp
 	current_hp = character.max_hp
 	atk = character.attack

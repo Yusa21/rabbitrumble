@@ -22,6 +22,7 @@ func _ready() -> void:
 	#Saca los enemigos del nivel del game manager
 	for character_id in GameManager.level_enemy_characters:
 		level_enemy_characters.append(CharacterRepo.load_character_data_by_id(character_id))
+		print(character_id)
 	
 
 	event_bus = CharacterSelectionBus.new()

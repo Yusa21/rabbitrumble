@@ -1,48 +1,70 @@
-[gd_scene load_steps=4 format=3 uid="uid://b113c6rif0cdd"]
+[gd_scene load_steps=6 format=3 uid="uid://b113c6rif0cdd"]
 
 [ext_resource type="Texture2D" uid="uid://dcbpc1u02lv60" path="res://assets/menu/button/number_1.png" id="1_ufgnn"]
 [ext_resource type="Texture2D" uid="uid://b3ir5d468xrny" path="res://assets/menu/button/number_2.png" id="2_k3k5g"]
+[ext_resource type="Texture2D" uid="uid://dedfhgy13jmsl" path="res://assets/sprites/abilities/pass_turn.png" id="3_qvmuq"]
 [ext_resource type="PackedScene" uid="uid://pt623vjaymv5" path="res://scenes/combatUI/abilityInformationComponent/ability_information_ui.tscn" id="3_sgllw"]
+[ext_resource type="Texture2D" uid="uid://b1ic7afu0t61v" path="res://assets/sprites/abilities/pass_turn_pressed.png" id="4_7ocb5"]
 
 [node name="AbilityPanel" type="HBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -178.0
+offset_bottom = -486.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
 [node name="AbilityButtons" type="HBoxContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="AbilityButtons"]
+[node name="MarginContainer" type="MarginContainer" parent="AbilityButtons"]
 layout_mode = 2
-mouse_filter = 2
+theme_override_constants/margin_left = 20
 
-[node name="AbilityButton1" type="TextureButton" parent="AbilityButtons/AspectRatioContainer"]
+[node name="AbilityButton1" type="TextureButton" parent="AbilityButtons/MarginContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 disabled = true
 texture_normal = ExtResource("1_ufgnn")
+ignore_texture_size = true
+stretch_mode = 4
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="AbilityButtons"]
+[node name="MarginContainer2" type="MarginContainer" parent="AbilityButtons"]
 layout_mode = 2
-mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
 
-[node name="AbilityButton2" type="TextureButton" parent="AbilityButtons/AspectRatioContainer2"]
+[node name="AbilityButton2" type="TextureButton" parent="AbilityButtons/MarginContainer2"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 disabled = true
 texture_normal = ExtResource("2_k3k5g")
+ignore_texture_size = true
+stretch_mode = 4
 
-[node name="VSeparator" type="VSeparator" parent="."]
+[node name="MarginContainer3" type="MarginContainer" parent="AbilityButtons"]
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="PassButton" type="TextureButton" parent="AbilityButtons/MarginContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture_normal = ExtResource("3_qvmuq")
+texture_pressed = ExtResource("4_7ocb5")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="AbilityInformationUI" parent="." instance=ExtResource("3_sgllw")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0

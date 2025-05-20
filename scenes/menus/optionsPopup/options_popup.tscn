@@ -1,24 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://c4j7kesycb6oa"]
+[gd_scene load_steps=5 format=3 uid="uid://c4j7kesycb6oa"]
 
 [ext_resource type="Script" uid="uid://bvt1vafgbx5t7" path="res://scenes/menus/optionsPopup/options_popup.gd" id="1_bsw6y"]
+[ext_resource type="StyleBox" uid="uid://cwhdn7o31s6sa" path="res://resources/themes/panel_grey_background.tres" id="1_mrgns"]
+[ext_resource type="Texture2D" uid="uid://bof01yqpq8c4e" path="res://assets/menu/button/ORANGE.png" id="2_0l0ey"]
+[ext_resource type="Texture2D" uid="uid://g55yakoh2etj" path="res://assets/menu/backgrounds/PRESSED.png" id="4_j0jrc"]
 
 [node name="OptionsPopup" type="PopupPanel"]
-size = Vector2i(459, 500)
+size = Vector2i(518, 500)
 visible = true
 unfocusable = true
+theme_override_styles/panel = ExtResource("1_mrgns")
 script = ExtResource("1_bsw6y")
 
 [node name="PopupContainer" type="VBoxContainer" parent="."]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 455.0
-offset_bottom = 496.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 513.0
+offset_bottom = 495.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MenuTittle" type="RichTextLabel" parent="PopupContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.941176, 0.619608, 0.160784, 1)
 theme_override_font_sizes/normal_font_size = 32
 text = "Options"
 horizontal_alignment = 1
@@ -43,6 +48,7 @@ size_flags_vertical = 3
 [node name="MasterVolumeLabel" type="RichTextLabel" parent="PopupContainer/OptionsMargin/VolumeSection/MasterVolume"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.941176, 0.619608, 0.160784, 1)
 text = "Master Volume"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -59,6 +65,7 @@ size_flags_vertical = 3
 [node name="MusicVolumeLabel" type="RichTextLabel" parent="PopupContainer/OptionsMargin/VolumeSection/MusicVolume"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.941176, 0.619608, 0.160784, 1)
 text = "Music Volume"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -75,6 +82,7 @@ size_flags_vertical = 3
 [node name="SFXVolumeLabel" type="RichTextLabel" parent="PopupContainer/OptionsMargin/VolumeSection/SFXVolume"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.941176, 0.619608, 0.160784, 1)
 text = "SFX Volume
 "
 horizontal_alignment = 1
@@ -93,9 +101,27 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 20
 
-[node name="DoneButton" type="Button" parent="PopupContainer/ButtonMargin"]
+[node name="DoneButton" type="TextureButton" parent="PopupContainer/ButtonMargin"]
 layout_mode = 2
 size_flags_vertical = 3
+texture_normal = ExtResource("2_0l0ey")
+texture_pressed = ExtResource("4_j0jrc")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="PopupContainer/ButtonMargin/DoneButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
 text = "Done 👍"
 
 [connection signal="pressed" from="PopupContainer/ButtonMargin/DoneButton" to="." method="_on_done_button_pressed"]

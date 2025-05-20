@@ -5,6 +5,7 @@ class_name AbilityPanelComponent
 @onready var ability_button_1 = get_node("%AbilityButton1")
 @onready var ability_button_2 = get_node("%AbilityButton2")
 @onready var ability_information_ui = get_node("%AbilityInformationUI")
+@onready var pass_turn_button = get_node("%PassButton")
 
 # State
 var battle_bus
@@ -16,10 +17,12 @@ func _ready():
 	# Connect button signals
 	ability_button_1.pressed.connect(_on_ability_button_1_pressed)
 	ability_button_2.pressed.connect(_on_ability_button_2_pressed)
+	pass_turn_button.pressed.connect(_on_pass_button_pressed)
 	
 	# Initially disable buttons
 	ability_button_1.disabled = false
 	ability_button_2.disabled = false
+	pass_turn_button.disabled = false
 
 func initialize(bus: BattleEventBus):
 	battle_bus = bus
@@ -80,13 +83,17 @@ func _update_ability_buttons(character):
 	
 	# Update button 1
 	if abilities.size() > 0:
-		
+		ability_button_1.texture_normal = abilities[0].icon_sprite
+		ability_button_1.texture_pressed = abilities[0].icon_pressed
+		ability_button_1.texture_disabled = abilities[0].icon_disabled
 		# Check if character position allows using this ability
 		if abilities[0].launch_position.has(character.char_position):
 			ability_button_1.disabled = false
+			
 			print("Ability 1 enabled: ", abilities[0].name)
 		else:
 			ability_button_1.disabled = true
+			
 			print("Ability 1 disabled due to position:", abilities[0].name)
 	else:
 		ability_button_1.disabled = true
@@ -94,6 +101,9 @@ func _update_ability_buttons(character):
 	
 	# Update button 2
 	if abilities.size() > 1:
+		ability_button_2.texture_normal = abilities[0].icon_sprite
+		ability_button_2.texture_pressed = abilities[0].icon_pressed
+		ability_button_2.texture_disabled = abilities[0].icon_disabled
 		
 		# Check if character position allows using this ability
 		if abilities[1].launch_position.has(character.char_position):
@@ -116,6 +126,11 @@ func _on_ability_button_2_pressed():
 	if current_character:
 		_handle_ability_selection(1)
 
+func _on_pass_button_pressed():
+	print("Pass turn button pressed")
+	if current_character:
+		_pass_turn()
+
 func _handle_ability_selection(ability_index):
 	# Get the abilities of the current character
 	var abilities = current_character.abilities
@@ -134,6 +149,10 @@ func _handle_ability_selection(ability_index):
 	else:
 		print("No ability at index ", ability_index)
 
+func _pass_turn():
+	current_character.emit_end_turn()
+
+
 # Called by the targeting system when targeting is complete to reset the buttons
 func _on_ability_executed(ability, targets):
 	if current_character and selected_ability:
@@ -142,6 +161,7 @@ func _on_ability_executed(ability, targets):
 		# Disable buttons after ability use
 		ability_button_1.disabled = true
 		ability_button_2.disabled = true
+		pass_turn_button.disabled = true
 		
 		# Reset selection
 		selected_ability = null

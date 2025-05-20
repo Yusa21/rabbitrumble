@@ -38,5 +38,6 @@ signal character_highlight(character, enable)
 # Abilty UI signals
 signal ability_selected(ability_data, ability_index)
 signal ability_executed(ability_data, targets)
+signal turn_passed(character)
 
 signal all_damage_resolved
