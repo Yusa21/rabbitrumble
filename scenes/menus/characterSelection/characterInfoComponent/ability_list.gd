@@ -46,6 +46,7 @@ func setup_ability_button(button, ability_data):
 	# Set button texture
 	if ability_data.icon_sprite:
 		button.texture_normal = ability_data.icon_sprite
+		button.texture_pressed = ability_data.icon_pressed
 	else:
 		button.texture_normal = default_icon
 	

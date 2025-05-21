@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dw4rnrhjoi6kj"]
 
 [ext_resource type="Script" uid="uid://ceul6cto7r03g" path="res://scenes/menus/characterSelection/characterInfoComponent/character_info.gd" id="1_3yrqc"]
-[ext_resource type="Texture2D" uid="uid://b7iccpsbjijvv" path="res://assets/sprites/characters/testDummy_idle.png" id="1_71x57"]
+[ext_resource type="Texture2D" uid="uid://drgh57k4q7r2x" path="res://assets/sprites/characters/testDummy_idle.png" id="1_71x57"]
 [ext_resource type="PackedScene" uid="uid://pt623vjaymv5" path="res://scenes/combatUI/abilityInformationComponent/ability_information_ui.tscn" id="2_3yrqc"]
 [ext_resource type="Script" uid="uid://hhmelp6a8h80" path="res://scenes/menus/characterSelection/characterInfoComponent/ability_list.gd" id="3_8mnvf"]
 [ext_resource type="Texture2D" uid="uid://dyql2eh7lhsok" path="res://assets/menu/button/test_icon.png" id="4_6jog8"]

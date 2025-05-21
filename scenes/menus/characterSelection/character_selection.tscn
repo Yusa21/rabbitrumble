@@ -1,12 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2nxm6hut36wv"]
+[gd_scene load_steps=18 format=3 uid="uid://c2nxm6hut36wv"]
 
 [ext_resource type="PackedScene" uid="uid://dw4rnrhjoi6kj" path="res://scenes/menus/characterSelection/characterInfoComponent/character_info.tscn" id="1_jiri0"]
 [ext_resource type="Script" uid="uid://bm4avyvtajbs8" path="res://scenes/menus/characterSelection/character_selection.gd" id="1_prrdb"]
 [ext_resource type="Script" uid="uid://48mgfj3pcqyq" path="res://scenes/menus/characterSelection/enemyTeamPreviewComponent/enemy_team_preview.gd" id="3_bdnlr"]
 [ext_resource type="Script" uid="uid://b6o8pqpwabvfj" path="res://scenes/menus/characterSelection/characterListComponent/character_list.gd" id="3_i8m77"]
 [ext_resource type="Script" uid="uid://vvv4evbnnhv4" path="res://scenes/menus/characterSelection/topRightOptionsComponent/top_right_options.gd" id="5_2s4wh"]
-[ext_resource type="Texture2D" uid="uid://byr5n2dkedagk" path="res://assets/menu/button/back_arrow.png" id="5_4xs55"]
+[ext_resource type="Texture2D" uid="uid://bs38yxs1ispbk" path="res://assets/menu/button/left_arrow_button.png" id="5_2wxh2"]
 [ext_resource type="Script" uid="uid://c20ady8sma232" path="res://scenes/menus/characterSelection/playerTeamPreviewComponent/player_team_preview.gd" id="5_n0mw4"]
+[ext_resource type="Texture2D" uid="uid://dih1w7t1fu1qt" path="res://assets/menu/button/left_arrow_button_pressed.png" id="6_gvmqt"]
 [ext_resource type="Texture2D" uid="uid://dubbe7ax2pvt3" path="res://assets/menu/sprites/settings_icon.png" id="7_2wxh2"]
 [ext_resource type="Script" uid="uid://bpapccbhtrpqg" path="res://scenes/menus/characterSelection/teamButtonsComponent/team_buttons.gd" id="7_3hanb"]
 [ext_resource type="StyleBox" uid="uid://cwhdn7o31s6sa" path="res://resources/themes/panel_grey_background.tres" id="9_2wxh2"]
@@ -19,6 +20,8 @@ bg_color = Color(0.882353, 0.85098, 0.819608, 1)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tit23"]
 load_path = "res://.godot/imported/testDummy_idle.png-87511388f462955f4b06064f9b34d75b.ctex"
+
+[sub_resource type="Theme" id="Theme_2wxh2"]
 
 [node name="CharacterSelection" type="Control"]
 layout_mode = 3
@@ -128,10 +131,17 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.75
 script = ExtResource("5_2s4wh")
 
-[node name="BackButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/TopRightOptions"]
+[node name="MarginContainer2" type="MarginContainer" parent="UIMargin/UIContainer/RightSide/TopRightOptions"]
+layout_mode = 2
+theme = SubResource("Theme_2wxh2")
+theme_override_constants/margin_right = 5
+
+[node name="BackButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/TopRightOptions/MarginContainer2"]
+modulate = Color(0.941176, 0.619608, 0.160784, 1)
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-texture_normal = ExtResource("5_4xs55")
+texture_normal = ExtResource("5_2wxh2")
+texture_pressed = ExtResource("6_gvmqt")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -140,6 +150,7 @@ layout_mode = 2
 
 [node name="OptionsButton" type="TextureButton" parent="UIMargin/UIContainer/RightSide/TopRightOptions/MarginContainer"]
 unique_name_in_owner = true
+modulate = Color(0.941176, 0.619608, 0.160784, 1)
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -290,7 +301,7 @@ visible = false
 unfocusable = false
 
 [connection signal="pressed" from="UIMargin/UIContainer/LeftSide/EnemyTeamPreview/CharacterButton" to="UIMargin/UIContainer/LeftSide/EnemyTeamPreview" method="_on_character_button_pressed"]
-[connection signal="pressed" from="UIMargin/UIContainer/RightSide/TopRightOptions/BackButton" to="UIMargin/UIContainer/RightSide/TopRightOptions" method="_on_back_button_pressed"]
+[connection signal="pressed" from="UIMargin/UIContainer/RightSide/TopRightOptions/MarginContainer2/BackButton" to="UIMargin/UIContainer/RightSide/TopRightOptions" method="_on_back_button_pressed"]
 [connection signal="pressed" from="UIMargin/UIContainer/RightSide/TopRightOptions/MarginContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="UIMargin/UIContainer/RightSide/CharacterTeamMarign/Panel/MarginContainer/PlayerTeamPreview/CharacterButton" to="UIMargin/UIContainer/RightSide/CharacterTeamMarign/Panel/MarginContainer/PlayerTeamPreview" method="_on_character_button_pressed"]
 [connection signal="pressed" from="UIMargin/UIContainer/RightSide/MarginContainer/Panel/MarginContainer/CharacterList/CharacterButton" to="UIMargin/UIContainer/RightSide/MarginContainer/Panel/MarginContainer/CharacterList" method="_on_character_button_pressed"]

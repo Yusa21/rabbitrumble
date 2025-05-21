@@ -86,6 +86,7 @@ func _update_ability_buttons(character):
 		ability_button_1.texture_normal = abilities[0].icon_sprite
 		ability_button_1.texture_pressed = abilities[0].icon_pressed
 		ability_button_1.texture_disabled = abilities[0].icon_disabled
+		ability_button_1.tooltip_text = abilities[0].name
 		# Check if character position allows using this ability
 		if abilities[0].launch_position.has(character.char_position):
 			ability_button_1.disabled = false
@@ -101,10 +102,11 @@ func _update_ability_buttons(character):
 	
 	# Update button 2
 	if abilities.size() > 1:
-		ability_button_2.texture_normal = abilities[0].icon_sprite
-		ability_button_2.texture_pressed = abilities[0].icon_pressed
-		ability_button_2.texture_disabled = abilities[0].icon_disabled
-		
+		ability_button_2.texture_normal = abilities[1].icon_sprite
+		ability_button_2.texture_pressed = abilities[1].icon_pressed
+		ability_button_2.texture_disabled = abilities[1].icon_disabled
+		ability_button_2.tooltip_text = abilities[1].name
+
 		# Check if character position allows using this ability
 		if abilities[1].launch_position.has(character.char_position):
 			ability_button_2.disabled = false
