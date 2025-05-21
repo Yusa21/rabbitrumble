@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://dty8xvxvuxn57"]
+
+[ext_resource type="Script" uid="uid://dmx3edknnsq3a" path="res://scenes/menus/mainMenu/movingBackground/moving_background.gd" id="1_0llil"]
+[ext_resource type="Texture2D" uid="uid://dr8j47h0rvf5g" path="res://assets/sprites/backgrounds/Field.png" id="2_pr2ea"]
+
+[node name="MovingBackground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0llil")
+
+[node name="BackgroundTexture1" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 462.0
+offset_bottom = 567.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pr2ea")
+
+[node name="BackgroundTexture2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 462.0
+offset_bottom = 567.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pr2ea")

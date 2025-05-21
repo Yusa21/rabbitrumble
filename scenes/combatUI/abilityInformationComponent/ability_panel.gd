@@ -120,16 +120,19 @@ func _update_ability_buttons(character):
 
 func _on_ability_button_1_pressed():
 	print("Ability button 1 pressed")
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	if current_character:
 		_handle_ability_selection(0)
 
 func _on_ability_button_2_pressed():
 	print("Ability button 2 pressed")
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	if current_character:
 		_handle_ability_selection(1)
 
 func _on_pass_button_pressed():
 	print("Pass turn button pressed")
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	if current_character:
 		_pass_turn()
 

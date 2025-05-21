@@ -11,7 +11,7 @@ func show_character_unlock(char_data: CharacterData) -> void:
 	# Update the UI elements
 	character_name_label.text = char_data.character_name +  " it's joining the team!"
 	character_image.texture = char_data.character_icon
-
+	GameManager.play_sfx("res://audio/soundEffects/achievement.ogg")
 	popup_centered()
 	
 func _on_ok_button_pressed() -> void:

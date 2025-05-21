@@ -156,8 +156,12 @@ func execute_ability(ability, tar: Array):
 		event_bus.emit_signal("ability_used", self, ability, targets)
 
 	print("Playing attack animation for character with id", id)
-	animationPlayer.play("attack")
-	await animationPlayer.animation_finished
+	if ability.animation_name == "attack":
+		animationPlayer.play("attack")
+		await animationPlayer.animation_finished
+	else:
+		animationPlayer.play("healing")
+		await animationPlayer.animation_finished
 
 	
 	# Activa los efectos en los objetivos, comprueba que no este vacio por si acaso
@@ -228,7 +232,11 @@ func defeat():
 
 ##Recibe curacion, recibe la cantidad a curar y el curador
 func take_healing(heal, healer):
+
 	var old_hp = current_hp
+	animationPlayer.play("healed")
+	await animationPlayer.animation_finished
+
 	current_hp += heal
 	if current_hp > max_hp:
 		current_hp = max_hp

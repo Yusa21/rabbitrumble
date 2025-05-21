@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dnxfvk8s8ufop"]
+[gd_scene load_steps=11 format=3 uid="uid://dnxfvk8s8ufop"]
 
 [ext_resource type="Script" uid="uid://d14hjkwxprfen" path="res://scenes/characters/base_character.gd" id="1_xktx3"]
 [ext_resource type="Script" uid="uid://db7icbqrpuxag" path="res://scenes/characters/sprite_2d.gd" id="3_5pixi"]
@@ -8,6 +8,30 @@ load_path = "res://.godot/imported/testDummy_idle.png-87511388f462955f4b06064f9b
 
 [sub_resource type="Animation" id="Animation_5pixi"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_u1txu"]
 resource_name = "attack"
@@ -34,6 +58,20 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [0.0, -0.418879, 0.436332, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("Sprite2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [""],
+"method": &"play_sound"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_occlb"]
@@ -75,11 +113,72 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.0, -0.0872665, 0.0]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["hurt"],
+"method": &"play_sound"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0db1q"]
+resource_name = "healed"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["healed"],
+"method": &"play_sound"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_47jyr"]
+resource_name = "healing"
+length = 0.45
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1998, 0.3996),
+"transitions": PackedFloat32Array(0.5, 1, 1.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -60), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1998, 0.3996),
+"transitions": PackedFloat32Array(0.5, 1, 1.3),
+"update": 0,
+"values": [0.0, -3.14159, -6.28319]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0db1q"]
 _data = {
 &"RESET": SubResource("Animation_5pixi"),
 &"attack": SubResource("Animation_u1txu"),
+&"healed": SubResource("Animation_0db1q"),
+&"healing": SubResource("Animation_47jyr"),
 &"hurt": SubResource("Animation_occlb")
 }
 
