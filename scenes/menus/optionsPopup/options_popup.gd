@@ -16,6 +16,7 @@ func _ready() -> void:
 	master_volume_slider.value_changed.connect(_on_master_volume_changed)
 	music_volume_slider.value_changed.connect(_on_music_volume_changed)
 	sfx_volume_slider.value_changed.connect(_on_sfx_volume_changed)
+	sfx_volume_slider.drag_ended.connect(_on_sfx_drag_ended)
 	
 	# Connect popup about_to_popup signal to update sliders when dialog opens
 	about_to_popup.connect(_update_slider_values)
@@ -55,7 +56,11 @@ func _on_sfx_volume_changed(value: float) -> void:
 	game_manager.set_sfx_volume_percent(value)
 	# Prevent input event propagation
 	get_viewport().set_input_as_handled()
+	
+func _on_sfx_drag_ended(_value) -> void:
+	GameManager.play_sfx("res://audio/soundEffects/buzzer.ogg")
 
 
 func _on_done_button_pressed() -> void:
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	close_options_popup()

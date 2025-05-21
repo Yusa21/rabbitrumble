@@ -41,9 +41,11 @@ func _ready() -> void:
 	event_bus.emit_signal("character_clicked", unlocked_char_list[0])
 
 func _on_start_button_clicked():
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	transition_to_battle()
 
 func _on_back_button_clicked():
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	transition_to_stage_selection()
 
 func transition_to_battle():
@@ -73,4 +75,5 @@ func transition_to_stage_selection():
 
 
 func _on_options_button_pressed() -> void:
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	options_menu.show_options_pop_up()

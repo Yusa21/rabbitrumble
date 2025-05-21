@@ -47,10 +47,12 @@ func _ready() -> void:
 
 
 func _on_start_button_clicked():
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	GameManager.setup_character_select(current_selected_stage.enemies, current_selected_stage.id)
 	GameManager.go_to_character_select()
 
 func _on_back_button_clicked():
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	GameManager.go_to_main_menu()
 
 func _on_stage_clicked(stage):
@@ -58,4 +60,5 @@ func _on_stage_clicked(stage):
 
 
 func _on_options_button_pressed() -> void:
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	menu_options.show_options_pop_up()

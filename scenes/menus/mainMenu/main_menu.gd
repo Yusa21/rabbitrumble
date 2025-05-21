@@ -16,10 +16,13 @@ func _ready() -> void:
 	event_bus.exit_button_clicked.connect(_on_exit_button_clicked)
 
 func _on_start_button_clicked():
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	GameManager.go_to_stage_select()
 
 func _on_exit_button_clicked():
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	get_tree().quit()
 
 func _on_options_button_pressed() -> void:
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	options_pop_up.show_options_pop_up()

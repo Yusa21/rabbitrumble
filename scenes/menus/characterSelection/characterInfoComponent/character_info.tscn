@@ -134,7 +134,7 @@ custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture_normal = ExtResource("4_6jog8")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="AbilityInformationUI" parent="." instance=ExtResource("2_3yrqc")]
 unique_name_in_owner = true

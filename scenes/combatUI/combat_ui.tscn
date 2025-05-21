@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://fd3yk1rhccrb"]
+[gd_scene load_steps=16 format=3 uid="uid://fd3yk1rhccrb"]
 
 [ext_resource type="Script" uid="uid://drkw847rhmuws" path="res://scenes/combatUI/combat_ui.gd" id="1_2twv5"]
 [ext_resource type="PackedScene" uid="uid://bsu1vuvwd1mwq" path="res://scenes/combatUI/turnOrderComponent/turn_order_display.tscn" id="2_3j1iq"]
@@ -6,11 +6,14 @@
 [ext_resource type="Script" uid="uid://brsr18uss24kv" path="res://scenes/combatUI/labelComponent/battle_state_display.gd" id="4_2fjmf"]
 [ext_resource type="PackedScene" uid="uid://b113c6rif0cdd" path="res://scenes/combatUI/abilityInformationComponent/ability_panel.tscn" id="5_3j1iq"]
 [ext_resource type="Texture2D" uid="uid://dubbe7ax2pvt3" path="res://assets/menu/sprites/settings_icon.png" id="5_qb8ag"]
+[ext_resource type="Texture2D" uid="uid://d0wdod5wxpqja" path="res://assets/menu/button/surrender.png" id="6_3mrvd"]
 [ext_resource type="StyleBox" uid="uid://g1n3g3xt3cdu" path="res://resources/themes/panel_white_background.tres" id="6_hcry7"]
 [ext_resource type="Script" uid="uid://rwmviksxu5oy" path="res://scenes/combatUI/abilityInformationComponent/ability_panel.gd" id="6_p6ojb"]
 [ext_resource type="PackedScene" uid="uid://83p02rgfg0ay" path="res://scenes/combatUI/charactersUIComponent/character_ui_manager.tscn" id="7_wklje"]
+[ext_resource type="Texture2D" uid="uid://xcrrwnbanvl7" path="res://assets/menu/button/surrender_pressed.png" id="7_yoavp"]
 [ext_resource type="PackedScene" uid="uid://c4j7kesycb6oa" path="res://scenes/menus/optionsPopup/options_popup.tscn" id="8_2fjmf"]
 [ext_resource type="Theme" uid="uid://djda6c5tcd13h" path="res://resources/themes/default_theme.tres" id="8_qb8ag"]
+[ext_resource type="PackedScene" uid="uid://df72ilj5pj681" path="res://scenes/combatUI/surrenderPanel/surrender_panel.tscn" id="14_yoavp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qb8ag"]
 
@@ -69,8 +72,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = ExtResource("5_qb8ag")
 ignore_texture_size = true
-stretch_mode = 4
+stretch_mode = 5
 flip_h = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="UIMargin/FullUI/TopSection/OptionsButtons"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SurrenderButton" type="TextureButton" parent="UIMargin/FullUI/TopSection/OptionsButtons/MarginContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("6_3mrvd")
+texture_pressed = ExtResource("7_yoavp")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="TransparentSeparator" type="HSeparator" parent="UIMargin/FullUI"]
 layout_mode = 2
@@ -101,4 +117,9 @@ auto_translate_mode = 1
 visible = false
 unfocusable = false
 
+[node name="SurrenderPanel" parent="." instance=ExtResource("14_yoavp")]
+unique_name_in_owner = true
+visible = false
+
 [connection signal="pressed" from="UIMargin/FullUI/TopSection/OptionsButtons/MarginContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="UIMargin/FullUI/TopSection/OptionsButtons/MarginContainer2/SurrenderButton" to="." method="_on_surrender_button_pressed"]

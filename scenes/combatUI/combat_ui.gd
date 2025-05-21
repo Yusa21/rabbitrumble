@@ -18,6 +18,7 @@ var battle_bus: BattleEventBus
 @onready var ability_panel = get_node("%AbilityPanel")
 @onready var turn_order_display = get_node("%TurnOrderDisplay")
 @onready var options_menu = get_node("%OptionsPopup")
+@onready var surrender_menu = get_node("%SurrenderPanel")
 
 func _ready():
 	# Debug print
@@ -39,6 +40,7 @@ func initialize(manager: BattleManager, bus: BattleEventBus):
 	battle_bus.battle_end.connect(_on_battle_end)
 	battle_bus.character_clicked.connect(_on_character_clicked)
 	battle_bus.ability_selected.connect(_handle_ability_selection)
+	battle_bus.giving_up.connect(_on_giving_up)
 
 	# Initialize turn order display with event bus
 	if turn_order_display:
@@ -55,6 +57,11 @@ func initialize(manager: BattleManager, bus: BattleEventBus):
 		ability_panel.initialize(battle_bus)
 	else:
 		push_error("Warning: Ability panel not found in scene")
+
+	if surrender_menu:
+		surrender_menu.initialize(battle_bus)
+	else :
+		push_error("Warning: Surrender menu not found in scene")
 
 
 	print("Initial battle state: ", BattleManager.BattleState.keys()[battle_manager.current_state])
@@ -330,4 +337,12 @@ func _input(event):
 
 
 func _on_options_button_pressed() -> void:
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	options_menu.show_options_pop_up()
+
+func _on_surrender_button_pressed() -> void:
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
+	surrender_menu.show_surrender_popup()
+
+func _on_giving_up() -> void:
+	battle_bus.emit_signal("battle_end", "enemy")

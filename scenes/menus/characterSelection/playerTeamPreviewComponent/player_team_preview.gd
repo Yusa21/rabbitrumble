@@ -56,6 +56,8 @@ func add_character_button(char_data):
     # Create a new button
     var new_button = character_button.duplicate()
     new_button.visible = true
+
+    GameManager.play_sfx("res://audio/soundEffects/seedlift.ogg")
     
     # Set the texture if available
     if char_data.character_icon != null:
@@ -82,6 +84,8 @@ func add_character_button(char_data):
 func _remove_character(char_data):
     var char_id = char_data.character_id
     
+    GameManager.play_sfx("res://audio/soundEffects/seedlift.ogg")
+
     # Remove from tracking array
     for i in range(selected_characters.size()):
         if selected_characters[i].character_id == char_id:
@@ -102,6 +106,7 @@ func _emit_character_clicked(char_data):
 
 # Clear all selected characters
 func clear_selection():
+    GameManager.play_sfx("res://audio/soundEffects/buzzer.ogg")
     selected_characters.clear()
     
     # Remove all character buttons except template

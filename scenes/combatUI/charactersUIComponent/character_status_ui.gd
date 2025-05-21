@@ -2,7 +2,7 @@ extends Control
 class_name CharacterStatusUI
 
 @onready var health_bar = get_node("%HealthBar")
-@onready var health_label = get_node("%HealthLabel") # Add this line for the new label
+@onready var health_label = get_node("%HealthLabel")
 @onready var char_name_label = get_node("%NameLabel")
 @onready var status_effects_container = get_node("%StatusEffect")
 @onready var turn_indicator_arrow = get_node("%TurnIndicator")

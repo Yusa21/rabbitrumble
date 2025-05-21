@@ -1,8 +1,9 @@
 extends Resource
 class_name BattleEventBus
 
-# UI is done intializing signal
+# UI signals
 signal ui_initialized()
+signal giving_up()
 
 # Battle flow signals
 signal battle_start
