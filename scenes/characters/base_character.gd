@@ -168,7 +168,7 @@ func execute_ability(ability, tar: Array):
 	if !targets.is_empty():
 		for effect in ability.effects:
 			await effect.execute(self, ability.multiplier, targets)
-		
+			print("DOING ONE EFFECT----------------------------------")
 		# Print del la vida del target, to rechulon porque escribe el equipo del que es
 		if targets.size() > 0:
 			var target_type = "Self" if targets[0] == self else ("Ally" if targets[0] in ally_team else "Enemy")
@@ -237,9 +237,10 @@ func take_healing(heal, healer):
 	animationPlayer.play("healed")
 	await animationPlayer.animation_finished
 
-	current_hp += heal
-	if current_hp > max_hp:
-		current_hp = max_hp
+	if !is_defeated:
+		current_hp += heal
+		if current_hp > max_hp:
+			current_hp = max_hp
 		
 	notify_stats_changed()
 	

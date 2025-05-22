@@ -30,7 +30,7 @@ func _on_character_clicked(char_data):
 	atk_display.text = str(char_data.attack)
 	def_display.text = str(char_data.defense)
 	speed_display.text = str(char_data.speed)
-	char_description_display = str(char_data.character_description)
+	char_description_display.text = str(char_data.character_description)
 	char_image_display.texture = char_data.idle_sprite
 
 	#Guarda la lista de habilidades y pone la primera en exposicion

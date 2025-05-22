@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=10 format=3 uid="uid://deia257l8il7v"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_ikcy5"]
+[ext_resource type="Script" uid="uid://be435sed4me66" path="res://scripts/resource_models/effects/damage_effect.gd" id="2_qbw0y"]
+[ext_resource type="Texture2D" uid="uid://cjpxmjf54pxmg" path="res://assets/sprites/abilities/offensive_ability_dissabled.png" id="3_01qa3"]
+[ext_resource type="Script" uid="uid://dv4sonawua3t6" path="res://scripts/resource_models/effects/healing_effect.gd" id="3_qbw0y"]
+[ext_resource type="Texture2D" uid="uid://bcqugc47enu8p" path="res://assets/sprites/abilities/offensive_ability_pressed.png" id="4_6k24p"]
+[ext_resource type="Texture2D" uid="uid://dii0ajdffuve7" path="res://assets/sprites/abilities/offensive_ability.png" id="5_ttqm1"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="6_v4h0h"]
+
+[sub_resource type="Resource" id="Resource_ooqyc"]
+script = ExtResource("2_qbw0y")
+metadata/_custom_type_script = "uid://be435sed4me66"
+
+[sub_resource type="Resource" id="Resource_01qa3"]
+script = ExtResource("3_qbw0y")
+metadata/_custom_type_script = "uid://dv4sonawua3t6"
+
+[resource]
+script = ExtResource("6_v4h0h")
+name = "Last Chance Bluff"
+description = "Cowbunny puts everything into one dramatic move. If the opponent’s enthusiasm is already low, it can be a showstopper. But if they’ve still got plenty left, the bluff backfires and gives them a second wind instead."
+target_type = "single_opp"
+multiplier = 2.0
+effects = Array[ExtResource("1_ikcy5")]([SubResource("Resource_ooqyc"), SubResource("Resource_01qa3")])
+launch_position = Array[int]([3, 4])
+target_position = Array[int]([2, 3, 4])
+cooldown = 0
+icon_sprite = ExtResource("5_ttqm1")
+icon_pressed = ExtResource("4_6k24p")
+icon_disabled = ExtResource("3_01qa3")
+animation_name = "attack"
+is_phase_triggered = false
+trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"

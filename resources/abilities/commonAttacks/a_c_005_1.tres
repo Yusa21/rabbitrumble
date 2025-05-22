@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=9 format=3 uid="uid://v8gw3rdewfe8"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_bc7ke"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="2_i3xev"]
+[ext_resource type="Script" uid="uid://be435sed4me66" path="res://scripts/resource_models/effects/damage_effect.gd" id="2_rfhuu"]
+[ext_resource type="Texture2D" uid="uid://cjpxmjf54pxmg" path="res://assets/sprites/abilities/offensive_ability_dissabled.png" id="3_xm5fm"]
+[ext_resource type="Texture2D" uid="uid://bcqugc47enu8p" path="res://assets/sprites/abilities/offensive_ability_pressed.png" id="4_cn6ui"]
+[ext_resource type="Texture2D" uid="uid://dii0ajdffuve7" path="res://assets/sprites/abilities/offensive_ability.png" id="5_udw5f"]
+
+[sub_resource type="Resource" id="Resource_t31gv"]
+script = ExtResource("2_rfhuu")
+metadata/_custom_type_script = "uid://be435sed4me66"
+
+[sub_resource type="Resource" id="Resource_rfhuu"]
+script = ExtResource("2_rfhuu")
+metadata/_custom_type_script = "uid://be435sed4me66"
+
+[resource]
+script = ExtResource("2_i3xev")
+name = "Double Try"
+description = "Bun darts forward while Duck circles from the side, each taking a turn to show off. They don’t hit as hard as others, but going twice means twice the chance to impress."
+target_type = "single_opp"
+multiplier = 0.8
+effects = Array[ExtResource("1_bc7ke")]([SubResource("Resource_t31gv"), SubResource("Resource_rfhuu")])
+launch_position = Array[int]([2, 3])
+target_position = Array[int]([1, 2, 3, 4])
+cooldown = 0
+icon_sprite = ExtResource("5_udw5f")
+icon_pressed = ExtResource("4_cn6ui")
+icon_disabled = ExtResource("3_xm5fm")
+animation_name = "attack"
+is_phase_triggered = false
+trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"

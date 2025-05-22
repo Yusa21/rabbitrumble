@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=10 format=3 uid="uid://c5xguf3ebs7hb"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_pyk3q"]
+[ext_resource type="Script" uid="uid://dv4sonawua3t6" path="res://scripts/resource_models/effects/healing_effect.gd" id="2_yyl6i"]
+[ext_resource type="Script" uid="uid://cua2a5ugo2dqi" path="res://scripts/resource_models/effects/force_self_damage_effect.gd" id="3_0m3mx"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="3_fsv3l"]
+[ext_resource type="Texture2D" uid="uid://dxo5jrop6x3yi" path="res://assets/sprites/abilities/healing_ability_dissabled.png" id="4_8eiig"]
+[ext_resource type="Texture2D" uid="uid://51qk1nq3c02i" path="res://assets/sprites/abilities/healing_ability_pressed.png" id="5_wcfgo"]
+[ext_resource type="Texture2D" uid="uid://b8y2cojs6c4yu" path="res://assets/sprites/abilities/healing_ability.png" id="6_1l46h"]
+
+[sub_resource type="Resource" id="Resource_sy8bt"]
+script = ExtResource("2_yyl6i")
+metadata/_custom_type_script = "uid://dv4sonawua3t6"
+
+[sub_resource type="Resource" id="Resource_0cg5b"]
+script = ExtResource("3_0m3mx")
+metadata/_custom_type_script = "uid://cua2a5ugo2dqi"
+
+[resource]
+script = ExtResource("3_fsv3l")
+name = " Group Presentation"
+description = "With great enthusiasm, Silly Bunny gathers everyone to hear a short speech about his hat. His excitement lifts the team’s spirits and heals them all, but he ends up a little winded from the effort."
+target_type = "multiple_allies"
+multiplier = 0.4
+effects = Array[ExtResource("1_pyk3q")]([SubResource("Resource_sy8bt"), SubResource("Resource_0cg5b")])
+launch_position = Array[int]([2, 3])
+target_position = Array[int]([1, 2, 3, 4])
+cooldown = 0
+icon_sprite = ExtResource("6_1l46h")
+icon_pressed = ExtResource("5_wcfgo")
+icon_disabled = ExtResource("4_8eiig")
+animation_name = "healing"
+is_phase_triggered = false
+trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"

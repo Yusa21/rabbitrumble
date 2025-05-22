@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=9 format=3 uid="uid://co6o72u6qeohy"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_av7r3"]
+[ext_resource type="Script" uid="uid://dv4sonawua3t6" path="res://scripts/resource_models/effects/healing_effect.gd" id="2_u5r8d"]
+[ext_resource type="Texture2D" uid="uid://dxo5jrop6x3yi" path="res://assets/sprites/abilities/healing_ability_dissabled.png" id="3_hbgyx"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="3_sw77s"]
+[ext_resource type="Texture2D" uid="uid://51qk1nq3c02i" path="res://assets/sprites/abilities/healing_ability_pressed.png" id="4_mno17"]
+[ext_resource type="Texture2D" uid="uid://b8y2cojs6c4yu" path="res://assets/sprites/abilities/healing_ability.png" id="5_ngc1w"]
+
+[sub_resource type="Resource" id="Resource_avjr5"]
+script = ExtResource("2_u5r8d")
+metadata/_custom_type_script = "uid://dv4sonawua3t6"
+
+[sub_resource type="Resource" id="Resource_s6x03"]
+script = ExtResource("2_u5r8d")
+metadata/_custom_type_script = "uid://dv4sonawua3t6"
+
+[resource]
+script = ExtResource("3_sw77s")
+name = "You First"
+description = "They take turns encouraging and fluffing each other up, restoring a little enthusiasm to a teammate—not a huge amount, but every bit helps when it’s from your best friend."
+target_type = "single_ally"
+multiplier = 0.8
+effects = Array[ExtResource("1_av7r3")]([SubResource("Resource_avjr5"), SubResource("Resource_s6x03")])
+launch_position = Array[int]([2, 3])
+target_position = Array[int]([1, 2, 3, 4])
+cooldown = 0
+icon_sprite = ExtResource("5_ngc1w")
+icon_pressed = ExtResource("4_mno17")
+icon_disabled = ExtResource("3_hbgyx")
+animation_name = "healing"
+is_phase_triggered = false
+trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"

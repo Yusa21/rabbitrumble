@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=6 format=3 uid="uid://cpi01q2t2pfk8"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_agh84"]
+[ext_resource type="Texture2D" uid="uid://cjpxmjf54pxmg" path="res://assets/sprites/abilities/offensive_ability_dissabled.png" id="2_rlqox"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="2_ytmss"]
+[ext_resource type="Texture2D" uid="uid://bcqugc47enu8p" path="res://assets/sprites/abilities/offensive_ability_pressed.png" id="3_e6wad"]
+[ext_resource type="Texture2D" uid="uid://dii0ajdffuve7" path="res://assets/sprites/abilities/offensive_ability.png" id="4_bu1jy"]
+
+[resource]
+script = ExtResource("2_ytmss")
+name = "Ability"
+description = "Description"
+target_type = "single_opp"
+multiplier = 1.0
+effects = Array[ExtResource("1_agh84")]([])
+launch_position = Array[int]([1, 2, 3, 4])
+target_position = Array[int]([1, 2, 3, 4])
+cooldown = 0
+icon_sprite = ExtResource("4_bu1jy")
+icon_pressed = ExtResource("3_e6wad")
+icon_disabled = ExtResource("2_rlqox")
+animation_name = "attack"
+is_phase_triggered = false
+trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"

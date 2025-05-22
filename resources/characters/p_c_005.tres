@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3 uid="uid://bh4whemydd74"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://bh4whemydd74"]
 
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_x66c2"]
+[ext_resource type="Resource" uid="uid://v8gw3rdewfe8" path="res://resources/abilities/commonAttacks/a_c_005_1.tres" id="2_gqgvt"]
 [ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="2_p8umh"]
-[ext_resource type="Resource" uid="uid://cqs2kwsvc7n4c" path="res://resources/abilities/commonHealing/healing_area.tres" id="2_phl60"]
+[ext_resource type="Resource" uid="uid://co6o72u6qeohy" path="res://resources/abilities/commonHealing/a_c_005_2.tres" id="3_0v3qu"]
 [ext_resource type="Texture2D" uid="uid://tkopacxjxxht" path="res://assets/sprites/icon/p_i_005.png" id="3_13h83"]
 [ext_resource type="Texture2D" uid="uid://b05qiep36nes7" path="res://assets/sprites/characters/p_c_005.png" id="4_gqgvt"]
 
@@ -10,12 +11,12 @@
 script = ExtResource("2_p8umh")
 character_id = "p_c_005"
 character_name = "Bun n duck"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
-max_hp = 100
+character_description = "Bun and Duck have been inseparable since they first tumbled out of the same picnic basket. Whether it’s a routine, a challenge, or just trying to look cool, they give it their all, as long as they’re side by side. They’re still figuring things out, but their teamwork makes up for what they lack in polish."
+max_hp = 60
 attack = 10
-defense = 10
-speed = 10
+defense = 15
+speed = 22
 character_icon = ExtResource("3_13h83")
 idle_sprite = ExtResource("4_gqgvt")
-abilities = Array[ExtResource("1_x66c2")]([ExtResource("2_phl60")])
+abilities = Array[ExtResource("1_x66c2")]([ExtResource("2_gqgvt"), ExtResource("3_0v3qu")])
 metadata/_custom_type_script = "uid://c3msr806gkbc3"

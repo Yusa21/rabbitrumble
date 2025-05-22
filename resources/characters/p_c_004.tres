@@ -1,21 +1,22 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3 uid="uid://ch4m7fa1h3hrk"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://ch4m7fa1h3hrk"]
 
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_8dvlv"]
 [ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="2_7msdl"]
-[ext_resource type="Resource" uid="uid://cmcmiecfbopmp" path="res://resources/abilities/commonHealing/healing_from_anywhere.tres" id="2_84hrj"]
+[ext_resource type="Resource" uid="uid://ctk4ex3quobkv" path="res://resources/abilities/commonHealing/a_c_004_1.tres" id="2_gpkyb"]
 [ext_resource type="Texture2D" uid="uid://bwmljwuycbin2" path="res://assets/sprites/characters/p_c_004.png" id="3_44ebd"]
 [ext_resource type="Texture2D" uid="uid://bep60o5eoao2i" path="res://assets/sprites/icon/p_i_004.png" id="3_gpkyb"]
+[ext_resource type="Resource" uid="uid://c5xguf3ebs7hb" path="res://resources/abilities/commonHealing/a_c_004_2.tres" id="3_vu886"]
 
 [resource]
 script = ExtResource("2_7msdl")
 character_id = "p_c_004"
 character_name = "Silly Bunny"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
-max_hp = 100
-attack = 10
-defense = 10
-speed = 10
+character_description = "Silly Bunny is not also silly but also funny and a joy to be around, he's super proud of his hat with a propeller and can't stop talking about it and showing it off to his friends, family and literally everyone he finds."
+max_hp = 40
+attack = 20
+defense = 25
+speed = 24
 character_icon = ExtResource("3_gpkyb")
 idle_sprite = ExtResource("3_44ebd")
-abilities = Array[ExtResource("1_8dvlv")]([ExtResource("2_84hrj")])
+abilities = Array[ExtResource("1_8dvlv")]([ExtResource("2_gpkyb"), ExtResource("3_vu886")])
 metadata/_custom_type_script = "uid://c3msr806gkbc3"

@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=8 format=3 uid="uid://ctk4ex3quobkv"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_pyk3q"]
+[ext_resource type="Script" uid="uid://dv4sonawua3t6" path="res://scripts/resource_models/effects/healing_effect.gd" id="2_yyl6i"]
+[ext_resource type="Texture2D" uid="uid://dxo5jrop6x3yi" path="res://assets/sprites/abilities/healing_ability_dissabled.png" id="3_6ql1s"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="3_fsv3l"]
+[ext_resource type="Texture2D" uid="uid://51qk1nq3c02i" path="res://assets/sprites/abilities/healing_ability_pressed.png" id="4_3h17j"]
+[ext_resource type="Texture2D" uid="uid://b8y2cojs6c4yu" path="res://assets/sprites/abilities/healing_ability.png" id="5_2bb3q"]
+
+[sub_resource type="Resource" id="Resource_avjr5"]
+script = ExtResource("2_yyl6i")
+metadata/_custom_type_script = "uid://dv4sonawua3t6"
+
+[resource]
+script = ExtResource("3_fsv3l")
+name = "Hat Talk"
+description = "Silly Bunny tells a teammate all about his propeller hat. somehow, they feel better afterward. A solid single-target heal."
+target_type = "single_ally"
+multiplier = 1.0
+effects = Array[ExtResource("1_pyk3q")]([SubResource("Resource_avjr5")])
+launch_position = Array[int]([2, 3])
+target_position = Array[int]([1, 2, 3, 4])
+cooldown = 0
+icon_sprite = ExtResource("5_2bb3q")
+icon_pressed = ExtResource("4_3h17j")
+icon_disabled = ExtResource("3_6ql1s")
+animation_name = "healing"
+is_phase_triggered = false
+trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"

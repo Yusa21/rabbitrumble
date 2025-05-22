@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3 uid="uid://bsvb81cgdf06e"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://bsvb81cgdf06e"]
 
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_ytojr"]
-[ext_resource type="Resource" uid="uid://c1nvhtyrip77u" path="res://resources/abilities/commonAttacks/vanguard_to_vanguard_attack.tres" id="2_8yewh"]
 [ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="2_bqa67"]
+[ext_resource type="Resource" uid="uid://dfee0nx8awwl4" path="res://resources/abilities/commonAttacks/a_c_006_1.tres" id="2_mjvs2"]
+[ext_resource type="Resource" uid="uid://eavt5ug6cfxg" path="res://resources/abilities/commonAttacks/a_c_006_2.tres" id="3_i66u3"]
 [ext_resource type="Texture2D" uid="uid://cto007awsglj2" path="res://assets/sprites/characters/p_c_006.png" id="3_lad8n"]
 [ext_resource type="Texture2D" uid="uid://pafjp022l5o5" path="res://assets/sprites/icon/p_i_006.png" id="3_mjvs2"]
 
@@ -10,12 +11,12 @@
 script = ExtResource("2_bqa67")
 character_id = "p_c_006"
 character_name = "Armor Bunny"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
-max_hp = 100
+character_description = "Wearing the lid of a plastic ice cream cup as armor, Armor Bunny believes he's completely unstoppable, and that confidence alone makes him tough to shake. His outfit may not offer real protection, but his self-esteem is practically bulletproof."
+max_hp = 70
 attack = 10
-defense = 10
+defense = 30
 speed = 10
 character_icon = ExtResource("3_mjvs2")
 idle_sprite = ExtResource("3_lad8n")
-abilities = Array[ExtResource("1_ytojr")]([ExtResource("2_8yewh")])
+abilities = Array[ExtResource("1_ytojr")]([ExtResource("2_mjvs2"), ExtResource("3_i66u3")])
 metadata/_custom_type_script = "uid://c3msr806gkbc3"

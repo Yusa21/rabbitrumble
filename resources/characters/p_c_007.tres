@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://b3xov01ejuldf"]
+
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_jf24h"]
+[ext_resource type="Resource" uid="uid://cpi01q2t2pfk8" path="res://resources/abilities/commonAttacks/a_c_007_1.tres" id="2_7kmnt"]
+[ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="2_528qy"]
+[ext_resource type="Texture2D" uid="uid://lo1gikjfqebl" path="res://assets/sprites/icon/p_i_007.png" id="2_ftvye"]
+[ext_resource type="Resource" uid="uid://ugk7w65sxucn" path="res://resources/abilities/commonAttacks/a_c_007_2.tres" id="3_ok5kc"]
+[ext_resource type="Texture2D" uid="uid://c8u0j3rslcraf" path="res://assets/sprites/characters/p_c_007.png" id="3_rju8k"]
+
+[resource]
+script = ExtResource("2_528qy")
+character_id = "p_c_007"
+character_name = "Hero Bunny"
+character_description = "You know him. You love him. He’s in every game you’ve ever played, and he’s here to teach you the ropes, again. Armed with valor, cardboard, and unshakable enthusiasm, Hero Bunny is ready to lead the charge today, tomorrow, and probably next Tuesday if he doesn't have a DnD session"
+max_hp = 80
+attack = 20
+defense = 20
+speed = 20
+character_icon = ExtResource("2_ftvye")
+idle_sprite = ExtResource("3_rju8k")
+abilities = Array[ExtResource("1_jf24h")]([ExtResource("2_7kmnt"), ExtResource("3_ok5kc")])
+metadata/_custom_type_script = "uid://c3msr806gkbc3"

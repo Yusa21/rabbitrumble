@@ -97,6 +97,9 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 [node name="MultUI" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/AbilityInformationUI/VBoxContainer/HBoxContainer" index="2"]
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 
+[node name="TargetingTypeUI" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/AbilityInformationUI/VBoxContainer/HBoxContainer" index="3"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
 [node name="AbilityDescriptionLabel" parent="UIMargin/UIContainer/LeftSide/CharacterInfo/AbilityInformationUI/VBoxContainer" index="2"]
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://dhcrrsnv0wndb"]
+
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_xfivd"]
+[ext_resource type="Resource" uid="uid://dd72xsovlaaap" path="res://resources/abilities/commonHealing/a_c_001_1.tres" id="2_hyg60"]
+[ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="2_wuvlw"]
+[ext_resource type="Resource" uid="uid://bsxv5omgmr60i" path="res://resources/abilities/commonAttacks/a_c_001_2.tres" id="3_ceiek"]
+[ext_resource type="Texture2D" uid="uid://bltust5p8yn3x" path="res://assets/sprites/icon/p_i_001.png" id="4_cj65e"]
+[ext_resource type="Texture2D" uid="uid://ygfs2m3rg2rv" path="res://assets/sprites/characters/p_c_001.png" id="5_tmfus"]
+
+[resource]
+script = ExtResource("2_wuvlw")
+character_id = "p_c_001"
+character_name = "Nerd Bunny"
+character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
+max_hp = 50
+attack = 20
+defense = 20
+speed = 18
+character_icon = ExtResource("4_cj65e")
+idle_sprite = ExtResource("5_tmfus")
+abilities = Array[ExtResource("1_xfivd")]([ExtResource("2_hyg60"), ExtResource("3_ceiek")])
+metadata/_custom_type_script = "uid://c3msr806gkbc3"

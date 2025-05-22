@@ -5,6 +5,7 @@ class_name AbilityInformationUI
 @onready var launch_position_ui = get_node("%LaunchPositionUI")
 @onready var target_position_ui = get_node("%TargetPositionUI")
 @onready var ability_mult_ui = get_node("%MultUI")
+@onready var ability_targeting = get_node("%TargetingTypeUI")
 @onready var ability_description = get_node("%AbilityDescriptionLabel")
 
 func update_ability_information_ui(ability: AbilityData):
@@ -28,6 +29,11 @@ func update_ability_information_ui(ability: AbilityData):
 		print("ability_mult_ui node is null!")
 	else:
 		ability_mult_ui.text = str(ability.multiplier)
+
+	if ability_targeting == null:
+		print("ability_targeting_ui node is null!")
+	else:
+		ability_targeting.text = str(ability.target_type)
 		
 	if ability_description == null:
 		print("ability_description node is null!")

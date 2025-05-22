@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3 uid="uid://k01jiaclgei"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=7 format=3 uid="uid://k01jiaclgei"]
 
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_r548g"]
 [ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="2_2who5"]
-[ext_resource type="Resource" uid="uid://c7m6mxt4hv7le" path="res://resources/abilities/commonAttacks/rear_to_rear_attack.tres" id="2_40650"]
+[ext_resource type="Resource" uid="uid://bxoq1efpnvahp" path="res://resources/abilities/commonAttacks/a_c_003_1.tres" id="2_yauoc"]
+[ext_resource type="Resource" uid="uid://deia257l8il7v" path="res://resources/abilities/commonAttacks/a_c_003_2.tres" id="3_hfvjc"]
 [ext_resource type="Texture2D" uid="uid://b1bbpggsqtxmn" path="res://assets/sprites/characters/p_c_003.png" id="3_qrgnm"]
 [ext_resource type="Texture2D" uid="uid://bx0rrnol3msng" path="res://assets/sprites/icon/p_i_003.png" id="3_yauoc"]
 
@@ -10,12 +11,12 @@
 script = ExtResource("2_2who5")
 character_id = "p_c_003"
 character_name = "Cowbunny"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
-max_hp = 100
-attack = 10
-defense = 10
-speed = 10
+character_description = "Cowbunny wears a hat, and takes himself extremely seriously. No one’s quite sure what frontier he’s from or what exactly he's protecting, but he talks about “the code” and stares into the distance like it means something. He’s calm under pressure and surprisingly accurate when it counts."
+max_hp = 50
+attack = 30
+defense = 15
+speed = 27
 character_icon = ExtResource("3_yauoc")
 idle_sprite = ExtResource("3_qrgnm")
-abilities = Array[ExtResource("1_r548g")]([ExtResource("2_40650")])
+abilities = Array[ExtResource("1_r548g")]([ExtResource("2_yauoc"), ExtResource("3_hfvjc")])
 metadata/_custom_type_script = "uid://c3msr806gkbc3"
