@@ -168,8 +168,13 @@ func execute_ability(ability, tar: Array):
 	if !targets.is_empty():
 		for effect in ability.effects:
 			await effect.execute(self, ability.multiplier, targets)
-			print("DOING ONE EFFECT----------------------------------")
-		# Print del la vida del target, to rechulon porque escribe el equipo del que es
+			
+			if ability.effects.size() >= 2:
+				print("DOING ONE EFFECT----------------------------------")
+				notify_stats_changed()
+				await get_tree().create_timer(1).timeout
+
+		
 		if targets.size() > 0:
 			var target_type = "Self" if targets[0] == self else ("Ally" if targets[0] in ally_team else "Enemy")
 	else:

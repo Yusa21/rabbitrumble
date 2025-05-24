@@ -9,3 +9,7 @@ class_name StageData
 @export var enemies: Array[String] = ["testDummy","testDummy","testDummy","testDummy"]
 @export var char_unlocks: Array[String] = [""] ##Recompensa del la mision, problamente personajes pero todavia no se que ponerle
 @export var stage_unlocks: Array[String] = [""]
+
+
+func get_id():
+    return id

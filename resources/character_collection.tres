@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CharacterCollection" load_steps=19 format=3 uid="uid://brjp78lagekjf"]
+
+[ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="1_horf5"]
+[ext_resource type="Script" uid="uid://b0endid2ysut7" path="res://scripts/resource_models/characters/character_collection.gd" id="2_idtnl"]
+[ext_resource type="Resource" uid="uid://dhcrrsnv0wndb" path="res://resources/characters/p_c_001.tres" id="2_ypw0a"]
+[ext_resource type="Resource" uid="uid://bb0lrfckmnt4d" path="res://resources/characters/p_c_001e.tres" id="3_6ql58"]
+[ext_resource type="Resource" uid="uid://cqinglhossq5s" path="res://resources/characters/p_c_002.tres" id="4_stsvk"]
+[ext_resource type="Resource" uid="uid://ctts8747pguvr" path="res://resources/characters/p_c_002e.tres" id="5_0noia"]
+[ext_resource type="Resource" uid="uid://k01jiaclgei" path="res://resources/characters/p_c_003.tres" id="6_00mf6"]
+[ext_resource type="Resource" uid="uid://bw5fsipdpgto6" path="res://resources/characters/p_c_003e.tres" id="7_cvnrl"]
+[ext_resource type="Resource" uid="uid://ch4m7fa1h3hrk" path="res://resources/characters/p_c_004.tres" id="8_tienu"]
+[ext_resource type="Resource" uid="uid://ctxm6ewdr0gq5" path="res://resources/characters/p_c_004e.tres" id="9_jeuhm"]
+[ext_resource type="Resource" uid="uid://bh4whemydd74" path="res://resources/characters/p_c_005.tres" id="10_5h6vc"]
+[ext_resource type="Resource" uid="uid://b3jqmb7nmu7kn" path="res://resources/characters/p_c_005e.tres" id="11_a6obv"]
+[ext_resource type="Resource" uid="uid://bsvb81cgdf06e" path="res://resources/characters/p_c_006.tres" id="12_4d4tf"]
+[ext_resource type="Resource" uid="uid://c0ce8ed4n2mgr" path="res://resources/characters/p_c_006e.tres" id="13_co0ea"]
+[ext_resource type="Resource" uid="uid://b3xov01ejuldf" path="res://resources/characters/p_c_007.tres" id="14_jvonl"]
+[ext_resource type="Resource" uid="uid://56418bxv4xer" path="res://resources/characters/p_c_007e.tres" id="15_rcu3v"]
+[ext_resource type="Resource" uid="uid://cvuhjrtjc7fyk" path="res://resources/characters/testDummy.tres" id="16_2s6cg"]
+[ext_resource type="Resource" uid="uid://d01lm2utcywtg" path="res://resources/characters/testDummy2.tres" id="17_ljifd"]
+
+[resource]
+script = ExtResource("2_idtnl")
+characters = Array[ExtResource("1_horf5")]([ExtResource("2_ypw0a"), ExtResource("3_6ql58"), ExtResource("4_stsvk"), ExtResource("5_0noia"), ExtResource("6_00mf6"), ExtResource("7_cvnrl"), ExtResource("8_tienu"), ExtResource("9_jeuhm"), ExtResource("10_5h6vc"), ExtResource("11_a6obv"), ExtResource("12_4d4tf"), ExtResource("13_co0ea"), ExtResource("14_jvonl"), ExtResource("15_rcu3v"), ExtResource("16_2s6cg"), ExtResource("17_ljifd")])
+metadata/_custom_type_script = "uid://b0endid2ysut7"

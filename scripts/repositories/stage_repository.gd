@@ -1,16 +1,27 @@
 extends Node
-class_name StageRepository
-##Repositorio para cargar la informacion de mision de los recursos .tres
+# Singleton that uses a separate resource file for stage management
 
+# Preload the collection resource (you'll create this as a .tres file)
+var stage_collection: StageCollection = preload("res://resources/stage_collection.tres")
 
-const res_ext = ".tres" ##Extension para los recursos
-const stage_res_path = "res://resources/stages/" ##Constante que tiene el path a los recursos de mision
+func _ready() -> void:
+    print("StageRepository singleton loaded with %d stages" % stage_collection.stages.size())
 
-##Devuelve la informacion de la mision segun el id
-##Si no encuentra nada devuelve nulo
-func load_stage_data_by_id(id: String) -> StageData:
-	var path = stage_res_path + id + res_ext
-	if not FileAccess.file_exists(path):
-		print("Stage resource not found: " + path)
-		return null
-	return load(path) as StageData
+# Returns the stage data by ID, or null if not found
+func load_stage_data_by_id(id: String):
+    var stage = stage_collection.get_stage_by_id(id)
+    if stage == null:
+        push_error("Stage not found: " + id)
+    return stage
+
+# Get all available stage IDs
+func get_all_stage_ids() -> Array[String]:
+    return stage_collection.get_all_ids()
+
+# Check if a stage exists
+func has_stage(id: String) -> bool:
+    return stage_collection.get_stage_by_id(id) != null
+
+# Get all stages as array
+func get_all_stages() -> Array:
+    return stage_collection.stages.duplicate()

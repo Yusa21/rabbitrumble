@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StageCollection" load_steps=5 format=3 uid="uid://cwys0mljsfti1"]
+
+[ext_resource type="Script" uid="uid://bsc0wlt0cpo3" path="res://scripts/resource_models/stages/stage_collection.gd" id="1_bn7pq"]
+[ext_resource type="Script" uid="uid://dislvogsap4ag" path="res://scripts/resource_models/stages/stage_data.gd" id="2_loa5v"]
+[ext_resource type="Resource" uid="uid://34ukpxxe1ut4" path="res://resources/stages/test_stage.tres" id="3_qmff6"]
+[ext_resource type="Resource" uid="uid://dh64wqgsd4nlr" path="res://resources/stages/test_stage_2.tres" id="4_ino8g"]
+
+[resource]
+script = ExtResource("1_bn7pq")
+stages = Array[ExtResource("2_loa5v")]([ExtResource("3_qmff6"), ExtResource("4_ino8g")])
+metadata/_custom_type_script = "uid://bsc0wlt0cpo3"

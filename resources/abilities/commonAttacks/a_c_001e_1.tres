@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=5 format=3 uid="uid://bi77y8cqh1346"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_px33f"]
+[ext_resource type="Script" uid="uid://be435sed4me66" path="res://scripts/resource_models/effects/damage_effect.gd" id="2_45pvh"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="2_ski38"]
+
+[sub_resource type="Resource" id="Resource_i12ps"]
+script = ExtResource("2_45pvh")
+metadata/_custom_type_script = "uid://be435sed4me66"
+
+[resource]
+script = ExtResource("2_ski38")
+name = "Bite down"
+description = "Bites one of the bunnies in the front position, not very dangerous"
+target_type = "single_opp"
+multiplier = 1.0
+effects = Array[ExtResource("1_px33f")]([SubResource("Resource_i12ps")])
+launch_position = Array[int]([1, 2])
+target_position = Array[int]([1, 2])
+cooldown = 0
+animation_name = "attack"
+is_phase_triggered = false
+trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"

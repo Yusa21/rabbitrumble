@@ -11,8 +11,8 @@
 script = ExtResource("2_wuvlw")
 character_id = "p_c_001"
 character_name = "Nerd Bunny"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
-max_hp = 50
+character_description = "Nerd Bunny, whose actual name is Kevin, wears oversized glasses and carries a small notepad just in case anyone says something incorrect. He’s full of trivia, theories, and detailed explanations no one asked for. "
+max_hp = 1
 attack = 20
 defense = 20
 speed = 18

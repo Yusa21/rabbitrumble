@@ -21,6 +21,10 @@ CharacterRepo="*res://scripts/repositories/CharacterRepository.gd"
 GameManager="*res://scripts/singletons/game_manager.gd"
 StageRepo="*res://scripts/repositories/stage_repository.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true

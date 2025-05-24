@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://ctxm6ewdr0gq5"]
+
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_acbi5"]
+[ext_resource type="Texture2D" uid="uid://1luj30nbg5o8" path="res://assets/sprites/icon/e_i_004e.png" id="2_i7il0"]
+[ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="2_u24yw"]
+[ext_resource type="Texture2D" uid="uid://c6cdxcvfa0jx5" path="res://assets/sprites/characters/e_c_004e.png" id="3_5uomb"]
+
+[resource]
+script = ExtResource("2_u24yw")
+character_id = "004e"
+character_name = "Fox"
+character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
+max_hp = 100
+attack = 10
+defense = 10
+speed = 10
+character_icon = ExtResource("2_i7il0")
+idle_sprite = ExtResource("3_5uomb")
+abilities = Array[ExtResource("1_acbi5")]([])
+metadata/_custom_type_script = "uid://c3msr806gkbc3"

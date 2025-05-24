@@ -11,7 +11,7 @@
 script = ExtResource("2_7msdl")
 character_id = "p_c_004"
 character_name = "Silly Bunny"
-character_description = "Silly Bunny is not also silly but also funny and a joy to be around, he's super proud of his hat with a propeller and can't stop talking about it and showing it off to his friends, family and literally everyone he finds."
+character_description = "Silly Bunny is not only silly but also funny and a joy to be around. He’s super proud of his hat with a propeller and can’t stop talking about it or showing it off to his friends, family, and literally everyone he meets."
 max_hp = 40
 attack = 20
 defense = 25

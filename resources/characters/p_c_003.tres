@@ -11,7 +11,7 @@
 script = ExtResource("2_2who5")
 character_id = "p_c_003"
 character_name = "Cowbunny"
-character_description = "Cowbunny wears a hat, and takes himself extremely seriously. No one’s quite sure what frontier he’s from or what exactly he's protecting, but he talks about “the code” and stares into the distance like it means something. He’s calm under pressure and surprisingly accurate when it counts."
+character_description = "Cowbunny wears a hat, and takes himself extremely seriously. No one’s quite sure what frontier he’s from or what exactly he's protecting, but he talks about “the code” and stares into the distance like it means something."
 max_hp = 50
 attack = 30
 defense = 15

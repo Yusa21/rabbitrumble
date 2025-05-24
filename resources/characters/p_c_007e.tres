@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://56418bxv4xer"]
+
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_u530d"]
+[ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="2_k0ywh"]
+[ext_resource type="Texture2D" uid="uid://deqahvb4tc3pj" path="res://assets/sprites/icon/e_i_007e.png" id="2_vp1up"]
+[ext_resource type="Texture2D" uid="uid://cajtmcbayae0i" path="res://assets/sprites/characters/e_c_007e.png" id="3_0crnw"]
+
+[resource]
+script = ExtResource("2_k0ywh")
+character_id = "007e"
+character_name = "Tiger"
+character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
+max_hp = 100
+attack = 10
+defense = 10
+speed = 10
+character_icon = ExtResource("2_vp1up")
+idle_sprite = ExtResource("3_0crnw")
+abilities = Array[ExtResource("1_u530d")]([])
+metadata/_custom_type_script = "uid://c3msr806gkbc3"

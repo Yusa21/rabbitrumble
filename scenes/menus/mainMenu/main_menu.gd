@@ -15,6 +15,15 @@ func _ready() -> void:
 	event_bus.start_button_clicked.connect(_on_start_button_clicked)
 	event_bus.exit_button_clicked.connect(_on_exit_button_clicked)
 
+	
+	var dir = DirAccess.open("res://resources/stages")
+	if dir:
+		dir.list_dir_begin()
+		var file = dir.get_next()
+		while file != "":
+			print("File in folder: ", file)
+			file = dir.get_next()
+
 func _on_start_button_clicked():
 	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	GameManager.go_to_stage_select()

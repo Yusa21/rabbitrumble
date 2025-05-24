@@ -21,7 +21,7 @@ func _ready() -> void:
 		if unlocked_stage != null:
 			unlocked_stage_list.append(StageRepo.load_stage_data_by_id(stage_id))
 		else:
-			push_error("Unlocked stage with id: " + unlocked_stage + " doesn't exists")
+			push_error("Unlocked stage with id: " + stage_id + " doesn't exists")
 		
 	
 	stage_list_display.initialize(event_bus, unlocked_stage_list, completed_stage_list)

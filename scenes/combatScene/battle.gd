@@ -11,8 +11,8 @@ class_name Battle
 @onready var enemy_team_container
 
 ##Constantes para evitar datos sin explicar en mitad del codigo
-const player_char_path = "res://scenes/characters/player/player_character.tscn"
-const enemy_char_path = "res://scenes/characters/enemy/enemy_character.tscn"
+const player_char_path = preload("res://scenes/characters/player/player_character.tscn")
+const enemy_char_path = preload("res://scenes/characters/enemy/enemy_character.tscn")
 
 #Equipos de cada lado
 var player_team = []
@@ -95,10 +95,7 @@ func start_battle(player_chars, enemy_chars):
 ##y el path de la escena a cargar
 func create_character_from_data(character_data_id, fight_id, scene_path, char_position):
 	#Comprueba que la escena exista
-	if not FileAccess.file_exists(scene_path):
-		print("Error atempting to instantiate character with path: " + scene_path + " THIS SHOULDN'T HAPPEN")
-		return null
-	var character_scene = load(scene_path).instantiate()
+	var character_scene = scene_path.instantiate()
 	# Configura la escena con el recurso
 	if character_scene.initialize_character(character_data_id, fight_id, char_position) != null:
 		#Anade el FormationManager para que los personajes puedan saber su posicion

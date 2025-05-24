@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3 uid="uid://bb0lrfckmnt4d"]
+
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_rqcmj"]
+[ext_resource type="Texture2D" uid="uid://cpp0i1r5giw74" path="res://assets/sprites/icon/e_i_001e.png" id="2_io55w"]
+[ext_resource type="Resource" uid="uid://bi77y8cqh1346" path="res://resources/abilities/commonAttacks/a_c_001e_1.tres" id="2_wbjq3"]
+[ext_resource type="Texture2D" uid="uid://b0w5cra7imsue" path="res://assets/sprites/characters/e_c_001e.png" id="3_wbjq3"]
+[ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="4_g3xwc"]
+
+[resource]
+script = ExtResource("4_g3xwc")
+character_id = "p_c_001e"
+character_name = "Minx"
+character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
+max_hp = 40
+attack = 10
+defense = 20
+speed = 22
+character_icon = ExtResource("2_io55w")
+idle_sprite = ExtResource("3_wbjq3")
+abilities = Array[ExtResource("1_rqcmj")]([ExtResource("2_wbjq3")])
+metadata/_custom_type_script = "uid://c3msr806gkbc3"

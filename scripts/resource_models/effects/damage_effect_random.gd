@@ -7,11 +7,16 @@ class_name DamageEffectRandom
 ##Llama al metodo [code]take_damage()[/code] de los objetivos
 ##Devuelve [code]true[/code] si todo sale bien
 func execute(user, multipler, targets):
-	
-	for target in targets:
-		var defense = target.def
-		#Formula de ataque provisional, atk * 2 - def, el multiplicador de la habildad es muy importante
-		var damage = (user.atk * 2 - target.def) * multipler
-		target.take_damage(int(damage), user)
-		
-	return true
+    # Check if there are any targets available
+    if targets.size() == 0:
+        return false
+    
+    # Select a random target from the targets array
+    var random_target = targets[randi() % targets.size()]
+    
+    var defense = random_target.def
+    # Formula de ataque provisional, atk * 2 - def, el multiplicador de la habildad es muy importante
+    var damage = (user.atk * 2 - random_target.def) * multipler
+    random_target.take_damage(int(damage), user)
+    
+    return true

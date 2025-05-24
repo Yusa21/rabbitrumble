@@ -11,3 +11,6 @@ class_name CharacterData
 @export var character_icon: Texture2D ##Icono para las interfaces
 @export var idle_sprite: Texture2D ##Sprite cuando no pasa nada
 @export var abilities: Array[AbilityData] = [] ##Todas las habilidades del personaje
+
+func get_id():
+    return character_id

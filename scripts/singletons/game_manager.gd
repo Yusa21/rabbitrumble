@@ -290,6 +290,7 @@ var level_enemy_characters = ["testDummy2","testDummy2","testDummy2","testDummy2
 
 func setup_character_select(level_enemies, id):
 	level_enemy_characters = level_enemies
+	print(level_enemy_characters)
 	stage_id = id
 
 func go_to_character_select():
@@ -302,6 +303,8 @@ var selected_enemy_characters = ["testDummy2","testDummy2","testDummy2","testDum
 
 # Function to set up a new battle
 func setup_battle(players, enemies):
+	print(players)
+	print(enemies)
 	selected_player_characters = players
 	selected_enemy_characters = enemies
 	
@@ -372,7 +375,8 @@ func load_game():
 
 	return true
 
-const default_char_list: Array[String] = ["testDummy2","p_c_003","p_c_004"]
+#const default_char_list: Array[String] = ["p_c_001","p_c_002","p_c_003","p_c_004", "p_c_005" ,"p_c_006","p_c_007"]
+const default_char_list: Array[String] = ["p_c_007"]
 const default_stage_list: Array[String] = ["test_stage"]
 const default_completed_list: Array[String] = [""]
 

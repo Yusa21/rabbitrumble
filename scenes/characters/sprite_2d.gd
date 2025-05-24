@@ -8,7 +8,9 @@ func _ready():
 func scale_sprite_to_size(size: Vector2):
 	if texture:
 		var texture_size = texture.get_size()
-		scale = size / texture_size
+		var scale_ratio = min(size.x / texture_size.x, size.y / texture_size.y)
+		scale = Vector2.ONE * scale_ratio
+
 
 func play_sound(sound_name):
 	const sound_path_pre = "res://audio/soundEffects/"

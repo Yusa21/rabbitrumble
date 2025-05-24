@@ -10,9 +10,9 @@ var character_spacing = 125
 var team_offset_from_center = 0  # Distance from center to first character
 
 func _ready():
-	# Get screen dimensions
-	screen_size = get_viewport().size
-	screen_center = screen_size / 2
+	var visible_rect = get_viewport().get_visible_rect()
+	screen_size = visible_rect.size
+	screen_center = visible_rect.position + screen_size / 2
 
 # Returns world position for a character based on team and position
 func get_new_position(team_name: String, position_index: int) -> Vector2:
