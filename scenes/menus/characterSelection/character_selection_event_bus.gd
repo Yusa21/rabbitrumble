@@ -3,6 +3,8 @@ class_name CharacterSelectionBus
 
 signal character_clicked(character)
 signal character_right_clicked(character)
+signal character_added_to_team(character_id)
+signal character_removed_from_team(character_id)
 signal ability_clicked(ability)
 signal clear_button_clicked
 signal start_button_clicked

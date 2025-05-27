@@ -42,6 +42,10 @@ func initialize(bus, char_list):
 		
 		# Connect input event signal for right-click detection
 		new_button.gui_input.connect(func(event): _on_button_gui_input(event, character))
+
+		bus.character_added_to_team.connect(func(char_id): set_character_grayscale(char_id, true))
+		bus.character_removed_from_team.connect(func(char_id): set_character_grayscale(char_id, false))
+
 		
 		# Add the button to the grid
 		add_child(new_button)
@@ -50,10 +54,13 @@ func _on_character_button_pressed() -> void:
 	# This is now handled by individual button connections
 	pass
 
-# Handle GUI input events for the button
 func _on_button_gui_input(event, character_data):
-	# Check for right mouse button click (MOUSE_BUTTON_RIGHT = 2 in Godot 4.x)
+	# Right-click
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		_emit_character_right_clicked(character_data)
+
+	# Double-click (left mouse button)
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.double_click:
 		_emit_character_right_clicked(character_data)
 
 # Emit signal for left-click
@@ -63,3 +70,16 @@ func _emit_character_clicked(character_data):
 # Emit signal for right-click
 func _emit_character_right_clicked(character_data):
 	event_bus.emit_signal("character_right_clicked", character_data)
+
+func set_character_grayscale(character_id: String, grayscale: bool) -> void:
+	for child in get_children():
+		if child == character_button:
+			continue
+		if child.has_meta("character_data"):
+			var data = child.get_meta("character_data")
+			if data.character_id == character_id:
+				if grayscale:
+					child.modulate = Color(0.5, 0.5, 0.5)  # Greyscale
+				else:
+					child.modulate = Color(1, 1, 1)  # Normal
+				break
