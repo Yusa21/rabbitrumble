@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=8 format=3 uid="uid://bmsasvih1eqme"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_hou7s"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="2_2jt40"]
+[ext_resource type="Texture2D" uid="uid://cjpxmjf54pxmg" path="res://assets/sprites/abilities/offensive_ability_dissabled.png" id="2_ktote"]
+[ext_resource type="Script" uid="uid://b7ixgoql3vtpx" path="res://scripts/resource_models/effects/damage_effect_hit_weakest.gd" id="2_o2ri5"]
+[ext_resource type="Texture2D" uid="uid://bcqugc47enu8p" path="res://assets/sprites/abilities/offensive_ability_pressed.png" id="3_o2ri5"]
+[ext_resource type="Texture2D" uid="uid://dii0ajdffuve7" path="res://assets/sprites/abilities/offensive_ability.png" id="4_3xj8o"]
+
+[sub_resource type="Resource" id="Resource_3xj8o"]
+script = ExtResource("2_o2ri5")
+metadata/_custom_type_script = "uid://b7ixgoql3vtpx"
+
+[resource]
+script = ExtResource("2_2jt40")
+name = "Pick off"
+description = "The fox will target the bunny with the lowest health"
+target_type = "multiple_opps"
+multiplier = 0.8
+effects = Array[ExtResource("1_hou7s")]([SubResource("Resource_3xj8o")])
+launch_position = Array[int]([1, 2, 3, 4])
+target_position = Array[int]([1, 2, 3, 4])
+cooldown = 0
+icon_sprite = ExtResource("4_3xj8o")
+icon_pressed = ExtResource("3_o2ri5")
+icon_disabled = ExtResource("2_ktote")
+animation_name = "attack"
+is_phase_triggered = false
+trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://bw5fsipdpgto6"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3 uid="uid://bw5fsipdpgto6"]
 
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_4yad0"]
 [ext_resource type="Texture2D" uid="uid://bu2y5cgjm0evc" path="res://assets/sprites/icon/e_i_003e.png" id="2_3ly7k"]
 [ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="2_3s8vq"]
+[ext_resource type="Resource" uid="uid://bmsasvih1eqme" path="res://resources/abilities/commonAttacks/a_c_003e_1.tres" id="2_woccn"]
 [ext_resource type="Texture2D" uid="uid://iyno1ejaigdu" path="res://assets/sprites/characters/e_c_003e.png" id="3_w228g"]
 
 [resource]
@@ -10,11 +11,11 @@ script = ExtResource("2_3s8vq")
 character_id = "003e"
 character_name = "Fox"
 character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
-max_hp = 100
-attack = 10
+max_hp = 60
+attack = 20
 defense = 10
-speed = 10
+speed = 30
 character_icon = ExtResource("2_3ly7k")
 idle_sprite = ExtResource("3_w228g")
-abilities = Array[ExtResource("1_4yad0")]([])
+abilities = Array[ExtResource("1_4yad0")]([ExtResource("2_woccn")])
 metadata/_custom_type_script = "uid://c3msr806gkbc3"

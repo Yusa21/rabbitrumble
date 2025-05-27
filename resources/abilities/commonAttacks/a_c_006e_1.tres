@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=8 format=3 uid="uid://0jajp3mgtayq"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_64ct0"]
+[ext_resource type="Script" uid="uid://be435sed4me66" path="res://scripts/resource_models/effects/damage_effect.gd" id="2_2ugae"]
+[ext_resource type="Texture2D" uid="uid://cjpxmjf54pxmg" path="res://assets/sprites/abilities/offensive_ability_dissabled.png" id="3_ud0ub"]
+[ext_resource type="Texture2D" uid="uid://bcqugc47enu8p" path="res://assets/sprites/abilities/offensive_ability_pressed.png" id="4_mcg8i"]
+[ext_resource type="Texture2D" uid="uid://dii0ajdffuve7" path="res://assets/sprites/abilities/offensive_ability.png" id="5_4cgob"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="6_5yjns"]
+
+[sub_resource type="Resource" id="Resource_ieeno"]
+script = ExtResource("2_2ugae")
+metadata/_custom_type_script = "uid://be435sed4me66"
+
+[resource]
+script = ExtResource("6_5yjns")
+name = "Claw in the night"
+description = "The owl is trying to pick off the bunnies in the back, don't let it happen!"
+target_type = "single_opp"
+multiplier = 1.0
+effects = Array[ExtResource("1_64ct0")]([SubResource("Resource_ieeno")])
+launch_position = Array[int]([3, 4])
+target_position = Array[int]([3, 4])
+cooldown = 0
+icon_sprite = ExtResource("5_4cgob")
+icon_pressed = ExtResource("4_mcg8i")
+icon_disabled = ExtResource("3_ud0ub")
+animation_name = "attack"
+is_phase_triggered = false
+trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"

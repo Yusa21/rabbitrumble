@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=8 format=3 uid="uid://dkok8tltvojol"]
+
+[ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_0ovaq"]
+[ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="2_6a1am"]
+[ext_resource type="Script" uid="uid://be435sed4me66" path="res://scripts/resource_models/effects/damage_effect.gd" id="2_ea11e"]
+[ext_resource type="Texture2D" uid="uid://cjpxmjf54pxmg" path="res://assets/sprites/abilities/offensive_ability_dissabled.png" id="3_qcwbo"]
+[ext_resource type="Texture2D" uid="uid://bcqugc47enu8p" path="res://assets/sprites/abilities/offensive_ability_pressed.png" id="4_hdn3p"]
+[ext_resource type="Texture2D" uid="uid://dii0ajdffuve7" path="res://assets/sprites/abilities/offensive_ability.png" id="5_qx2rs"]
+
+[sub_resource type="Resource" id="Resource_et3ef"]
+script = ExtResource("2_ea11e")
+metadata/_custom_type_script = "uid://be435sed4me66"
+
+[resource]
+script = ExtResource("2_6a1am")
+name = "Wolf roar"
+description = "It doesn't need to bite to pack a punch"
+target_type = "single_opp"
+multiplier = 1.0
+effects = Array[ExtResource("1_0ovaq")]([SubResource("Resource_et3ef")])
+launch_position = Array[int]([1, 2])
+target_position = Array[int]([1, 2])
+cooldown = 0
+icon_sprite = ExtResource("5_qx2rs")
+icon_pressed = ExtResource("4_hdn3p")
+icon_disabled = ExtResource("3_qcwbo")
+animation_name = "attack"
+is_phase_triggered = false
+trigger_phase = ""
+trigger_on_self_turn = false
+trigger_on_ally_turn = false
+trigger_on_enemy_turn = false
+metadata/_custom_type_script = "uid://didlt5asxoyvv"
