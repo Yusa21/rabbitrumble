@@ -109,14 +109,18 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 [node name="AbilityDescriptionLabel" parent="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer/MarginContainer/CharacterInfo/AbilityInformationUI/VBoxContainer" index="2"]
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 
-[node name="EnemyTeamPreview" type="HBoxContainer" parent="UIMargin/UIContainer/MarginContainer/LeftSide"]
+[node name="MarginContainer2" type="MarginContainer" parent="UIMargin/UIContainer/MarginContainer/LeftSide"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="EnemyTeamPreview" type="HBoxContainer" parent="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 script = ExtResource("3_bdnlr")
 
-[node name="CharacterButton" type="TextureButton" parent="UIMargin/UIContainer/MarginContainer/LeftSide/EnemyTeamPreview"]
+[node name="CharacterButton" type="TextureButton" parent="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer2/EnemyTeamPreview"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture_normal = SubResource("CompressedTexture2D_tit23")
@@ -310,7 +314,7 @@ auto_translate_mode = 1
 visible = false
 unfocusable = false
 
-[connection signal="pressed" from="UIMargin/UIContainer/MarginContainer/LeftSide/EnemyTeamPreview/CharacterButton" to="UIMargin/UIContainer/MarginContainer/LeftSide/EnemyTeamPreview" method="_on_character_button_pressed"]
+[connection signal="pressed" from="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer2/EnemyTeamPreview/CharacterButton" to="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer2/EnemyTeamPreview" method="_on_character_button_pressed"]
 [connection signal="pressed" from="UIMargin/UIContainer/RightSide/TopRightOptions/MarginContainer2/BackButton" to="UIMargin/UIContainer/RightSide/TopRightOptions" method="_on_back_button_pressed"]
 [connection signal="pressed" from="UIMargin/UIContainer/RightSide/TopRightOptions/MarginContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="UIMargin/UIContainer/RightSide/CharacterTeamMarign/Panel/MarginContainer/PlayerTeamPreview/CharacterButton" to="UIMargin/UIContainer/RightSide/CharacterTeamMarign/Panel/MarginContainer/PlayerTeamPreview" method="_on_character_button_pressed"]

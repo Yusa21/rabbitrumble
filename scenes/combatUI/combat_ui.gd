@@ -189,16 +189,11 @@ func _handle_ability_selection(ability_data, ability_index):
 		
 		_highlight_possible_targets(selected_ability)
 		
-		# If this is a multi-target ability, automatically select all valid targets
 		if selected_ability.target_type == "multiple_opps" or selected_ability.target_type == "multiple_allies":
 			_auto_select_all_targets(selected_ability)
 			print("Auto-selected targets for multi-target ability: ", selected_targets.size())
-			# Execute immediately for multi-target abilities
-			if selected_targets.size() > 0:
-				_execute_current_ability(selected_targets)
-			else:
-				# No valid targets for multi-ability
-				_cancel_targeting()
+			# Wait for character click before executing
+
 	else:
 		print("No ability at index ", ability_index)
 		# Ability doesn't need targets, execute immediately
@@ -273,8 +268,13 @@ func _on_character_clicked(character):
 		
 	# For multiple target abilities, we've already auto-selected all targets
 	if selected_ability.target_type.begins_with("multiple"):
-		print("Multiple target ability - ignoring click")
+		if _is_valid_target(character, selected_ability):
+			print("Valid trigger for multi-target ability: ", character.char_name)
+			_execute_current_ability(selected_targets)
+		else:
+			print("Clicked character not valid for triggering multi-target ability: ", character.char_name)
 		return
+
 		
 	# Check if this character is valid target based on ability type and position
 	if _is_valid_target(character, selected_ability):
@@ -293,11 +293,10 @@ func _is_valid_target(character, ability):
 		print("Position not valid: ", character.char_position, " not in ", ability.target_position)
 		return false
 		
-	# Then check target type
-	if ability.target_type.ends_with("opp") and character in current_character.opps_team:
+	if ability.target_type in ["single_opp", "multiple_opps"] and character in current_character.opps_team:
 		print("Valid opponent target")
 		return true
-	elif ability.target_type.ends_with("ally") and character in current_character.ally_team:
+	elif ability.target_type in ["single_ally", "multiple_allies"] and character in current_character.ally_team:
 		print("Valid ally target")
 		return true
 	elif ability.target_type == "self" and character == current_character:
