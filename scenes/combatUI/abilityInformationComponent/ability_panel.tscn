@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://b113c6rif0cdd"]
+[gd_scene load_steps=10 format=3 uid="uid://b113c6rif0cdd"]
 
-[ext_resource type="Texture2D" uid="uid://dcbpc1u02lv60" path="res://assets/menu/button/number_1.png" id="1_ufgnn"]
-[ext_resource type="Texture2D" uid="uid://b3ir5d468xrny" path="res://assets/menu/button/number_2.png" id="2_k3k5g"]
+[ext_resource type="Texture2D" uid="uid://dii0ajdffuve7" path="res://assets/sprites/abilities/offensive_ability.png" id="1_o2yn7"]
+[ext_resource type="Texture2D" uid="uid://bcqugc47enu8p" path="res://assets/sprites/abilities/offensive_ability_pressed.png" id="2_6m0ax"]
 [ext_resource type="Texture2D" uid="uid://dedfhgy13jmsl" path="res://assets/sprites/abilities/pass_turn.png" id="3_qvmuq"]
 [ext_resource type="PackedScene" uid="uid://pt623vjaymv5" path="res://scenes/combatUI/abilityInformationComponent/ability_information_ui.tscn" id="3_sgllw"]
+[ext_resource type="Texture2D" uid="uid://cjpxmjf54pxmg" path="res://assets/sprites/abilities/offensive_ability_dissabled.png" id="3_yu4dg"]
 [ext_resource type="Texture2D" uid="uid://b1ic7afu0t61v" path="res://assets/sprites/abilities/pass_turn_pressed.png" id="4_7ocb5"]
+[ext_resource type="Texture2D" uid="uid://b8y2cojs6c4yu" path="res://assets/sprites/abilities/healing_ability.png" id="4_tesqy"]
+[ext_resource type="Texture2D" uid="uid://51qk1nq3c02i" path="res://assets/sprites/abilities/healing_ability_pressed.png" id="5_6g0qw"]
+[ext_resource type="Texture2D" uid="uid://dxo5jrop6x3yi" path="res://assets/sprites/abilities/healing_ability_dissabled.png" id="6_kfa7u"]
 
 [node name="AbilityPanel" type="HBoxContainer"]
 anchors_preset = 15
@@ -31,7 +35,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 disabled = true
-texture_normal = ExtResource("1_ufgnn")
+texture_normal = ExtResource("1_o2yn7")
+texture_pressed = ExtResource("2_6m0ax")
+texture_disabled = ExtResource("3_yu4dg")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -45,7 +51,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 disabled = true
-texture_normal = ExtResource("2_k3k5g")
+texture_normal = ExtResource("4_tesqy")
+texture_pressed = ExtResource("5_6g0qw")
+texture_disabled = ExtResource("6_kfa7u")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -63,7 +71,14 @@ texture_pressed = ExtResource("4_7ocb5")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="AbilityInformationUI" parent="." instance=ExtResource("3_sgllw")]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+
+[node name="AbilityInformationUI" parent="MarginContainer" instance=ExtResource("3_sgllw")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

@@ -6,7 +6,7 @@ class_name BaseCharacter
 ##todas las funciones que hacer falta para que los personajes puedan funcionar, como recibir dano, moverse...
 ##tambien tiene algunas funciones que se sobreescriben en las clases hija como las de que ocurre cuando empieza un turno
 
-@onready var sprite
+@onready var sprite: Sprite2D
 @onready var animationPlayer: AnimationPlayer
 @onready var area2D: Area2D
 @onready var statusEffects: Node2D
@@ -186,6 +186,7 @@ func execute_ability(ability, tar: Array):
 
 ##Function to take damage, gets the amount to receive and the attacker
 func take_damage(dmg, attacker):
+	print (str(char_name) + " is about to recieve " + str(dmg) + " damage")
 	# Notify battle manager to increment pending damage responses
 	var battle_manager = get_parent().get_parent().get_node("BattleManager")
 
@@ -198,6 +199,7 @@ func take_damage(dmg, attacker):
 	current_hp -= dmg
 	
 	# Play hurt animation and wait for it to finish
+	sprite.play_damage_flash()
 	animationPlayer.play("hurt")
 	await animationPlayer.animation_finished
 	
@@ -215,7 +217,9 @@ func take_damage(dmg, attacker):
 	# Notify health changed through bus
 	if event_bus:
 		event_bus.emit_signal("health_changed", self, current_hp, max_hp)
-   
+
+	print("-------------------" + str(char_name) + "has " + str(current_hp)) 
+	
 	return true
 
 # Function to handle character defeat
@@ -239,6 +243,7 @@ func defeat():
 func take_healing(heal, healer):
 
 	var old_hp = current_hp
+	sprite.play_healing_wave()
 	animationPlayer.play("healed")
 	await animationPlayer.animation_finished
 

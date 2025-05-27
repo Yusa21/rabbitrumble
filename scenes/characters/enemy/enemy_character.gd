@@ -19,27 +19,50 @@ func start_turn():
 func execute_ai_ability():
 	var targeted_team
 	var targets
-
+	
+	# Determine which team to target
 	if abilities[0].target_type.ends_with("ally"):
 		targeted_team = ally_team
-	elif abilities[0].target_type.ends_with("opps") or abilities[0].target_type.ends_with("opp") :
+	elif abilities[0].target_type.ends_with("opps") or abilities[0].target_type.ends_with("opp"):
 		targeted_team = opps_team
-
+	
 	if targeted_team == null:
 		push_error("Team is null when targeting in enemy AI")
-
+		return
+	
 	if abilities[0].target_type.begins_with("multiple"):
 		targets = targeted_team
 	elif abilities[0].target_type.begins_with("single"):
-		var available_positions = abilities[0].target_position
-		var random_index = randi() % available_positions.size()
-		var random_position = available_positions[random_index]
-	
-   		# Find the character at that position in the targeted team
+		# Get all possible target positions from the ability
+		var possible_positions = abilities[0].target_position
+		
+		# Filter to only positions that actually have characters
+		var occupied_positions = []
+		for position in possible_positions:
+			for character in targeted_team:
+				if character.char_position == position:
+					occupied_positions.append(position)
+					break
+		
+		# Check if there are any valid targets
+		if occupied_positions.size() == 0:
+			print("Skipping turn")
+			return
+		
+		# If only one valid target, use it directly
+		var selected_position
+		if occupied_positions.size() == 1:
+			selected_position = occupied_positions[0]
+		else:
+			# Multiple valid targets, pick randomly
+			var random_index = randi() % occupied_positions.size()
+			selected_position = occupied_positions[random_index]
+		
+		# Find the character at the selected position
 		targets = []
 		for character in targeted_team:
-			if character.char_position == random_position:
+			if character.char_position == selected_position:
 				targets.append(character)
 				break
-
+	
 	execute_ability(abilities[0], targets)

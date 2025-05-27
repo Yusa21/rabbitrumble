@@ -1,10 +1,25 @@
-[gd_scene load_steps=11 format=3 uid="uid://dnxfvk8s8ufop"]
+[gd_scene load_steps=16 format=3 uid="uid://dnxfvk8s8ufop"]
 
 [ext_resource type="Script" uid="uid://d14hjkwxprfen" path="res://scenes/characters/base_character.gd" id="1_xktx3"]
 [ext_resource type="Script" uid="uid://db7icbqrpuxag" path="res://scenes/characters/sprite_2d.gd" id="3_5pixi"]
+[ext_resource type="Shader" uid="uid://mhg1f16wwuw6" path="res://shaders/damage_flash.gdshader" id="3_occlb"]
+[ext_resource type="Shader" uid="uid://c50gggm6p7y2j" path="res://shaders/healing_wave.gdshader" id="4_0db1q"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5pixi"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tit23"]
 load_path = "res://.godot/imported/testDummy_idle.png-87511388f462955f4b06064f9b34d75b.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_47jyr"]
+shader = ExtResource("3_occlb")
+shader_parameter/flash_intensity = 0.0
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0dsqv"]
+shader = ExtResource("4_0db1q")
+shader_parameter/wave_progress = 0.0
+shader_parameter/heal_color = Color(0, 1, 0, 1)
+shader_parameter/wave_width = 0.3
 
 [sub_resource type="Animation" id="Animation_5pixi"]
 length = 0.001
@@ -189,10 +204,14 @@ radius = 34.0147
 script = ExtResource("1_xktx3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_5pixi")
 scale = Vector2(0.0986112, 0.0916667)
 texture = SubResource("CompressedTexture2D_tit23")
 script = ExtResource("3_5pixi")
 target_size = Vector2(80, 80)
+damage_shader_material = SubResource("ShaderMaterial_47jyr")
+healing_shader_material = SubResource("ShaderMaterial_0dsqv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 root_node = NodePath("../..")

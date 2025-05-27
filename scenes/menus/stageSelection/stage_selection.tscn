@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cgfys0mix6p3o"]
+[gd_scene load_steps=17 format=3 uid="uid://cgfys0mix6p3o"]
 
 [ext_resource type="PackedScene" uid="uid://u86114strhxn" path="res://scenes/menus/stageSelection/stagePanel/stage_information.tscn" id="1_0ejd1"]
 [ext_resource type="Script" uid="uid://dyhfgoxxqogqj" path="res://scenes/menus/stageSelection/stage_selection.gd" id="1_70y1c"]
 [ext_resource type="Theme" uid="uid://djda6c5tcd13h" path="res://resources/themes/default_theme.tres" id="1_hg4b8"]
 [ext_resource type="PackedScene" uid="uid://bkj64jlbcgesg" path="res://scenes/menus/stageSelection/stageList/stage_list.tscn" id="2_jj88m"]
+[ext_resource type="PackedScene" uid="uid://dty8xvxvuxn57" path="res://scenes/menus/movingBackground/moving_background.tscn" id="2_uvcoh"]
 [ext_resource type="Script" uid="uid://cedd36gu6lp6i" path="res://scenes/menus/stageSelection/optionButtons/options_buttons.gd" id="3_byybc"]
 [ext_resource type="StyleBox" uid="uid://cwhdn7o31s6sa" path="res://resources/themes/panel_grey_background.tres" id="3_hkx0b"]
 [ext_resource type="Texture2D" uid="uid://bs38yxs1ispbk" path="res://assets/menu/button/left_arrow_button.png" id="6_1gidl"]
@@ -14,8 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bof01yqpq8c4e" path="res://assets/menu/button/ORANGE.png" id="8_df7c3"]
 [ext_resource type="StyleBox" uid="uid://g1n3g3xt3cdu" path="res://resources/themes/panel_white_background.tres" id="11_rcrfm"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkx0b"]
-bg_color = Color(0.882353, 0.85098, 0.819608, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvcoh"]
 
 [sub_resource type="Theme" id="Theme_hkx0b"]
 RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
@@ -29,6 +29,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_70y1c")
 
+[node name="MovingBackground" parent="." instance=ExtResource("2_uvcoh")]
+layout_mode = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -41,7 +44,7 @@ theme = ExtResource("1_hg4b8")
 [node name="Panel" type="Panel" parent="MarginContainer"]
 layout_mode = 2
 theme = ExtResource("1_hg4b8")
-theme_override_styles/panel = SubResource("StyleBoxFlat_hkx0b")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_uvcoh")
 
 [node name="UIContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -106,11 +109,34 @@ ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
 
-[node name="StageInformation" parent="MarginContainer/UIContainer/RightSide" instance=ExtResource("1_0ejd1")]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/UIContainer/RightSide"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="MarginContainer/UIContainer/RightSide/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("11_rcrfm")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/UIContainer/RightSide/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="StageInformation" parent="MarginContainer/UIContainer/RightSide/MarginContainer/Panel/MarginContainer" instance=ExtResource("1_0ejd1")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="StartButton" parent="MarginContainer/UIContainer/RightSide/StageInformation/StartButtonAndTick/MarginContainer" index="0"]
+[node name="StartButton" parent="MarginContainer/UIContainer/RightSide/MarginContainer/Panel/MarginContainer/StageInformation/StartButtonAndTick/MarginContainer" index="0"]
 texture_normal = ExtResource("8_df7c3")
 
 [node name="UnlockedCharacter" parent="." instance=ExtResource("6_gg72n")]
@@ -127,4 +153,4 @@ unfocusable = false
 [connection signal="pressed" from="MarginContainer/UIContainer/RightSide/TopRightOptions/MarginContainer2/BackButton" to="MarginContainer/UIContainer/RightSide/TopRightOptions" method="_on_back_button_pressed"]
 [connection signal="pressed" from="MarginContainer/UIContainer/RightSide/TopRightOptions/MarginContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 
-[editable path="MarginContainer/UIContainer/RightSide/StageInformation"]
+[editable path="MarginContainer/UIContainer/RightSide/MarginContainer/Panel/MarginContainer/StageInformation"]

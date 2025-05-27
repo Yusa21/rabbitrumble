@@ -13,6 +13,7 @@ signal end_turn(PlayerCharacter)
 
 func _ready():
 	set_alignment(player_alignment)
+	
 
 '''
 Todo lo de manejar input y turnos es provisional, la escena no se encarga de eso es la UI

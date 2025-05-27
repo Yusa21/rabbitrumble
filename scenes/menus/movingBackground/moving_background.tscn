@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dty8xvxvuxn57"]
 
-[ext_resource type="Script" uid="uid://dmx3edknnsq3a" path="res://scenes/menus/mainMenu/movingBackground/moving_background.gd" id="1_0llil"]
+[ext_resource type="Script" uid="uid://dmx3edknnsq3a" path="res://scenes/menus/movingBackground/moving_background.gd" id="1_0llil"]
 [ext_resource type="Texture2D" uid="uid://dr8j47h0rvf5g" path="res://assets/sprites/backgrounds/Field.png" id="2_pr2ea"]
 
 [node name="MovingBackground" type="Control"]
