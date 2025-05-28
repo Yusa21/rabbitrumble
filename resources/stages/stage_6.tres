@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StageData" load_steps=2 format=3 uid="uid://ds035vfn5wxf"]
+
+[ext_resource type="Script" uid="uid://dislvogsap4ag" path="res://scripts/resource_models/stages/stage_data.gd" id="1_2j84y"]
+
+[resource]
+script = ExtResource("1_2j84y")
+id = "stage_6"
+name = "Stage 6"
+number = 6
+difficulty = 3
+description = ""
+enemies = Array[String](["p_c_004e", "p_c_004e", "p_c_006e", "p_c_006e"])
+char_unlocks = Array[String]([""])
+stage_unlocks = Array[String](["stage_10"])
+metadata/_custom_type_script = "uid://dislvogsap4ag"

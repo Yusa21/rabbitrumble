@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="AbilityData" load_steps=5 format=3 uid="uid://bi77y8cqh1346"]
+[gd_resource type="Resource" script_class="AbilityData" load_steps=8 format=3 uid="uid://bi77y8cqh1346"]
 
 [ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_px33f"]
 [ext_resource type="Script" uid="uid://be435sed4me66" path="res://scripts/resource_models/effects/damage_effect.gd" id="2_45pvh"]
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="2_ski38"]
+[ext_resource type="Texture2D" uid="uid://cjpxmjf54pxmg" path="res://assets/sprites/abilities/offensive_ability_dissabled.png" id="3_hqk07"]
+[ext_resource type="Texture2D" uid="uid://bcqugc47enu8p" path="res://assets/sprites/abilities/offensive_ability_pressed.png" id="4_16gkq"]
+[ext_resource type="Texture2D" uid="uid://dii0ajdffuve7" path="res://assets/sprites/abilities/offensive_ability.png" id="5_b65ew"]
 
 [sub_resource type="Resource" id="Resource_i12ps"]
 script = ExtResource("2_45pvh")
@@ -18,6 +21,9 @@ effects = Array[ExtResource("1_px33f")]([SubResource("Resource_i12ps")])
 launch_position = Array[int]([1, 2])
 target_position = Array[int]([1, 2])
 cooldown = 0
+icon_sprite = ExtResource("5_b65ew")
+icon_pressed = ExtResource("4_16gkq")
+icon_disabled = ExtResource("3_hqk07")
 animation_name = "attack"
 is_phase_triggered = false
 trigger_phase = ""

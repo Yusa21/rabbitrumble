@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("2_k0ywh")
-character_id = "007e"
+character_id = "p_c_007e"
 character_name = "Tiger"
 character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
 max_hp = 100

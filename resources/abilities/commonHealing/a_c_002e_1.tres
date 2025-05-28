@@ -1,19 +1,24 @@
-[gd_resource type="Resource" script_class="AbilityData" load_steps=6 format=3 uid="uid://c8exosqtlskfn"]
+[gd_resource type="Resource" script_class="AbilityData" load_steps=8 format=3 uid="uid://c8exosqtlskfn"]
 
 [ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_1h3ut"]
 [ext_resource type="Texture2D" uid="uid://dxo5jrop6x3yi" path="res://assets/sprites/abilities/healing_ability_dissabled.png" id="2_d8bcf"]
+[ext_resource type="Script" uid="uid://dv4sonawua3t6" path="res://scripts/resource_models/effects/healing_effect.gd" id="2_tb27u"]
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="2_ubpko"]
 [ext_resource type="Texture2D" uid="uid://51qk1nq3c02i" path="res://assets/sprites/abilities/healing_ability_pressed.png" id="3_tb27u"]
 [ext_resource type="Texture2D" uid="uid://b8y2cojs6c4yu" path="res://assets/sprites/abilities/healing_ability.png" id="4_rq6jj"]
+
+[sub_resource type="Resource" id="Resource_rq6jj"]
+script = ExtResource("2_tb27u")
+metadata/_custom_type_script = "uid://dv4sonawua3t6"
 
 [resource]
 script = ExtResource("2_ubpko")
 name = "Lick wounds"
 description = "Cat heals the ally with the lowest health"
 target_type = "multiple_allies"
-multiplier = 1.0
-effects = Array[ExtResource("1_1h3ut")]([])
-launch_position = Array[int]([3, 4])
+multiplier = 0.5
+effects = Array[ExtResource("1_1h3ut")]([SubResource("Resource_rq6jj")])
+launch_position = Array[int]([1, 2, 3, 4])
 target_position = Array[int]([1, 2, 3, 4])
 cooldown = 0
 icon_sprite = ExtResource("4_rq6jj")

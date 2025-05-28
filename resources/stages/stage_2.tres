@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StageData" load_steps=2 format=3 uid="uid://csuwsxp51i8uc"]
+
+[ext_resource type="Script" uid="uid://dislvogsap4ag" path="res://scripts/resource_models/stages/stage_data.gd" id="1_bnjhc"]
+
+[resource]
+script = ExtResource("1_bnjhc")
+id = "stage_2"
+name = "Stage 2"
+number = 2
+difficulty = 1
+description = "Things are getting serious a wolf is nothing to scoff at, make sure to keep yourself healthy with Silly Bunny"
+enemies = Array[String](["p_c_004e"])
+char_unlocks = Array[String](["p_c_005"])
+stage_unlocks = Array[String](["stage_3"])
+metadata/_custom_type_script = "uid://dislvogsap4ag"

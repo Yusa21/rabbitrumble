@@ -21,7 +21,7 @@ func execute_ai_ability():
 	var targets
 	
 	# Determine which team to target
-	if abilities[0].target_type.ends_with("ally"):
+	if abilities[0].target_type.ends_with("ally") or abilities[0].target_type.ends_with("allies"):
 		targeted_team = ally_team
 	elif abilities[0].target_type.ends_with("opps") or abilities[0].target_type.ends_with("opp"):
 		targeted_team = opps_team

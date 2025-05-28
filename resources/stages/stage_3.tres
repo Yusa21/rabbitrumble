@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StageData" load_steps=2 format=3 uid="uid://bf2mta4doeap2"]
+
+[ext_resource type="Script" uid="uid://dislvogsap4ag" path="res://scripts/resource_models/stages/stage_data.gd" id="1_s2jca"]
+
+[resource]
+script = ExtResource("1_s2jca")
+id = "stage_3"
+name = "Stage 3"
+number = 3
+difficulty = 2
+description = "The cat is keeping the other team motivated! Use Bun n duck to reach them and take them out."
+enemies = Array[String](["p_c_004e", "p_c_001e", "p_c_002e"])
+char_unlocks = Array[String](["p_c_001"])
+stage_unlocks = Array[String](["stage_4"])
+metadata/_custom_type_script = "uid://dislvogsap4ag"

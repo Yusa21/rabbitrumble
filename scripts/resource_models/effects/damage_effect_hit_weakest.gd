@@ -17,7 +17,7 @@ func execute(user, multipler, targets):
 	
 	var defense = lowest_health_target.def
 	#Formula de ataque provisional, atk * 2 - def, el multiplicador de la habildad es muy importante
-	var damage = (user.atk * 2 - lowest_health_target.def) * multipler
+	var damage = ((user.atk * 2) - lowest_health_target.def) * multipler
 
 	#Para evitar que cure o que no haga nada de daño
 	if (damage <= 0):

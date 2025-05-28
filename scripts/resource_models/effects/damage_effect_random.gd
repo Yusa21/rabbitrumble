@@ -16,7 +16,7 @@ func execute(user, multipler, targets):
     
     var defense = random_target.def
     # Formula de ataque provisional, atk * 2 - def, el multiplicador de la habildad es muy importante
-    var damage = (user.atk * 2 - random_target.def) * multipler
+    var damage = ((user.atk * 2 - random_target.def)) * multipler
     random_target.take_damage(int(damage), user)
     
     return true

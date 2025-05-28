@@ -1,20 +1,21 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://c0ce8ed4n2mgr"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3 uid="uid://c0ce8ed4n2mgr"]
 
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="1_2ayl0"]
 [ext_resource type="Script" uid="uid://c3msr806gkbc3" path="res://scripts/resource_models/characters/character_data.gd" id="2_gfv8t"]
 [ext_resource type="Texture2D" uid="uid://cew8fvlelahem" path="res://assets/sprites/icon/e_i_006e.png" id="2_llrjm"]
+[ext_resource type="Resource" uid="uid://0jajp3mgtayq" path="res://resources/abilities/commonAttacks/a_c_006e_1.tres" id="2_wmnji"]
 [ext_resource type="Texture2D" uid="uid://b5ueuywlhmwp0" path="res://assets/sprites/characters/e_c_006e.png" id="3_xucpj"]
 
 [resource]
 script = ExtResource("2_gfv8t")
-character_id = "006e"
+character_id = "p_c_006e"
 character_name = "Owl"
 character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
-max_hp = 100
+max_hp = 30
 attack = 10
 defense = 10
-speed = 10
+speed = 21
 character_icon = ExtResource("2_llrjm")
 idle_sprite = ExtResource("3_xucpj")
-abilities = Array[ExtResource("1_2ayl0")]([])
+abilities = Array[ExtResource("1_2ayl0")]([ExtResource("2_wmnji")])
 metadata/_custom_type_script = "uid://c3msr806gkbc3"

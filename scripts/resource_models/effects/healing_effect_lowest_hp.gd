@@ -12,7 +12,7 @@ func execute(user, multipler, targets):
 	for target in targets:
 		if target.current_hp < lowest_health_target.current_hp:
 			lowest_health_target = target
-
+	print("Lowest health target is " + str(lowest_health_target))
 	var healing = user.atk * multipler #Se usa el ataque para curar
 	lowest_health_target.take_healing(int(healing), user)
 		

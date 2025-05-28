@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StageData" load_steps=2 format=3 uid="uid://dqhj6cfqv8q5m"]
+
+[ext_resource type="Script" uid="uid://dislvogsap4ag" path="res://scripts/resource_models/stages/stage_data.gd" id="1_4ybxu"]
+
+[resource]
+script = ExtResource("1_4ybxu")
+id = "stage_4"
+name = "Stage 4"
+number = 4
+difficulty = 3
+description = "Things are getting serious, why are the predators suddenly getting along?"
+enemies = Array[String](["p_c_004e", "p_c_001e", "p_c_005e", "p_c_005e"])
+char_unlocks = Array[String](["p_c_003"])
+stage_unlocks = Array[String](["stage_5"])
+metadata/_custom_type_script = "uid://dislvogsap4ag"

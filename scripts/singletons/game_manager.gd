@@ -377,7 +377,7 @@ func load_game():
 
 #const default_char_list: Array[String] = ["p_c_001","p_c_002","p_c_003","p_c_004", "p_c_005" ,"p_c_006","p_c_007"]
 const default_char_list: Array[String] = ["p_c_007"]
-const default_stage_list: Array[String] = ["test_stage"]
+const default_stage_list: Array[String] = ["stage_1"]
 const default_completed_list: Array[String] = [""]
 
 func create_default_save_file():

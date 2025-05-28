@@ -1,5 +1,5 @@
 extends AbilityEffect
-class_name DamageEffect
+class_name DamageEffectTwice
 ##Clase que tiene el execute para hacer dano a uno o multiples objetivos
 ##
 ##Recibe el usuario de la habilidad, el mutiplicador de la habilidad y los objetivos
@@ -17,6 +17,11 @@ func execute(user, multipler, targets):
 		if (damage <= 0):
 			damage = 1
 		 
+		target.sprite.play_damage_flash()
+		target.animationPlayer.play("hurt")
+		await target.animationPlayer.animation_finished
+		
 		target.take_damage(int(damage), user)
+
 		
 	return true
