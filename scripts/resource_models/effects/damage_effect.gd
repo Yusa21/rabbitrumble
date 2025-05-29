@@ -18,5 +18,6 @@ func execute(user, multipler, targets):
 			damage = 1
 		 
 		target.take_damage(int(damage), user)
+		print("-------------------Target has " + str(target.current_hp) + " a suffered " + str(damage))
 		
 	return true

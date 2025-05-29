@@ -2,6 +2,7 @@ extends Control
 class_name AbilityInformationUI
 
 @onready var ability_name = get_node("%AbilityNameLabel")
+@onready var circles_container = get_node("%CirclesContainer")
 @onready var launch_position_ui = get_node("%LaunchPositonUI")
 @onready var target_position_ui = get_node("%TargetPositionUI")
 @onready var ability_mult_ui = get_node("%MultUI")
@@ -39,7 +40,15 @@ func populate_circle_arrays():
 		target_borders.append(border)
 
 
-func update_ability_information_ui(ability: AbilityData):
+func update_ability_information_ui(ability: AbilityData, is_enemy = false):
+
+	if is_enemy:
+		circles_container.scale.x = -1
+		circles_container.position.x = circles_container.size.x 
+	else:
+		circles_container.scale.x = 1
+		circles_container.position.x = 0
+
 	# Add debug checks to find which node is null
 	if ability_name == null:
 		print("ability_name node is null!")
@@ -123,7 +132,8 @@ func update_ability_circles(ability: AbilityData):
 			var position = i + 1  # 1-based
 
 			if position in ability.target_position:
-				circle
+				circle.modulate = target_color
+				border.modulate = target_color
 
 
 func get_target_color(target_type: String) -> Color:

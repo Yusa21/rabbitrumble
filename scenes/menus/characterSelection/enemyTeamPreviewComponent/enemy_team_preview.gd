@@ -38,7 +38,7 @@ func initialize(bus, char_list):
 		new_button.set_meta("character_data", character)
 		
 		# Connect button press signal
-		new_button.pressed.connect(func(): _emit_character_clicked(character))
+		new_button.pressed.connect(func(): _emit_enemy_character_clicked(character))
 	
 		# Add the button to the HBox
 		add_child(new_button)
@@ -48,5 +48,5 @@ func _on_character_button_pressed() -> void:
 	pass
 
 # Emit signal with specific character data
-func _emit_character_clicked(character_data):
-	event_bus.emit_signal("character_clicked", character_data)
+func _emit_enemy_character_clicked(character_data):
+	event_bus.emit_signal("enemy_character_clicked", character_data)

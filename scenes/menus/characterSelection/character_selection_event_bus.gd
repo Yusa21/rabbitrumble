@@ -2,6 +2,7 @@ extends Node
 class_name CharacterSelectionBus
 
 signal character_clicked(character)
+signal enemy_character_clicked(character)
 signal character_right_clicked(character)
 signal character_added_to_team(character_id)
 signal character_removed_from_team(character_id)

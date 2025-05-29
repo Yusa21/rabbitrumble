@@ -33,10 +33,14 @@ layout_mode = 2
 text = "Name"
 fit_content = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBox" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="LaunchPositionContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="CirclesContainer" type="HBoxContainer" parent="VBoxContainer/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LaunchPositionContainer" type="MarginContainer" parent="VBoxContainer/HBox/CirclesContainer"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 3
@@ -44,16 +48,16 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="LaunchPositonUI" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer"]
+[node name="LaunchPositonUI" type="HBoxContainer" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="CircleContainer1" type="MarginContainer" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI"]
+[node name="CircleContainer1" type="MarginContainer" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer1"]
+[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer1"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -61,7 +65,7 @@ texture = ExtResource("2_oeq8t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Circle" type="TextureRect" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer1"]
+[node name="Circle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer1"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -69,11 +73,11 @@ texture = ExtResource("3_d8ssl")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CircleContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI"]
+[node name="CircleContainer2" type="MarginContainer" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer2"]
+[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer2"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -81,7 +85,7 @@ texture = ExtResource("2_oeq8t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Circle" type="TextureRect" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer2"]
+[node name="Circle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer2"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -89,11 +93,11 @@ texture = ExtResource("3_d8ssl")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CircleContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI"]
+[node name="CircleContainer3" type="MarginContainer" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer3"]
+[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer3"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -101,7 +105,7 @@ texture = ExtResource("2_oeq8t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Circle" type="TextureRect" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer3"]
+[node name="Circle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer3"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -109,11 +113,11 @@ texture = ExtResource("3_d8ssl")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CircleContainer4" type="MarginContainer" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI"]
+[node name="CircleContainer4" type="MarginContainer" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer4"]
+[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer4"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -121,7 +125,7 @@ texture = ExtResource("2_oeq8t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Circle" type="TextureRect" parent="VBoxContainer/HBoxContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer4"]
+[node name="Circle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/LaunchPositionContainer/LaunchPositonUI/CircleContainer4"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -129,12 +133,12 @@ texture = ExtResource("3_d8ssl")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBox/CirclesContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_oeq8t")
 
-[node name="TargetPositionContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="TargetPositionContainer" type="MarginContainer" parent="VBoxContainer/HBox/CirclesContainer"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 3
@@ -142,16 +146,16 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="TargetPositionUI" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/TargetPositionContainer"]
+[node name="TargetPositionUI" type="HBoxContainer" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="CircleContainer1" type="MarginContainer" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI"]
+[node name="CircleContainer1" type="MarginContainer" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI/CircleContainer1"]
+[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI/CircleContainer1"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -159,7 +163,7 @@ texture = ExtResource("2_oeq8t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Circle" type="TextureRect" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI/CircleContainer1"]
+[node name="Circle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI/CircleContainer1"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -167,11 +171,11 @@ texture = ExtResource("3_d8ssl")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CircleContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI"]
+[node name="CircleContainer2" type="MarginContainer" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI/CircleContainer2"]
+[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI/CircleContainer2"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -179,7 +183,7 @@ texture = ExtResource("2_oeq8t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Circle" type="TextureRect" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI/CircleContainer2"]
+[node name="Circle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI/CircleContainer2"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -187,11 +191,11 @@ texture = ExtResource("3_d8ssl")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CircleContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI"]
+[node name="CircleContainer3" type="MarginContainer" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI/CircleContainer3"]
+[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI/CircleContainer3"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -199,7 +203,7 @@ texture = ExtResource("2_oeq8t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Circle" type="TextureRect" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI/CircleContainer3"]
+[node name="Circle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI/CircleContainer3"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -207,11 +211,11 @@ texture = ExtResource("3_d8ssl")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CircleContainer4" type="MarginContainer" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI"]
+[node name="CircleContainer4" type="MarginContainer" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI/CircleContainer4"]
+[node name="MarginCircle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI/CircleContainer4"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -219,7 +223,7 @@ texture = ExtResource("2_oeq8t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Circle" type="TextureRect" parent="VBoxContainer/HBoxContainer/TargetPositionContainer/TargetPositionUI/CircleContainer4"]
+[node name="Circle" type="TextureRect" parent="VBoxContainer/HBox/CirclesContainer/TargetPositionContainer/TargetPositionUI/CircleContainer4"]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -227,7 +231,7 @@ texture = ExtResource("3_d8ssl")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="MultUI" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
+[node name="MultUI" type="RichTextLabel" parent="VBoxContainer/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -237,7 +241,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TargetingTypeUI" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
+[node name="TargetingTypeUI" type="RichTextLabel" parent="VBoxContainer/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

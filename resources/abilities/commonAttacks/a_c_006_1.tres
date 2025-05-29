@@ -1,16 +1,11 @@
-[gd_resource type="Resource" script_class="AbilityData" load_steps=10 format=3 uid="uid://dfee0nx8awwl4"]
+[gd_resource type="Resource" script_class="AbilityData" load_steps=8 format=3 uid="uid://dfee0nx8awwl4"]
 
 [ext_resource type="Script" uid="uid://bk0bpg5jg858l" path="res://scripts/resource_models/effects/ability_effect.gd" id="1_lqmiu"]
-[ext_resource type="Script" uid="uid://dv4sonawua3t6" path="res://scripts/resource_models/effects/healing_effect.gd" id="2_wlu86"]
 [ext_resource type="Script" uid="uid://be435sed4me66" path="res://scripts/resource_models/effects/damage_effect.gd" id="3_ijew6"]
 [ext_resource type="Texture2D" uid="uid://cjpxmjf54pxmg" path="res://assets/sprites/abilities/offensive_ability_dissabled.png" id="4_85fx6"]
 [ext_resource type="Texture2D" uid="uid://bcqugc47enu8p" path="res://assets/sprites/abilities/offensive_ability_pressed.png" id="5_k5p38"]
 [ext_resource type="Texture2D" uid="uid://dii0ajdffuve7" path="res://assets/sprites/abilities/offensive_ability.png" id="6_v6wh8"]
 [ext_resource type="Script" uid="uid://didlt5asxoyvv" path="res://scripts/resource_models/abilities/ability_data.gd" id="7_jarho"]
-
-[sub_resource type="Resource" id="Resource_iit3f"]
-script = ExtResource("2_wlu86")
-metadata/_custom_type_script = "uid://dv4sonawua3t6"
 
 [sub_resource type="Resource" id="Resource_c30tg"]
 script = ExtResource("3_ijew6")
@@ -22,7 +17,7 @@ name = "Shake paws"
 description = "Armor Bunny shakes paws with the opponent raising their enthusiams, but the display of such sportmanship intimidates them after. Best used agaisnt full health enemies."
 target_type = "single_opp"
 multiplier = 3.0
-effects = Array[ExtResource("1_lqmiu")]([SubResource("Resource_iit3f"), SubResource("Resource_c30tg")])
+effects = Array[ExtResource("1_lqmiu")]([SubResource("Resource_c30tg")])
 launch_position = Array[int]([1, 2])
 target_position = Array[int]([1, 2])
 cooldown = 0

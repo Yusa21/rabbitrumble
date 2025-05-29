@@ -13,6 +13,8 @@ var ability_list
 @onready var ability_list_display = get_node("%AbilityList")
 @onready var ability_information_display = get_node("%AbilityInformationUI")
 
+var current_character_is_enemy = false
+
 func _ready() -> void:
 	pass
 
@@ -20,10 +22,19 @@ func initialize(bus):
 	event_bus = bus
 	event_bus.character_clicked.connect(_on_character_clicked)
 	event_bus.ability_clicked.connect(_on_ability_clicked)
+	event_bus.enemy_character_clicked.connect(_on_enemy_character_clicked)
 
 	ability_list_display.initialize(event_bus)
 
+func _on_enemy_character_clicked(char_data):
+	current_character_is_enemy = true
+	_update_character_information(char_data)
+
 func _on_character_clicked(char_data):
+	current_character_is_enemy = false
+	_update_character_information(char_data)
+	
+func _update_character_information(char_data):
 	#Pone los datos del personaje
 	char_name_display.text = str(char_data.character_name)
 	hp_display.text = str(char_data.max_hp)
@@ -35,7 +46,7 @@ func _on_character_clicked(char_data):
 
 	#Guarda la lista de habilidades y pone la primera en exposicion
 	ability_list = char_data.abilities
-	ability_information_display.update_ability_information_ui(ability_list[0])
+	ability_information_display.update_ability_information_ui(ability_list[0], current_character_is_enemy)
 
 func _on_ability_clicked(ability_data):
 	ability_information_display.update_ability_information_ui(ability_data)
