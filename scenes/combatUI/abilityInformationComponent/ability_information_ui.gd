@@ -14,14 +14,30 @@ const ALLY_TARGET_COLOR = Color("#2f9049")
 const LAUNCH_POSITION_COLOR = Color("#f09e29")
 
 var launch_circles
+var launch_borders
 var target_circles
+var target_borders
 
 func _ready() -> void:
 	populate_circle_arrays()
 
 func populate_circle_arrays():
-	launch_circles = launch_position_ui.get_children()
-	target_circles = target_position_ui.get_children()
+	launch_circles = []
+	launch_borders = []
+	for wrapper in launch_position_ui.get_children():
+		var circle = wrapper.get_node("Circle")
+		launch_circles.append(circle)
+		var border = wrapper.get_node("MarginCircle")
+		launch_borders.append(border)
+	
+	target_circles = []
+	target_borders = []
+	for wrapper in target_position_ui.get_children():
+		var circle = wrapper.get_node("Circle")
+		target_circles.append(circle)
+		var border = wrapper.get_node("MarginCircle")
+		target_borders.append(border)
+
 
 func update_ability_information_ui(ability: AbilityData):
 	# Add debug checks to find which node is null
@@ -63,26 +79,52 @@ func get_ability_target_text(target_type):
 		_:
 			return " "
 
-
 func update_ability_circles(ability: AbilityData):
-	# Reset all circles to default color first
 	reset_circles_to_default()
-	
-	# Color launch position circles
+
+	var is_self = ability.target_type == "self"
+	var is_support = ability.target_type in ["multiple_allies", "single_ally"]
+	var target_color = get_target_color(ability.target_type)
+
+	# Launch positions
 	if ability.launch_position != null:
-		for position in ability.launch_position:
-			if position >= 1 and position <= 4 and position <= launch_circles.size():
-				var circle_index = position - 1  # Convert to 0-based index
-				launch_circles[circle_index].modulate = LAUNCH_POSITION_COLOR
-	
-	# Color target position circles based on target type
-	if ability.target_position != null:
-		var target_color = get_target_color(ability.target_type)
-		
-		for position in ability.target_position:
-			if position >= 1 and position <= 4 and position <= target_circles.size():
-				var circle_index = position - 1  # Convert to 0-based index
-				target_circles[circle_index].modulate = target_color
+		for i in range(launch_circles.size()):
+			var reverse_index = 3 - i #Index al reves para las posiciones
+			var circle = launch_circles[i]
+			var border = launch_borders[i]
+			var position = reverse_index + 1  # Convierte el index a una posicion
+
+			var is_launch_position = position in ability.launch_position
+			var is_target_position = position in ability.target_position
+
+			if is_self and is_launch_position:
+				border.modulate = LAUNCH_POSITION_COLOR
+			else:
+				# Rule 1: Center coloring
+				if is_launch_position:
+					circle.modulate = LAUNCH_POSITION_COLOR
+				else:
+					circle.modulate = DEFAULT_COLOR
+
+				# Rule 2: Border coloring
+				if is_support and is_target_position:
+					border.modulate = ALLY_TARGET_COLOR
+				else:
+					# Make it match the center (to look solid or default)
+					border.modulate = circle.modulate
+
+			
+
+	# Target positions (only if not support or self)
+	if not is_support and not is_self and ability.target_position != null:
+		for i in range(target_circles.size()):
+			var circle = target_circles[i]
+			var border = target_borders[i]
+			var position = i + 1  # 1-based
+
+			if position in ability.target_position:
+				circle
+
 
 func get_target_color(target_type: String) -> Color:
 	match target_type:
@@ -94,14 +136,18 @@ func get_target_color(target_type: String) -> Color:
 			return DEFAULT_COLOR
 
 func reset_circles_to_default():
-	# Reset launch circles
-	if launch_circles != null:
-		for circle in launch_circles:
-			if circle != null:
-				circle.modulate = DEFAULT_COLOR
-	
-	# Reset target circles
-	if target_circles != null:
-		for circle in target_circles:
-			if circle != null:
-				circle.modulate = DEFAULT_COLOR
+	# Reset launch visuals
+	if launch_circles and launch_borders:
+		for i in launch_circles.size():
+			var circle = launch_circles[i]
+			var border = launch_borders[i]
+			circle.modulate = DEFAULT_COLOR
+			border.modulate = DEFAULT_COLOR
+
+	# Reset target visuals
+	if target_circles and target_borders:
+		for i in target_circles.size():
+			var circle = target_circles[i]
+			var border = target_borders[i]
+			circle.modulate = DEFAULT_COLOR
+			border.modulate = DEFAULT_COLOR
