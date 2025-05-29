@@ -5,6 +5,10 @@ var unlocked_stage_list = ["test_stage", "test_stage_2"]
 var completed_stage_list = ["test_stage"]
 
 #---------------------AUDIO SYSTEM----------------------------------------------------
+
+var sfx_last_play_time: Dictionary = {}
+var sfx_cooldown: float = 0.25  # seconds
+
 # Audio nodes
 var music_player: AudioStreamPlayer
 var sfx_players: Array[AudioStreamPlayer] = []
@@ -221,6 +225,16 @@ func clear_preloaded_music():
 
 # Sound effect methods
 func play_sfx(sfx_path: String, volume_db: float = 0.0, pitch_scale: float = 1.0) -> AudioStreamPlayer:
+	var current_time = Time.get_ticks_msec() / 1000.0  # seconds
+	
+	# Check cooldown
+	if sfx_last_play_time.has(sfx_path):
+		var last_time = sfx_last_play_time[sfx_path]
+		if current_time - last_time < sfx_cooldown:
+			return null  # Still on cooldown
+	
+	sfx_last_play_time[sfx_path] = current_time
+	
 	# Find an available player
 	var player = _get_available_sfx_player()
 	if not player:
@@ -238,6 +252,7 @@ func play_sfx(sfx_path: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 	player.play()
 	
 	return player
+
 	
 func _get_available_sfx_player() -> AudioStreamPlayer:
 	for player in sfx_players:
