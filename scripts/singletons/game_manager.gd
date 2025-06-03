@@ -4,10 +4,11 @@ var unlocked_char_list = ["testDummy","testDummy2","p_c_003","p_c_004","p_c_005"
 var unlocked_stage_list = ["test_stage", "test_stage_2"]
 var completed_stage_list = ["test_stage"]
 
+var new_save_data_created = false
 #---------------------AUDIO SYSTEM----------------------------------------------------
 
 var sfx_last_play_time: Dictionary = {}
-var sfx_cooldown: float = 0.25  # seconds
+var sfx_cooldown: float = 0.1  # seconds
 
 # Audio nodes
 var music_player: AudioStreamPlayer
@@ -259,8 +260,6 @@ func _get_available_sfx_player() -> AudioStreamPlayer:
 		if not player.playing:
 			return player
 			
-	# If all players are busy, use the oldest one
-	# (This is a simple approach - you could use more sophisticated prioritization)
 	return sfx_players[0]
 
 # Save/load audio settings
@@ -289,6 +288,44 @@ func load_audio_settings():
 		music_volume = 0.0
 		sfx_volume = 0.0
 		apply_volume_settings()
+
+#----------------------TRANSITIONS ANIMATION------------------------------------------
+@onready var transition_rect = get_node("TransitionColorRect")
+
+func slide_in_from_right():
+	# Position off-screen right, make visible, then slide in
+	transition_rect.position.x = get_viewport().size.x
+	transition_rect.visible = true
+	
+	var tween = create_tween()
+	tween.tween_property(transition_rect, "position:x", 0, 1)
+	await tween.finished
+
+func slide_in_from_left():
+	# Position off-screen left, make visible, then slide in  
+	transition_rect.position.x = -get_viewport().size.x
+	transition_rect.visible = true
+	
+	var tween = create_tween()
+	tween.tween_property(transition_rect, "position:x", 0, 1)
+	await tween.finished
+
+func slide_out_to_right():
+	print("Starting slide in from right")
+	transition_rect.position.x = get_viewport().size.x
+	transition_rect.visible = true
+	print("Rect position: ", transition_rect.position)
+	
+	var tween = create_tween()
+	tween.tween_property(transition_rect, "position:x", 0, 1.0)  # Slower for testing
+	await tween.finished
+	print("Slide in completed")
+
+func slide_out_to_left():
+	var tween = create_tween()
+	tween.tween_property(transition_rect, "position:x", -get_viewport().size.x, 1)
+	await tween.finished
+	transition_rect.visible = false
 
 #----------------------MAIN MENU TRANSITION-------------------------------------------
 func go_to_main_menu():
@@ -397,7 +434,7 @@ const default_completed_list: Array[String] = [""]
 
 func create_default_save_file():
 	var save_data = GameSave.new()
-	# Use duplicate() to ensure we're using new modifiable arrays
+
 	save_data.unlocked_char_list = default_char_list.duplicate()
 	save_data.unlocked_stage_list = default_stage_list.duplicate()
 	save_data.completed_stage_list = default_completed_list.duplicate()
@@ -407,9 +444,10 @@ func create_default_save_file():
 		push_error("Failed to create new save file: ", error)
 		return false
 
-	# Make sure we have modifiable copies here too
 	unlocked_char_list = default_char_list.duplicate()
 	unlocked_stage_list = default_stage_list.duplicate()
 	completed_stage_list = default_completed_list.duplicate()
+
+	new_save_data_created = true
 
 	print("Save file created")

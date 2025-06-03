@@ -10,7 +10,7 @@
 script = ExtResource("2_fxl2l")
 character_id = "p_c_002e"
 character_name = "Cat"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
+character_description = "The humble common cat, to lazy to actually fight but cute enough to motivate their allies"
 max_hp = 30
 attack = 20
 defense = 10

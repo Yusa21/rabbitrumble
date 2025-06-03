@@ -10,7 +10,7 @@
 script = ExtResource("2_3s8vq")
 character_id = "p_c_003e"
 character_name = "Fox"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
+character_description = "Sly little creature, don't let look decieve you they're dangerous."
 max_hp = 60
 attack = 20
 defense = 10

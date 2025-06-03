@@ -97,15 +97,6 @@ theme_override_colors/default_color = Color(0.733333, 0.109804, 0.615686, 1)
 [node name="CharDescription" parent="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer/MarginContainer/CharacterInfo/StatsAndSprite/Stats" index="4"]
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 
-[node name="AbilityNameLabel" parent="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer/MarginContainer/CharacterInfo/AbilityInformationUI/VBoxContainer" index="0"]
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-
-[node name="MultUI" parent="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer/MarginContainer/CharacterInfo/AbilityInformationUI/VBoxContainer/HBoxContainer" index="3"]
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-
-[node name="TargetingTypeUI" parent="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer/MarginContainer/CharacterInfo/AbilityInformationUI/VBoxContainer/HBoxContainer" index="4"]
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-
 [node name="AbilityDescriptionLabel" parent="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer/MarginContainer/CharacterInfo/AbilityInformationUI/VBoxContainer" index="2"]
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 

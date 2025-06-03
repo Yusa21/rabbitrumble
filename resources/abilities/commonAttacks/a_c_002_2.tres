@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://be435sed4me66"
 [resource]
 script = ExtResource("6_neb4s")
 name = " Head Performance, again?"
-description = "From the back of the team, Oolong carefully balances something on his head. It’s hard to look away. An opponent, seemingly at random, is so distracted by the display that they stumble, giving Oolong the opening to make a clean, quiet impact."
+description = "Balances the waffle on his head dealing tons of damage to a random enemy"
 target_type = "multiple_opps"
 multiplier = 4.0
 effects = Array[ExtResource("1_3issn")]([SubResource("Resource_x3psx")])

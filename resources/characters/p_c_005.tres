@@ -11,7 +11,7 @@
 script = ExtResource("2_p8umh")
 character_id = "p_c_005"
 character_name = "Bun n duck"
-character_description = "Bun and Duck have been inseparable since they first tumbled out of the same picnic basket. Whether it’s a routine, a challenge, or just trying to look cool, they give it their all, as long as they’re side by side. They’re still figuring things out, but their teamwork makes up for what they lack in polish."
+character_description = "Bun and Duck have been inseparable since they first tumbled out of the same picnic basket. They’re still figuring things out, but their teamwork makes up for what they lack in polish."
 max_hp = 60
 attack = 25
 defense = 15

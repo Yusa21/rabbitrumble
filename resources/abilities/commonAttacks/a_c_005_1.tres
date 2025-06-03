@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://dmbb1hdfdn4k7"
 [resource]
 script = ExtResource("2_i3xev")
 name = "Double Try"
-description = "Bun darts forward while Duck circles from the side, each taking a turn to show off. They don’t hit as hard as others, but going twice means twice the chance to impress."
+description = "Combo that hits twice"
 target_type = "single_opp"
 multiplier = 2.0
 effects = Array[ExtResource("1_bc7ke")]([SubResource("Resource_xm5fm")])

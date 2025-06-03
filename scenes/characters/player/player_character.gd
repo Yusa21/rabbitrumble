@@ -1,33 +1,25 @@
 extends "res://scenes/characters/base_character.gd"
 class_name PlayerCharacter
 ##Clase hija para los personajes jugadores, contiene las interacciones con la UI
-##
-##Todavia esta casi vacia porque, en efecto, no hay UI
 
 ##Se usa a la hora de identificar si un personaje es jugador o IA
 const player_alignment = "player"
 
+##Variable que maneja si el personaje ya ha hecho su accion
 var action_done = false
 
+##[signal end_turn] Senal que marca el final del turno del personaje
 signal end_turn(PlayerCharacter)
 
 func _ready():
 	set_alignment(player_alignment)
 	
-
-'''
-Todo lo de manejar input y turnos es provisional, la escena no se encarga de eso es la UI
-'''
+##Funcion que se llama desde el battle manager para empezar el turno del personaje
 func start_turn():
-	print("Player turn started with id: " + str(id) + " in position " + str(char_position))
-	print("With team " + str(ally_team[0].alignment))
-	print("Turn started, waiting for player actions")
-	
 	await end_turn
-	
 	return true
 
+##Funcion que se llama desde la UI cuando el personaje acaba el turno para que continue la ejecucion
 func emit_end_turn():
 	emit_signal("end_turn", self)
-	print("Turn player turn ended")
 	return true

@@ -18,7 +18,7 @@ metadata/_custom_type_script = "uid://dv4sonawua3t6"
 [resource]
 script = ExtResource("3_sw77s")
 name = "You First"
-description = "They take turns encouraging and fluffing each other up, restoring a little enthusiasm to a teammate—not a huge amount, but every bit helps when it’s from your best friend."
+description = "They take turns fluffing up one of your bunnies"
 target_type = "single_ally"
 multiplier = 0.8
 effects = Array[ExtResource("1_av7r3")]([SubResource("Resource_avjr5"), SubResource("Resource_s6x03")])

@@ -19,7 +19,7 @@ metadata/_custom_type_script = "uid://cua2a5ugo2dqi"
 [resource]
 script = ExtResource("3_fsv3l")
 name = " Group Presentation"
-description = "With great enthusiasm, Silly Bunny gathers everyone to hear a short speech about his hat. His excitement lifts the team’s spirits and heals them all, but he ends up a little winded from the effort."
+description = "Talks to everyone about his hat healing the whole team, but deals so damage to himself from the exaustion"
 target_type = "multiple_allies"
 multiplier = 1.0
 effects = Array[ExtResource("1_pyk3q")]([SubResource("Resource_sy8bt"), SubResource("Resource_0cg5b")])

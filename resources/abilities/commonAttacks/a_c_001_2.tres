@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://be435sed4me66"
 [resource]
 script = ExtResource("6_neb4s")
 name = "Ackshually"
-description = "Kevin adjusts his glasses and delivers a corrective statement with firm conviction, aimed at anyone on the enemy team. It stings just enough to lower their enthusiasm, especially when it comes from the back of the room."
+description = "Corrects the opponent dealing some damage"
 target_type = "single_opp"
 multiplier = 1.0
 effects = Array[ExtResource("1_3issn")]([SubResource("Resource_ooqyc")])

@@ -10,7 +10,7 @@
 script = ExtResource("2_3u4py")
 character_id = "p_c_005e"
 character_name = "Eagle"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
+character_description = "Free as the wind the eagle hits strong and from above."
 max_hp = 40
 attack = 25
 defense = 20

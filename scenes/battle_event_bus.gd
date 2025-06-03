@@ -4,6 +4,7 @@ class_name BattleEventBus
 # UI signals
 signal ui_initialized()
 signal giving_up()
+signal end_screen_over
 
 # Battle flow signals
 signal battle_start
@@ -24,6 +25,7 @@ signal character_defeated(character)
 signal still_alive(character)
 signal health_changed(character, old_health, new_health)
 signal ability_used(character, ability, targets)
+signal massive_ability_used(character, ability, targets)
 signal character_stats_changed(character)
 signal character_clicked(character)
 signal character_moved(character)

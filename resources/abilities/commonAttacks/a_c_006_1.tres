@@ -14,9 +14,9 @@ metadata/_custom_type_script = "uid://be435sed4me66"
 [resource]
 script = ExtResource("7_jarho")
 name = "Shake paws"
-description = "Armor Bunny shakes paws with the opponent raising their enthusiams, but the display of such sportmanship intimidates them after. Best used agaisnt full health enemies."
+description = "Deals decent damage to one enemy"
 target_type = "single_opp"
-multiplier = 3.0
+multiplier = 2.0
 effects = Array[ExtResource("1_lqmiu")]([SubResource("Resource_c30tg")])
 launch_position = Array[int]([1, 2])
 target_position = Array[int]([1, 2])

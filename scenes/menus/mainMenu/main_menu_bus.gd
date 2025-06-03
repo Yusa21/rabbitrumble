@@ -3,3 +3,4 @@ class_name MainMenuBus
 
 signal start_button_clicked
 signal exit_button_clicked
+signal fade_out_lore_dump

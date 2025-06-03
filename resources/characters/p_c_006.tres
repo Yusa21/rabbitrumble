@@ -11,7 +11,7 @@
 script = ExtResource("2_bqa67")
 character_id = "p_c_006"
 character_name = "Armor Bunny"
-character_description = "Wearing the lid of a plastic ice cream cup as armor, Armor Bunny believes he's completely unstoppable, and that confidence alone makes him tough to shake. His outfit may not offer real protection, but his self-esteem is practically bulletproof."
+character_description = "Wearing the lid of a plastic ice cream cup as armor, his armos doesn't offer any real protection but he believes it does and that's enough."
 max_hp = 70
 attack = 10
 defense = 30

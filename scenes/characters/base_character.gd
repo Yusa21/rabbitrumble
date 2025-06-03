@@ -3,8 +3,6 @@ class_name BaseCharacter
 ##Clase que representa un personaje involucrado en un combate
 ##
 ##Contiene el codigo de iniciciacion del personaje (quizas habria que moverlo a otra parte) y 
-##todas las funciones que hacer falta para que los personajes puedan funcionar, como recibir dano, moverse...
-##tambien tiene algunas funciones que se sobreescriben en las clases hija como las de que ocurre cuando empieza un turno
 
 @onready var sprite: Sprite2D
 @onready var animationPlayer: AnimationPlayer
@@ -14,13 +12,12 @@ class_name BaseCharacter
 ##Formations manager para que los personajes puedan aparecer en pantalla en los lugares correctos
 var formations_manager = null
 
-const min_position = 1 ##La posicion minima donde pueden estar los personajes siempre es la misma, para eviat numeros magicos
+const min_position = 1 ##La posicion minima donde pueden estar los personajes
 const max_position = 4 ##Igual con la posicion maxima
 
-# Event bus reference
+##Referencia al bus de enventos
 var event_bus: BattleEventBus = null
 
-#Estadisiticas que luego se cargan
 var id ##Id de la INSTANCIA especifica de personaje
 var alignment ##A que equipo pertenece el personaje, se le da valor en las subclases
 var char_name ##Nombre del personaje
@@ -37,18 +34,21 @@ var ally_team = [] ##Guarda el equipo entero del personaje
 var opps_team = [] ##Guarda el equipo entero oponente del personaje
 var is_defeated: bool = false
 
-var is_highlighted = false
-var normal_modulate = Color(1, 1, 1, 1)
-var highlight_modulate = Color(1.2, 1.2, 0.8, 1)
-var defeated_modulate = Color(1.2, 0.8, 1.2, 1)
+var is_highlighted = false ##Controla si un personaje tiene algun highlight
+const normal_modulate = Color(1, 1, 1, 1)
+const highlight_modulate = Color(1.2, 1.2, 0.8, 1)
+const defeated_modulate = Color(1.2, 0.8, 1.2, 1)
 
 '''
 Codigo de inicializacion
 '''
 ##Crea una escena de personaje usando el id del recurso a usar el id para identificarlo en combate
 ##tambien recibe el id que tiene que tener marcado para indentificarlo en el combate y su posicion inicial
+##[param char_data_id] Id del char data que se quiere cargar
+##[param new_id] Id que se le va asignar al instancia especifica de BaseCharacter
+##[param char_pos] Posicion inicial que se le va a asignar al personaje en la formacion
 func initialize_character(char_data_id: String, new_id: int, char_pos: int):
-	#Inicializa los nodos hijos
+
 	sprite = get_node("Sprite2D")
 	animationPlayer = get_node("Sprite2D/AnimationPlayer")
 	area2D = get_node("Area2D")
@@ -62,13 +62,16 @@ func initialize_character(char_data_id: String, new_id: int, char_pos: int):
 	set_character_info(character, new_id, char_pos)
 	return true
 
-# Initialize character with the event bus
+##Funcion que anade el bus de eventos al personaje
+##[param bus] Bus de eventos al que se subscribe el personaje, en este caso el de batalla
 func initialize_with_event_bus(bus: BattleEventBus):
 	event_bus = bus
-	# Connect area input event directly here
 	return true
 
 ##Recibe un characterData, un id y la posicion para inicializar las variables del personaje
+##[param character] Informacion del personaje que se va usar para inicializar
+##[param new_id] Id que se le va asignar al instancia especifica de BaseCharacter
+##[param char_pos] Posicion inicial que se le va a asignar al personaje en la formacion
 func set_character_info(character: CharacterData, new_id: int, char_pos: int):
 	id = new_id
 	char_name = character.character_name
@@ -83,17 +86,20 @@ func set_character_info(character: CharacterData, new_id: int, char_pos: int):
 	sprite.texture = character.idle_sprite
 	return true
 
-##Recibe los dos equipos y los guarda, el primero siempre es el propio
+##Recibe los dos equipos y los asigna al personaje
+##[param new_ally_team] Equipo al que pertence el personaje
+##[param new_opps_team] Equipo opuesto al que pertence el personaje
 func set_teams(new_ally_team: Array, new_opps_team: Array):
 	ally_team = new_ally_team
 	opps_team = new_opps_team
 	return true
 	
 ##Se llama desde las clases hija para poner el alineamiento del personaje
+##[param new_alginment] Alineamiento/Equipo al que pertence el personaje 
 func set_alignment(new_alignment: String):
 	alignment = new_alignment
 
-##Debug only    
+##Debug solo, escribe las stas del personaje 
 func print_character_stats():
 	print("Character Stats:")
 	print("Name: ", char_name)
@@ -107,25 +113,32 @@ func print_character_stats():
 Codigo del combate
 '''
 ##Saca busca todos los triggers de fase en las habilidades de los personajes
-func get_phase_triggered_abilities(phase_trigger):
+##[param phase_trigger] Fase del turno actual para saber que habilidades se activan
+##[return] Lista de habilidades que se activan en la fase
+func get1_phase_triggered_abilities(phase_trigger):
+	#Todas la habilidades del personaje que se actvian
 	var triggered_abilities = []
+	#Busca las habilidades que se activan por fase y que se activan en la fase en concreto
 	for ability in abilities:
 		if ability.is_phase_triggered and ability.trigger_phase == phase_trigger:
 			triggered_abilities.append(ability)
 	return triggered_abilities
 
-##TODO comprueba que la habilidad se pueda ejecutar, debería comprobar cooldowns, posicion y cosas por el estilo
-func can_use_ability(ability):
+##Comprueba que la habilidad se pueda ejecutar, debería comprobar cooldowns, posicion y cosas por el estilo
+##Por ahora simplemente es positivo siempre
+func can_use_ability(_ability):
 	return true
 
-##Si es una habilidad que no se elige objetivo para que se elija de forma automatica
-##Por ahora devuelve los personajes a los que hay que afectar
+##Funcion que elige objetivo de forma automatica para las habilidades
+##Por ahora siempre afecta a todos los posibles objetivos
+##[param phase_trigger] Hablidad que se esta ejecuntando con seleccion automatica
+##[return] Lista de objetivos a los que la habilidad tiene que afectar
 func automatic_targeting(ability):
 	var targets = []
 	var char_list = []
 	var self_targeting = false
 	
-	# Then check target type
+	# Comprueba que tipo de seleccion tiene
 	if ability.target_type.ends_with("opp"):
 		get_opponent_positions()
 	elif ability.target_type.ends_with("ally"):
@@ -149,15 +162,23 @@ func start_turn():
 	return true
 
 ##Ejecuta la habilidad sabiendo a quien apunta
+##[param ability] Abilidad que si tiene que ejecutar
+##[param tar] Lista de objetivos
 func execute_ability(ability, tar: Array):
 	var targets = tar.duplicate()
-	# Emit ability used event through bus
+	# Emita la senal de que habilidad se esta usando
 	if event_bus:
 		event_bus.emit_signal("ability_used", self, ability, targets)
 
-	print("Playing attack animation for character with id", id)
+	#Compruena que animacion se tiene que usar	
 	if ability.animation_name == "attack":
 		animationPlayer.play("attack")
+		#Si la habilidad ataca al equipo enemigo entero emite la senal para que se mueva la pantalla
+		if ability.target_position.size() >= 4 and ability.target_type == "multiple_opps":
+			await get_tree().create_timer(0.75).timeout
+			#Senal de que es una habilidad masiva y que la pantalla de deberia mover
+			event_bus.emit_signal("massive_ability_used", self, ability, targets)
+			
 		await animationPlayer.animation_finished
 	else:
 		animationPlayer.play("healing")
@@ -167,84 +188,87 @@ func execute_ability(ability, tar: Array):
 	# Activa los efectos en los objetivos, comprueba que no este vacio por si acaso
 	if !targets.is_empty():
 		for effect in ability.effects:
+			#Ejecuta el efecto y espera que termine
 			await effect.execute(self, ability.multiplier, targets)
-
+			
+			#Si la habilidad tiene varios efectos notifica cambios para UI y espera para que sea entendible
 			if ability.effects.size() >= 2:
 				notify_stats_changed()
 				await get_tree().create_timer(1).timeout
-
-		if targets.size() > 0:
-			var target_type = "Self" if targets[0] == self else ("Ally" if targets[0] in ally_team else "Enemy")
 	else:
 		push_error("Error- Targets is empty - This should be imposible")
 	
+	#Avisa a la UI para que actualice habilidades
 	notify_stats_changed()
 	return true
 
 
-##Function to take damage, gets the amount to receive and the attacker
-func take_damage(dmg, attacker):
-	print (str(char_name) + " is about to recieve " + str(dmg) + " damage")
-	# Notify battle manager to increment pending damage responses
+##Function para recibir dano
+##[param dmg] Cuanto dano tiene que recibir el personaje
+##[param attacker] Personaje que esta haciendo dano a este personaje
+func take_damage(dmg, _attacker):
 	var battle_manager = get_parent().get_parent().get_node("BattleManager")
 
 	if battle_manager != null:
+		# Notifica al battle manager de que tiene que tener en cuenta una nueva fuente de dano
 		battle_manager.increment_pending_damage()
 	else:
 		push_error("Error: Battle manager not found in character script")
 	
-	var old_hp = current_hp
+	#Resta el dano a la vida
 	current_hp -= dmg
 	
-	# Play hurt animation and wait for it to finish
+	# Animacion de herido
 	sprite.play_damage_flash()
 	animationPlayer.play("hurt")
 	await animationPlayer.animation_finished
 	
-	# Check if character is defeated
+	# Comprueba si el personaje ha sido derrotado
 	if current_hp <= 0:
 		current_hp = 0
 		defeat()
 	else:
-		# Character survived the attack
+		# Si sobrevive lo anuncia por el bus
 		if event_bus:
 			event_bus.emit_signal("still_alive", self)
    
 	notify_stats_changed()
    
-	# Notify health changed through bus
+	# Notifica que la vida ha cambiado
 	if event_bus:
 		event_bus.emit_signal("health_changed", self, current_hp, max_hp)
 
-	print("-------------------" + str(char_name) + "has " + str(current_hp)) 
-	
 	return true
 
-# Function to handle character defeat
+##Funcion que maneja un personaje derrotado
 func defeat():
+	#Si el personaje ya esta marcado como derrotado se sale antes
 	if is_defeated:
 		return true
    
+   #Marca el personaje como derrotado
 	is_defeated = true
-	print(char_name + " has been defeated!")
    
-	# Visual indication
+	# Modula al highlight de derrotado
 	modulate = defeated_modulate
    
-	# Signal defeat through the event bus
+	# Avisa que esta derrotado por el bus
 	if event_bus:
 		event_bus.emit_signal("character_defeated", self)
    
 	return true
 
-##Recibe curacion, recibe la cantidad a curar y el curador
-func take_healing(heal, healer):
+##Maneja la recuperacion de vida
+##[param heal] Cuanta vida tiene que recuperar el personaje
+##[param healer] Personaje que esta curando a este personaje
+func take_healing(heal, _healer):
 
-	var old_hp = current_hp
+	#Animacion de ser curado
 	sprite.play_healing_wave()
 	animationPlayer.play("healed")
 	await animationPlayer.animation_finished
 
+	#Si el personaje esta derrotado no recupera vida
 	if !is_defeated:
 		current_hp += heal
 		if current_hp > max_hp:
@@ -252,15 +276,14 @@ func take_healing(heal, healer):
 		
 	notify_stats_changed()
 	
-	# Notify health changed through bus
 	if event_bus:
 		event_bus.emit_signal("health_changed", self, current_hp, max_hp)
 	
 	return true
 
-##La usan los personajes para moverse, recibe la posicion incial, la posicion
-##a la que tiene que ir y quien lo ha movido
-func moving(starting_position, final_position, mover):
+#NO SE USA, PARA FUTURO DESARROLLO
+'''
+func moving(starting_position, final_position, _mover):
 	#Corrige que el objetivo no se salga de las posiciones posibles
 	if final_position > max_position:
 		final_position = max_position
@@ -298,8 +321,7 @@ func moving(starting_position, final_position, mover):
 		for i in range(0, absolute_vector-1):
 			#Busca quien esta en una posicion a corregir
 			allies_positions.find_key(absolute_vector-i).moving_correction(side_correction) 
-	
-	# Notify position changed through bus
+
 	if event_bus:
 		event_bus.emit_signal("character_position_changed", self)
 		event_bus.emit_signal("character_moved", self)
@@ -312,7 +334,8 @@ func moving(starting_position, final_position, mover):
 func moving_correction(step: int):
 	self.char_position += step
 	return true
-	
+'''
+
 ##Funcion que devuelve un array con los aliados en la posicion correcta ordenada
 func get_ally_positions():
 	#Busca si algun aliado comparte la misma posicion
@@ -329,14 +352,7 @@ func get_opponent_positions():
 		char_list.set(opp.char_position, opp)
 	return char_list
 
-##TODO ni idea de que poner aquí aun
-func add_status(status, dealer):
-	# Notify status effect applied through bus
-	if event_bus:
-		event_bus.emit_signal("status_effect_applied", self, status)
-	return true
-
-# Helper function to notify stats changed
+##Funcion que emite la senal de cambio de estadisticas
 func notify_stats_changed():
 	if event_bus:
 		event_bus.emit_signal("character_stats_changed", self)
@@ -344,18 +360,23 @@ func notify_stats_changed():
 '''
 Codigo para feedback visual
 '''
+##Asiga el manager de formaciones
+##[param manager] Manager de formaciones a asignar
 func set_formations_manager(manager):
 	formations_manager = manager
 
+##Actualiza la posicion del personaje en la pantalla
 func update_position():
 	if formations_manager != null:
+		#Pide su posicion nueva al manager
 		global_position = formations_manager.get_new_position(alignment, char_position)
 		
-		# Notify character moved through bus
+		# Notifica que el personaje se ha movido usando el bus
 		if event_bus:
 			event_bus.emit_signal("character_moved", self)
 
-# Highlight function
+## Activa o desactiva el highlight de seleccion desde la UI
+##[param enable] Booleano que marca si se tiene que activa o desactivar el highlight
 func highlight(enable: bool):
 	is_highlighted = enable
 	if enable:
@@ -363,13 +384,16 @@ func highlight(enable: bool):
 	else:
 		modulate = normal_modulate
 	
-	# Notify highlight status through bus
+	# Notifica el highlight por el bus
 	if event_bus:
 		event_bus.emit_signal("character_highlight", self, enable)
 
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int):
+##Comprueba si un personaje has sido pulsado
+##[param event] Input event que ha sucedido al pulsar al personaje 
+func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int):
+	#Si el evento que ocurre en un click del raton y el area del personaje ha sido pulsada entonces este personaje ha sido clickado 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		# Notify character clicked through bus
+		# Notifica el evento por el bus
 		if event_bus:
 			event_bus.emit_signal("character_clicked", self)
-		get_viewport().set_input_as_handled()  # Prevent event from propagating
+		get_viewport().set_input_as_handled()  # Marca el input como manejado para que no se propague

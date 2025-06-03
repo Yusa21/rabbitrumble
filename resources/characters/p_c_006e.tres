@@ -10,7 +10,7 @@
 script = ExtResource("2_gfv8t")
 character_id = "p_c_006e"
 character_name = "Owl"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
+character_description = "Owls are scary, they hunt in the dark where only them can see."
 max_hp = 30
 attack = 10
 defense = 10

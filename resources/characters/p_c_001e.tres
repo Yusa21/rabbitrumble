@@ -10,7 +10,7 @@
 script = ExtResource("4_g3xwc")
 character_id = "p_c_001e"
 character_name = "Minx"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
+character_description = "The common Minx, a predator of rabbits despite it's small size. But no more."
 max_hp = 40
 attack = 15
 defense = 20

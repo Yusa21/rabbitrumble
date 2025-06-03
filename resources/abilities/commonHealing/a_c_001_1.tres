@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://dv4sonawua3t6"
 [resource]
 script = ExtResource("3_lht6t")
 name = "Technical Support"
-description = "From the back row, Kevin offers a long-winded but surprisingly effective explanation of why everything is going to be okay. It takes a while, but it restores a good chunk of enthusiasm."
+description = "Helps a bunny fix their wifi healing them in the proccess"
 target_type = "single_ally"
 multiplier = 1.0
 effects = Array[ExtResource("1_4vkow")]([SubResource("Resource_avjr5")])

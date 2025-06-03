@@ -19,6 +19,7 @@ var battle_bus: BattleEventBus
 @onready var turn_order_display = get_node("%TurnOrderDisplay")
 @onready var options_menu = get_node("%OptionsPopup")
 @onready var surrender_menu = get_node("%SurrenderPanel")
+@onready var canvas_layer = get_node_or_null("..")
 
 func _ready():
 	# Debug print
@@ -39,6 +40,7 @@ func initialize(manager: BattleManager, bus: BattleEventBus):
 	battle_bus.post_turn.connect(_on_post_turn)
 	battle_bus.battle_end.connect(_on_battle_end)
 	battle_bus.character_clicked.connect(_on_character_clicked)
+	battle_bus.massive_ability_used.connect(_on_massive_ability_used)
 	battle_bus.ability_selected.connect(_handle_ability_selection)
 	battle_bus.giving_up.connect(_on_giving_up)
 
@@ -62,6 +64,7 @@ func initialize(manager: BattleManager, bus: BattleEventBus):
 		surrender_menu.initialize(battle_bus)
 	else :
 		push_error("Warning: Surrender menu not found in scene")
+
 
 
 	print("Initial battle state: ", BattleManager.BattleState.keys()[battle_manager.current_state])
@@ -345,3 +348,29 @@ func _on_surrender_button_pressed() -> void:
 
 func _on_giving_up() -> void:
 	battle_bus.emit_signal("battle_end", "enemy")
+
+func _on_massive_ability_used(_character,_ability,_targets):
+	shake_screen()
+
+@export var shake_intensity: float = 5.0
+
+var original_offset: Vector2
+var shake_tween: Tween
+
+func shake_screen():
+	if shake_tween:
+		shake_tween.kill()
+	
+	shake_tween = create_tween()
+	
+	# Quick shake with exponential decay
+	for i in range(8):
+		var intensity = shake_intensity * pow(0.7, i)
+		var random_pos = original_offset + Vector2(
+			randf_range(-intensity, intensity),
+			randf_range(-intensity, intensity)
+		)
+		shake_tween.tween_property(canvas_layer, "offset", random_pos, 0.03)
+	
+	# Return to center
+	shake_tween.tween_property(canvas_layer, "offset", original_offset, 0.05)

@@ -11,7 +11,7 @@
 script = ExtResource("2_vnbbp")
 character_id = "p_c_002"
 character_name = "Oolong"
-character_description = "Known across the old internet as the master of balance, Oolong is a calm and focused presence. His stillness is his strength. Long before any of this began, he was already performing."
+character_description = "Known across the old internet as the master of balance, Oolong is a legend in the flesh."
 max_hp = 80
 attack = 27
 defense = 22

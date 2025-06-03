@@ -19,7 +19,7 @@ metadata/_custom_type_script = "uid://dv4sonawua3t6"
 [resource]
 script = ExtResource("6_v4h0h")
 name = "Last Chance Bluff"
-description = "Cowbunny puts everything into one dramatic move. If the opponent’s enthusiasm is already low, it can be a showstopper. But if they’ve still got plenty left, the bluff backfires and gives them a second wind instead."
+description = "Tries to bluff his opponent, does tons of damage but if doesn't knock them out it heals them instead"
 target_type = "single_opp"
 multiplier = 2.0
 effects = Array[ExtResource("1_ikcy5")]([SubResource("Resource_ooqyc"), SubResource("Resource_01qa3")])

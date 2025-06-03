@@ -1,0 +1,186 @@
+[gd_scene load_steps=12 format=3 uid="uid://bhygh1k6v4ns6"]
+
+[ext_resource type="StyleBox" uid="uid://cwhdn7o31s6sa" path="res://resources/themes/panel_grey_background.tres" id="1_ore7q"]
+[ext_resource type="Script" uid="uid://c54v8npkuxkwo" path="res://scenes/menus/loreDump/lore_dump.gd" id="1_yjdnh"]
+[ext_resource type="Texture2D" uid="uid://dgdqcsimx16a7" path="res://assets/opening/rabbit_shape_1.png" id="2_yjdnh"]
+[ext_resource type="Texture2D" uid="uid://mhnsodcbgam3" path="res://assets/opening/rabbit_shape_2.png" id="3_bs1d1"]
+[ext_resource type="Texture2D" uid="uid://xus3ja1gqn3w" path="res://assets/opening/rabbit_shape_3.png" id="4_8lbe3"]
+[ext_resource type="Texture2D" uid="uid://cgxuyiylbkq83" path="res://assets/opening/rabbit_shape_4.png" id="5_sm3gx"]
+[ext_resource type="Texture2D" uid="uid://b7am75qo77j30" path="res://assets/opening/mounds.png" id="6_it5ha"]
+[ext_resource type="Texture2D" uid="uid://ot8d7wnjnrsx" path="res://assets/opening/shooting_start.png" id="7_rgn5w"]
+[ext_resource type="Texture2D" uid="uid://fvkyniqi4651" path="res://assets/menu/button/ORANGE_BLACK.png" id="9_yjdnh"]
+[ext_resource type="Texture2D" uid="uid://d01bbo4k04v0s" path="res://assets/menu/button/PRESSED_BLACK.png" id="10_bs1d1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ho736"]
+bg_color = Color(0.114897, 0.114897, 0.114897, 1)
+
+[node name="LoreDump" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yjdnh")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ho736")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+
+[node name="LoreDumpText" type="RichTextLabel" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lorem Ipsum"
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.5
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_ore7q")
+
+[node name="ImagePanel" type="Control" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Rabbits" type="Control" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/ImagePanel"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Rabbit1" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/ImagePanel/Rabbits"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 268.0
+offset_right = 108.0
+offset_bottom = 397.0
+texture = ExtResource("2_yjdnh")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Rabbit2" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/ImagePanel/Rabbits"]
+layout_mode = 0
+offset_left = 271.0
+offset_top = 281.0
+offset_right = 394.0
+offset_bottom = 427.0
+texture = ExtResource("3_bs1d1")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Rabbit3" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/ImagePanel/Rabbits"]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 259.0
+offset_right = 509.0
+offset_bottom = 394.0
+texture = ExtResource("4_8lbe3")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Rabbit4" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/ImagePanel/Rabbits"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 296.0
+offset_right = 261.0
+offset_bottom = 415.0
+texture = ExtResource("5_sm3gx")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Mounds" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/ImagePanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 3.0
+offset_top = 351.0
+offset_right = 510.0
+offset_bottom = 455.0
+texture = ExtResource("6_it5ha")
+expand_mode = 1
+
+[node name="Star" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/ImagePanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 164.0
+offset_top = 61.0
+offset_right = 396.0
+offset_bottom = 205.0
+rotation = -0.270526
+texture = ExtResource("7_rgn5w")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ContinueButton" type="TextureButton" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("9_yjdnh")
+texture_pressed = ExtResource("10_bs1d1")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/ContinueButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Continue"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/ContinueButton" to="." method="_on_continue_button_pressed"]

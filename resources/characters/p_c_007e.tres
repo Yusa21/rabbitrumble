@@ -10,7 +10,7 @@
 script = ExtResource("2_k0ywh")
 character_id = "p_c_007e"
 character_name = "Tiger"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
+character_description = "This is it, the end. Now we only need to get over the hard part."
 max_hp = 100
 attack = 20
 defense = 20

@@ -13,12 +13,12 @@ config_version=5
 config/name="RabbitRumble"
 run/main_scene="uid://cc31u1pyw88f0"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://c8u0j3rslcraf"
 
 [autoload]
 
 CharacterRepo="*res://scripts/repositories/CharacterRepository.gd"
-GameManager="*res://scripts/singletons/game_manager.gd"
+GameManager="*res://scripts/singletons/game_manager.tscn"
 StageRepo="*res://scripts/repositories/stage_repository.gd"
 
 [display]

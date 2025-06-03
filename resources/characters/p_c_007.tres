@@ -11,7 +11,7 @@
 script = ExtResource("2_528qy")
 character_id = "p_c_007"
 character_name = "Hero Bunny"
-character_description = "You know him. You love him. He’s in every game you’ve ever played, and he’s here to teach you the ropes, again. Armed with valor, cardboard, and unshakable enthusiasm, Hero Bunny is ready to lead the charge today, tomorrow, and probably next Tuesday if he doesn't have a DnD session"
+character_description = "You know him. You love him. Hero Bunny is ready to lead the charge today, tomorrow, and probably next Tuesday if he doesn't have a DnD session"
 max_hp = 80
 attack = 20
 defense = 20

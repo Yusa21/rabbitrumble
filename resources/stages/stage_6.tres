@@ -11,5 +11,5 @@ difficulty = 3
 description = ""
 enemies = Array[String](["p_c_004e", "p_c_004e", "p_c_006e", "p_c_006e"])
 char_unlocks = Array[String]([""])
-stage_unlocks = Array[String](["stage_10"])
+stage_unlocks = Array[String](["stage_7"])
 metadata/_custom_type_script = "uid://dislvogsap4ag"

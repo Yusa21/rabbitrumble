@@ -40,7 +40,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/default_color = Color(0.184314, 0.564706, 0.286275, 1)
-text = "Enthusiasm"
+text = "Endurance"
 vertical_alignment = 1
 
 [node name="HPValue" type="RichTextLabel" parent="StatsAndSprite/Stats/HPLine"]
@@ -60,7 +60,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/default_color = Color(0.811765, 0.160784, 0.101961, 1)
-text = "Creativity
+text = "Attack
 "
 vertical_alignment = 1
 
@@ -81,7 +81,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/default_color = Color(2.40654e-06, 0, 0.734316, 1)
-text = "Self-Esteem"
+text = "Defense"
 vertical_alignment = 1
 
 [node name="DefValue" type="RichTextLabel" parent="StatsAndSprite/Stats/DefLine"]
@@ -101,8 +101,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/default_color = Color(0.731391, 0.109534, 0.617488, 1)
-text = "Quick Wits
-"
+text = "Speed"
 vertical_alignment = 1
 
 [node name="SpeedValue" type="RichTextLabel" parent="StatsAndSprite/Stats/SpeedLine"]

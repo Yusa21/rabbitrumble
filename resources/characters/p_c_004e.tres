@@ -10,7 +10,7 @@
 script = ExtResource("2_u24yw")
 character_id = "p_c_004e"
 character_name = "Wolf"
-character_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis velit blandit"
+character_description = "Big, bad and scary. Wolf have a reputation they've earn, be ready."
 max_hp = 65
 attack = 25
 defense = 15
