@@ -1,15 +1,16 @@
 extends Resource
+##Modelo para las Stages
 class_name StageData
 
-@export var id: String = "0"
-@export var name: String = "Default"
-@export var number: int = 0
-@export var difficulty: int = 1
-@export var description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-@export var enemies: Array[String] = ["testDummy","testDummy","testDummy","testDummy"]
-@export var char_unlocks: Array[String] = [""] ##Recompensa del la mision, problamente personajes pero todavia no se que ponerle
-@export var stage_unlocks: Array[String] = [""]
+@export var id: String = "0" ##Id de la Stage se usa para identificarla en el codigo
+@export var name: String = "Default" ##Nombre de la mision
+@export var number: int = 0 ##Numero de la mision
+@export var difficulty: int = 1 ##Dificultad de la mision
+@export var description: String = "Lorem ipsum dolor" ##Descripcion de la mision
+@export var enemies: Array[String] = ["testDummy","testDummy","testDummy","testDummy"] ##Id de los enemigos que componen las mision
+@export var char_unlocks: Array[String] = [""] ##Id de los personajes que se desbloquean al completar la mision
+@export var stage_unlocks: Array[String] = [""] ##Id de las stages que se desbloquean al completar la mision
 
-
+##Devuelve el id de la stage, se usa para compararlos a la hora de cargarla
 func get_id():
     return id

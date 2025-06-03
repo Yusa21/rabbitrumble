@@ -1,76 +1,93 @@
 extends GridContainer
 
+## Referencia al bus de eventos para emitir señales.
 var event_bus
+
+## Boton plantilla usado para crear botones de personajes.
 @onready var character_button = get_node("CharacterButton")
+
+## Icono por defecto tomado del boton plantilla.
 @onready var default_icon = character_button.texture_normal
 
+## Metodo llamado al iniciar el nodo (no hace nada por ahora).
 func _ready() -> void:
 	pass
 
+## Inicializa este contenedor con el bus de eventos y la lista de personajes.
+## [param bus] Instancia del CharacterSelectionBus para emitir señales.
+## [param char_list] Lista de personajes a mostrar en el grid.
 func initialize(bus, char_list):
 	event_bus = bus
 	
-	# First make sure we have our template button
+	# Verifica que el boton plantilla exista
 	if !character_button:
 		push_error("Character button template not found!")
 		return
 	
-	# Hide the template button, we'll use it as a reference but don't want it visible
+	# Oculta el boton plantilla para que no sea visible
 	character_button.visible = false
 	
-	# Clear any existing buttons (except the template)
+	# Elimina cualquier boton existente excepto el boton plantilla
 	for child in get_children():
 		if child != character_button:
 			child.queue_free()
 	
-	# Create a button for each character
+	# Crea un boton para cada personaje en la lista
 	for character in char_list:
 		var new_button = character_button.duplicate()
 		new_button.visible = true
 		
-		# Set the texture if available
+		# Usa el icono del personaje o el icono por defecto si no hay
 		if character.character_icon != null:
 			new_button.texture_normal = character.character_icon
 		else:
 			new_button.texture_normal = default_icon
 		
-		# Store character data in the button
+		# Guarda los datos del personaje en el boton para referencias futuras
 		new_button.set_meta("character_data", character)
 		
-		# Connect left-click (normal press) signal
+		# Conecta la señal pressed para emitir click izquierdo
 		new_button.pressed.connect(func(): _emit_character_clicked(character))
 		
-		# Connect input event signal for right-click detection
+		# Conecta la entrada gui para detectar clicks derechos y doble click izquierdo
 		new_button.gui_input.connect(func(event): _on_button_gui_input(event, character))
 
+		# Conecta las señales para cambiar el estado de escala de grises cuando se agrega o remueve un personaje del equipo
 		bus.character_added_to_team.connect(func(char_id): set_character_grayscale(char_id, true))
 		bus.character_removed_from_team.connect(func(char_id): set_character_grayscale(char_id, false))
 
-		
-		# Add the button to the grid
+		# Agrega el boton al contenedor Grid
 		add_child(new_button)
 
+## Metodo vacio ya que el manejo esta en las conexiones individuales de los botones.
 func _on_character_button_pressed() -> void:
-	# This is now handled by individual button connections
 	pass
 
+## Maneja eventos de entrada GUI para detectar clicks derechos y doble click izquierdo.
+## [param event] Evento de entrada.
+## [param character_data] Datos del personaje asociado al boton.
 func _on_button_gui_input(event, character_data):
-	# Right-click
+	# Click derecho
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 		_emit_character_right_clicked(character_data)
 
-	# Double-click (left mouse button)
+	# Doble click izquierdo
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.double_click:
 		_emit_character_right_clicked(character_data)
 
-# Emit signal for left-click
+## Emite la señal de personaje clickeado (click izquierdo).
+## [param character_data] Datos del personaje seleccionado.
 func _emit_character_clicked(character_data):
 	event_bus.emit_signal("character_clicked", character_data)
 
-# Emit signal for right-click
+## Emite la señal de personaje clickeado con click derecho o doble click izquierdo.
+## [param character_data] Datos del personaje seleccionado.
 func _emit_character_right_clicked(character_data):
 	event_bus.emit_signal("character_right_clicked", character_data)
 
+## Cambia la tonalidad del boton para mostrarlo en escala de grises o normal.
+## [param character_id] ID del personaje para modificar.
+## [param grayscale] Si es true aplica escala de grises, si es false vuelve a color normal.
 func set_character_grayscale(character_id: String, grayscale: bool) -> void:
 	for child in get_children():
 		if child == character_button:
@@ -79,7 +96,7 @@ func set_character_grayscale(character_id: String, grayscale: bool) -> void:
 			var data = child.get_meta("character_data")
 			if data.character_id == character_id:
 				if grayscale:
-					child.modulate = Color(0.5, 0.5, 0.5)  # Greyscale
+					child.modulate = Color(0.5, 0.5, 0.5)  # Escala de grises
 				else:
-					child.modulate = Color(1, 1, 1)  # Normal
+					child.modulate = Color(1, 1, 1)  # Color normal
 				break
