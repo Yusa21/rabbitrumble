@@ -1,14 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://cc31u1pyw88f0"]
+[gd_scene load_steps=12 format=3 uid="uid://cc31u1pyw88f0"]
 
 [ext_resource type="Script" uid="uid://csn5s8d2b66bx" path="res://scenes/menus/mainMenu/main_menu.gd" id="1_c4fbq"]
 [ext_resource type="PackedScene" uid="uid://dty8xvxvuxn57" path="res://scenes/menus/movingBackground/moving_background.tscn" id="2_ho736"]
 [ext_resource type="Script" uid="uid://cvfg3iucvrrw2" path="res://scenes/menus/mainMenu/mainSection/main_section.gd" id="2_kf8dr"]
 [ext_resource type="Texture2D" uid="uid://cuxwh2q0fqfhm" path="res://assets/opening/logo.png" id="4_fydt0"]
 [ext_resource type="PackedScene" uid="uid://c4j7kesycb6oa" path="res://scenes/menus/optionsPopup/options_popup.tscn" id="4_kf8dr"]
+[ext_resource type="Texture2D" uid="uid://bykbc5vxt45qc" path="res://assets/menu/button/PRESSED.png" id="4_oddig"]
 [ext_resource type="Texture2D" uid="uid://bof01yqpq8c4e" path="res://assets/menu/button/ORANGE.png" id="4_wp5h6"]
 [ext_resource type="Texture2D" uid="uid://g55yakoh2etj" path="res://assets/menu/backgrounds/PRESSED.png" id="5_ho736"]
 [ext_resource type="Texture2D" uid="uid://dubbe7ax2pvt3" path="res://assets/menu/sprites/settings_icon.png" id="6_wp5h6"]
 [ext_resource type="PackedScene" uid="uid://bhygh1k6v4ns6" path="res://scenes/menus/loreDump/lore_dump.tscn" id="9_fydt0"]
+[ext_resource type="PackedScene" uid="uid://7jpte2k37772" path="res://scenes/menus/loginMenu/login_menu.tscn" id="9_uudyq"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -34,6 +36,36 @@ grow_vertical = 2
 [node name="LeftSide" type="VBoxContainer" parent="UIContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UIContainer/LeftSide"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="SaveOnlineButton" type="TextureButton" parent="UIContainer/LeftSide/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("4_wp5h6")
+texture_pressed = ExtResource("4_oddig")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UIContainer/LeftSide/MarginContainer/SaveOnlineButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.5
+offset_top = -11.1667
+offset_right = 44.5
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Save online"
 
 [node name="MainSection" type="VBoxContainer" parent="UIContainer"]
 unique_name_in_owner = true
@@ -146,11 +178,21 @@ unique_name_in_owner = true
 visible = false
 unfocusable = false
 
+[node name="LoginMenu" parent="." instance=ExtResource("9_uudyq")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_left = 373.0
+offset_top = 59.0
+offset_right = -370.0
+offset_bottom = -81.0
+
 [node name="LoreDump" parent="." instance=ExtResource("9_fydt0")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
 
+[connection signal="pressed" from="UIContainer/LeftSide/MarginContainer/SaveOnlineButton" to="." method="_on_save_online_button_pressed"]
 [connection signal="pressed" from="UIContainer/MainSection/StartMargin/StartButton" to="UIContainer/MainSection" method="_on_start_button_pressed"]
 [connection signal="pressed" from="UIContainer/MainSection/ExitMargin/ExitButton" to="UIContainer/MainSection" method="_on_exit_button_pressed"]
 [connection signal="pressed" from="UIContainer/RightSide/OptionsContainer/MarginContainer/OptionsButton" to="." method="_on_options_button_pressed"]

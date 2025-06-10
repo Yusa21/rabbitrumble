@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cgfys0mix6p3o"]
+[gd_scene load_steps=18 format=3 uid="uid://cgfys0mix6p3o"]
 
 [ext_resource type="PackedScene" uid="uid://u86114strhxn" path="res://scenes/menus/stageSelection/stagePanel/stage_information.tscn" id="1_0ejd1"]
 [ext_resource type="Script" uid="uid://dyhfgoxxqogqj" path="res://scenes/menus/stageSelection/stage_selection.gd" id="1_70y1c"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dubbe7ax2pvt3" path="res://assets/menu/sprites/settings_icon.png" id="7_rcrfm"]
 [ext_resource type="Texture2D" uid="uid://dih1w7t1fu1qt" path="res://assets/menu/button/left_arrow_button_pressed.png" id="7_uvcoh"]
 [ext_resource type="Texture2D" uid="uid://bof01yqpq8c4e" path="res://assets/menu/button/ORANGE.png" id="8_df7c3"]
+[ext_resource type="StyleBox" uid="uid://h87qxv2w823f" path="res://resources/themes/lineEdit_white_background.tres" id="10_uvcoh"]
 [ext_resource type="StyleBox" uid="uid://g1n3g3xt3cdu" path="res://resources/themes/panel_white_background.tres" id="11_rcrfm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvcoh"]
@@ -142,7 +143,7 @@ texture_normal = ExtResource("8_df7c3")
 [node name="UnlockedCharacter" parent="." instance=ExtResource("6_gg72n")]
 unique_name_in_owner = true
 visible = false
-theme_override_styles/panel = ExtResource("11_rcrfm")
+theme_override_styles/panel = ExtResource("10_uvcoh")
 
 [node name="OptionsPopup" parent="." instance=ExtResource("7_ek5gi")]
 unique_name_in_owner = true

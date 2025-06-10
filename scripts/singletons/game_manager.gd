@@ -7,7 +7,7 @@ extends Node
 #---------------------DATOS DE USUARIO-------------------------------------------------------
 
 ## Lista de personajes desbloqueados disponibles para el jugador.
-var unlocked_char_list = ["testDummy","testDummy2","p_c_003","p_c_004","p_c_005","p_c_006"]
+var unlocked_char_list = ["testDummy","testDummy2","p_c_001","p_c_004","p_c_005","p_c_006"]
 
 ## Lista de escenarios que el jugador ha desbloqueado.
 var unlocked_stage_list = ["test_stage", "test_stage_2"]

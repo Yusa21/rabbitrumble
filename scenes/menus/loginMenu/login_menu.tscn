@@ -1,0 +1,466 @@
+[gd_scene load_steps=19 format=3 uid="uid://7jpte2k37772"]
+
+[ext_resource type="Script" uid="uid://buw1i3v471agh" path="res://scenes/menus/loginMenu/login_menu.gd" id="1_7oj7j"]
+[ext_resource type="Texture2D" uid="uid://bof01yqpq8c4e" path="res://assets/menu/button/ORANGE.png" id="1_imtt4"]
+[ext_resource type="StyleBox" uid="uid://g1n3g3xt3cdu" path="res://resources/themes/panel_white_background.tres" id="1_t5kfo"]
+[ext_resource type="StyleBox" uid="uid://h87qxv2w823f" path="res://resources/themes/lineEdit_white_background.tres" id="2_nwgmf"]
+[ext_resource type="Texture2D" uid="uid://bykbc5vxt45qc" path="res://assets/menu/button/PRESSED.png" id="2_t5kfo"]
+[ext_resource type="Script" uid="uid://0whnajk70lsp" path="res://scenes/menus/loginMenu/register_form.gd" id="3_bhumq"]
+[ext_resource type="Texture2D" uid="uid://ccocnag3oadha" path="res://assets/menu/button/RED.png" id="5_pedat"]
+[ext_resource type="Script" uid="uid://bnshcuh4pe5oj" path="res://scenes/menus/loginMenu/login_form.gd" id="7_5lbts"]
+[ext_resource type="Script" uid="uid://doc2nxan7xvf3" path="res://scenes/menus/loginMenu/login_event_bus.gd" id="7_l8bsa"]
+[ext_resource type="Script" uid="uid://biadxfnr35tea" path="res://scenes/menus/loginMenu/logged_panel.gd" id="8_tb2wj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bhumq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5lbts"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tb2wj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oxgca"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sdumi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7oj7j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pedat"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yqadh"]
+
+[node name="LoginPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -796.0
+offset_bottom = -195.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7oj7j")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_t5kfo")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="TabContainer" type="Control" parent="MarginContainer/Panel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RegisterForm" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 31.0
+script = ExtResource("3_bhumq")
+
+[node name="RegisterTittle" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 30
+text = "Register
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FormContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer"]
+layout_mode = 2
+
+[node name="UserNameSection" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UsernameLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer/UserNameSection"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Username"
+
+[node name="UsernameInput" type="LineEdit" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer/UserNameSection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nwgmf")
+
+[node name="UsernameError" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer/UserNameSection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.941176, 0, 0, 1)
+fit_content = true
+
+[node name="PasswordSection" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PasswordLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer/PasswordSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Password"
+
+[node name="PasswordInput" type="LineEdit" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer/PasswordSection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nwgmf")
+
+[node name="PasswordError" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer/PasswordSection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.941176, 0, 0, 1)
+fit_content = true
+
+[node name="PasswordRepeatSection" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PasswordRepeatLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer/PasswordRepeatSection"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Confirm password"
+
+[node name="PasswordRepeatInput" type="LineEdit" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer/PasswordRepeatSection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nwgmf")
+
+[node name="PasswordRepeatError" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/FormContainer/VBoxContainer/PasswordRepeatSection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.941176, 0, 0, 1)
+fit_content = true
+
+[node name="ButtonContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="RegisterButton" type="TextureButton" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/ButtonContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_imtt4")
+texture_pressed = ExtResource("2_t5kfo")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/ButtonContainer/RegisterButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Register"
+
+[node name="ToLoginLink" type="Button" parent="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0.933333, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.933333, 1)
+theme_override_colors/font_color = Color(0, 0, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(1.92523e-06, 0, 0.608105, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bhumq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5lbts")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_tb2wj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_oxgca")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_sdumi")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7oj7j")
+text = "Already have an account? Log in here"
+
+[node name="LoginForm" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 31.0
+script = ExtResource("7_5lbts")
+
+[node name="LoginTittle" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 30
+text = "Login"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FormContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/FormContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/FormContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_pedat")
+
+[node name="UserNameSection" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/FormContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UsernameLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/FormContainer/VBoxContainer/UserNameSection"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Username"
+
+[node name="UsernameInputLogin" type="LineEdit" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/FormContainer/VBoxContainer/UserNameSection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nwgmf")
+
+[node name="UsernameErrorLogin" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/FormContainer/VBoxContainer/UserNameSection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.941176, 0, 0, 1)
+fit_content = true
+
+[node name="PasswordSection" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/FormContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PasswordLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/FormContainer/VBoxContainer/PasswordSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Password"
+
+[node name="PasswordInputLogin" type="LineEdit" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/FormContainer/VBoxContainer/PasswordSection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nwgmf")
+
+[node name="PasswordErrorLogin" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/FormContainer/VBoxContainer/PasswordSection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.941176, 0, 0, 1)
+fit_content = true
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/FormContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_pedat")
+
+[node name="ButtonContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="LoginButton" type="TextureButton" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/ButtonContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_imtt4")
+texture_pressed = ExtResource("2_t5kfo")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/ButtonContainer/LoginButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Login"
+
+[node name="ToRegisterLink" type="Button" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.933333, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yqadh")
+text = "Not have an account? Register here"
+
+[node name="LoggedPanel" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_tb2wj")
+
+[node name="LoggedTittle" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 30
+text = "Welcome %s"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="SynchronizeDataButton" type="TextureButton" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel/ButtonContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_imtt4")
+texture_pressed = ExtResource("2_t5kfo")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel/ButtonContainer/SynchronizeDataButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Synchronize online save data"
+
+[node name="ButtonContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="LogOutButton" type="TextureButton" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel/ButtonContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("5_pedat")
+texture_pressed = ExtResource("2_t5kfo")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel/ButtonContainer2/LogOutButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Log out"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="LoggedError" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.941176, 0, 0, 1)
+fit_content = true
+
+[node name="ExitButtonContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -39.0
+offset_bottom = 39.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="ExitButton" type="TextureButton" parent="ExitButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("5_pedat")
+texture_pressed = ExtResource("2_t5kfo")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="ExitButtonContainer/ExitButton"]
+layout_mode = 0
+offset_right = 29.0
+offset_bottom = 28.0
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoginEventBus" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_l8bsa")
+
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/ButtonContainer/RegisterButton" to="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm" method="_on_register_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/TabContainer/RegisterForm/ToLoginLink" to="." method="_on_to_login_link_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/ButtonContainer/LoginButton" to="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm" method="_on_login_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/TabContainer/LoginForm/ToRegisterLink" to="." method="_on_to_register_link_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel/ButtonContainer/SynchronizeDataButton" to="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel" method="_on_synchronize_data_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/TabContainer/LoggedPanel/ButtonContainer2/LogOutButton" to="." method="_on_log_out_button_pressed"]
+[connection signal="pressed" from="ExitButtonContainer/ExitButton" to="." method="_on_exit_button_pressed"]

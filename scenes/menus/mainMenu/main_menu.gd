@@ -7,6 +7,7 @@ var event_bus: MainMenuBus
 @onready var main_section = get_node("%MainSection")             ## Sección principal del menú
 @onready var options_pop_up = get_node("%OptionsPopup")          ## Ventana emergente de opciones
 @onready var lore_dump_screen = get_node("%LoreDump")            ## Pantalla que muestra la historia inicial
+@onready var login_menu = get_node("%LoginMenu")				 ## Menu de login
 
 func _ready() -> void:
 	# Inicializa el bus de eventos y conecta señales relevantes
@@ -50,3 +51,9 @@ func _on_exit_button_clicked():
 func _on_options_button_pressed() -> void:
 	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
 	options_pop_up.show_options_pop_up()
+
+
+func _on_save_online_button_pressed() -> void:
+	GameManager.play_sfx("res://audio/soundEffects/bleep.ogg")
+	login_menu.show_menu()
+
