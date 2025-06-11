@@ -211,17 +211,6 @@ class UsuarioService : UserDetailsService {
         if (registerData.unlocked_stages.any { it.isBlank() }) {
             errors.add("Los nombres de etapas no pueden estar vacíos")
         }
-        if (registerData.completed_stages.any { it.isBlank() }) {
-            errors.add("Los nombres de etapas completadas no pueden estar vacíos")
-        }
-
-        // Valida que las etapas completadas estén dentro de las desbloqueadas
-        val completedNotUnlocked = registerData.completed_stages.filter {
-            it !in registerData.unlocked_stages
-        }
-        if (completedNotUnlocked.isNotEmpty()) {
-            errors.add("Las etapas completadas deben estar desbloqueadas: ${completedNotUnlocked.joinToString(", ")}")
-        }
 
         if (errors.isNotEmpty()) {
             throw BadRequestException(errors.joinToString("."))

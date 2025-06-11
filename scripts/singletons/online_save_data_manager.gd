@@ -110,7 +110,7 @@ func login(username: String, password: String):
 	http_request.request(url, headers, HTTPClient.METHOD_POST, body)
 
 ## Inicia el proceso de registro
-func register(username: String, password: String, unlocked_characters: Array[String], unlocked_stages: Array[String], completed_stages: Array[String]):
+func register(username: String, password: String, unlocked_characters: Array, unlocked_stages: Array, completed_stages: Array):
 	if is_loading: return
 	current_request_type = RequestType.REGISTER
 	show_loading()

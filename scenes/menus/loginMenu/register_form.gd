@@ -61,9 +61,9 @@ func _on_register_button_pressed() -> void:
 		return
 	
 	# Llama al método de registro con los datos por defecto del juego
-	var default_unlocked_characters = ["default_character"]
-	var default_unlocked_stages = ["stage_1"]
-	var default_completed_stages = []
+	var default_unlocked_characters = GameManager.unlocked_char_list
+	var default_unlocked_stages = GameManager.unlocked_stage_list
+	var default_completed_stages = GameManager.completed_stage_list
 	
 	save_game_data_manager.register(
 		username, 
