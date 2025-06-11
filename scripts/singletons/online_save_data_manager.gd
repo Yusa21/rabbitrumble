@@ -19,6 +19,7 @@ var keep_password: String
 
 ## URL base del servidor
 var base_url: String = "https://api999rabbits.onrender.com"
+#var base_url: String = "http://localhost:8080"
 ## Últimos datos descargados para sincronización
 var last_downloaded_data = null
 

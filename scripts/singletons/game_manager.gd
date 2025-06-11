@@ -529,7 +529,7 @@ const default_char_list: Array[String] = ["p_c_007"]
 const default_stage_list: Array[String] = ["stage_1"]
 
 ## Lista por defecto de escenarios completados para nuevas partidas.
-const default_completed_list: Array[String] = [""]
+const default_completed_list: Array[String] = []
 
 ## Crea un archivo de guardado con valores por defecto para nuevas partidas.
 ## [return] true si la creacion fue exitosa, false en caso contrario.
