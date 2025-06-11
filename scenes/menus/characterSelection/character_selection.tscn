@@ -88,6 +88,10 @@ layout_mode = 2
 [node name="CharName" parent="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer/MarginContainer/CharacterInfo" index="0"]
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 
+[node name="AtkName" parent="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer/MarginContainer/CharacterInfo/StatsAndSprite/Stats/AtkLine" index="0"]
+text = "Potency
+"
+
 [node name="DefName" parent="UIMargin/UIContainer/MarginContainer/LeftSide/MarginContainer/MarginContainer/CharacterInfo/StatsAndSprite/Stats/DefLine" index="0"]
 theme_override_colors/default_color = Color(0, 0, 0.733333, 1)
 
