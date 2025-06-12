@@ -1,5 +1,5 @@
 # rabbitrumble
-Juego para el TFG de 2º DAM 2024/2025
+Juego para el TFG de 2º DAM 2024/2025, esta es la rama principal
 # Documentación del proyecto
 [Documentacion 999Rabbits.pdf](https://github.com/user-attachments/files/20703638/Documentacion.999Rabbits-7.pdf)
 # Enlace a la página de itch.io
