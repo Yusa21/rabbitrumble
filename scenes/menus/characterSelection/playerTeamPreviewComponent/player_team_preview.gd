@@ -84,7 +84,7 @@ func add_character_button(char_data):
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 				_remove_character(char_data)
-			elif event.button_index == MOUSE_BUTTON_LEFT and event.doubleclick:
+			elif event.button_index == MOUSE_BUTTON_LEFT and event.double_click:
 				_remove_character(char_data)
 	)
 	
