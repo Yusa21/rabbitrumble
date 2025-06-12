@@ -115,7 +115,7 @@ Codigo del combate
 ##Saca busca todos los triggers de fase en las habilidades de los personajes
 ##[param phase_trigger] Fase del turno actual para saber que habilidades se activan
 ##[return] Lista de habilidades que se activan en la fase
-func get1_phase_triggered_abilities(phase_trigger):
+func get_phase_triggered_abilities(phase_trigger):
 	#Todas la habilidades del personaje que se actvian
 	var triggered_abilities = []
 	#Busca las habilidades que se activan por fase y que se activan en la fase en concreto
